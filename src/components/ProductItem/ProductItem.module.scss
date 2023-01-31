@@ -60,7 +60,11 @@
 }
 .pagination {
    /* height: 30px; */
-   margin-top: 30px;
+   // margin-top: 30px;
+   position: absolute;
+   bottom: 20px;
+   left: 0;
+   right: 0;
    text-align: center;
 }
 .pagination-list {
@@ -81,4 +85,8 @@
    text-decoration: none;
    color: #333;
    margin: 0 10px;
+}
+.pagination-item_link.active {
+   background-color: #333;
+   color: #fff;
 }

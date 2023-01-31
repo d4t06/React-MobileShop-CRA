@@ -9,8 +9,10 @@ html {
    font-size: 62.5%;
 }
 .container {
+   position: relative;
    max-width: 900px;
-   /* max-width: 100%; */
+   /* min-height: 80vh; */
+   height: calc(90vh - 60px);
    margin: 0 auto;
    padding-bottom: 20px;
 }

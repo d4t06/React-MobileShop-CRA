@@ -9,8 +9,11 @@ function Header() {
    return (
       <div className={cx("header")}>
          <div className={cx("nav")}>
-            <Link to={"/"}>Trang Chủ</Link>
-            <Link to={"/products"}>Sản Phẩm</Link>
+            <Link className={cx("brand")} to={"/"}>
+               <p>HD Shop</p>
+            </Link>
+            <Link to={"/products"}>Sản phẩm</Link>
+            <Link to={"/login"}>Đăng nhập</Link>
          </div>
          <div className={cx("user-cta")}>
             <div className={cx("image-frame")}>

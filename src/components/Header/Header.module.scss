@@ -6,12 +6,27 @@
    justify-content: space-between;
    align-items: center;
 }
+.nav {
+   display: flex;
+   align-items: center;
+   .brand {
+      color: rgb(112, 139, 239);
+      margin-right: 20px;
+      p {
+         font-size: 2.5rem;
+         font-weight: 500;
+      }
+   }
+}
 .header a {
    text-decoration: none;
    font-size: 2rem;
    line-height: 60px;
-   padding: 5px 15px;
+   padding: 5px 10px;
    color: #fff;
+}
+.header a:first-child {
+   padding: unset;
 }
 .header a:hover {
    color: #000;

@@ -1,12 +1,30 @@
 import classNames from "classnames/bind";
-import style from "./ProductItem.module.scss";
+import styles from "./ProductItem.module.scss";
 import { Link } from "react-router-dom";
 
-const cx = classNames.bind(style);
+const cx = classNames.bind(styles);
 
-function ProductItem({ data }) {
-   console.log(data);
-   const { count, rows: products } = data;
+function ProductItem({ data, page }) {
+   // test
+   // console.log(products);
+   // return <h1>ProductItem</h1>;
+   // console.log(page);
+
+   const { products, totalPage } = data;
+
+   var pagesNumElement = [];
+   for (var i = 1; i <= totalPage; i++) {
+      pagesNumElement.push(
+         <li key={i} className={cx("pagination-item")}>
+            <Link
+               className={i == page ? cx("pagination-item_link", "active") : cx("pagination-item_link")}
+               to={"/products?_page=" + i}
+            >
+               {i}
+            </Link>
+         </li>
+      );
+   }
    return (
       <>
          <div className="row">
@@ -14,10 +32,10 @@ function ProductItem({ data }) {
                products.map((item) => {
                   // const { id, attributes: info } = item;
                   return (
-                     <div key={item.id} className={cx("col-2-4")}>
+                     <div key={item._id} className="col col-2-4">
                         <div className={cx("product-item")}>
                            <Link
-                              to={"/product/" + item.id}
+                              to={"/product/" + item._id}
                               className={cx("product-item_img")}
                               style={{
                                  backgroundImage: `url(${item.image})`,
@@ -42,23 +60,7 @@ function ProductItem({ data }) {
          </div>
 
          <div className={cx("pagination")}>
-            <ul className={cx("pagination-list")}>
-               <li className={cx("pagination-item")}>
-                  <Link className={cx("pagination-item_link")} to={"/products?_page=1"}>
-                     1
-                  </Link>
-               </li>
-               <li className={cx("pagination-item")}>
-                  <Link className={cx("pagination-item_link")} to={"/products?_page=2"}>
-                     2
-                  </Link>
-               </li>
-               <li className={cx("pagination-item")}>
-                  <Link className={cx("pagination-item_link")} to={"/products?_page=3"}>
-                     3
-                  </Link>
-               </li>
-            </ul>
+            <ul className={cx("pagination-list")}>{pagesNumElement}</ul>
          </div>
       </>
    );
