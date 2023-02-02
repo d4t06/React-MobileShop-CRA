@@ -9,9 +9,10 @@ html {
    font-size: 62.5%;
 }
 .container {
-   position: relative;
-   max-width: 900px;
-   /* min-height: 80vh; */
+   /* position: relative; */
+   min-width: 1000px;
+   max-width: 1100px;
+   min-height: 80vh;
    height: calc(90vh - 60px);
    margin: 0 auto;
    padding-bottom: 20px;

@@ -17,7 +17,9 @@ function ProductItem({ data, page }) {
       pagesNumElement.push(
          <li key={i} className={cx("pagination-item")}>
             <Link
-               className={i == page ? cx("pagination-item_link", "active") : cx("pagination-item_link")}
+               className={
+                  i == page ? cx("pagination-item_link", "active") : cx("pagination-item_link")
+               }
                to={"/products?_page=" + i}
             >
                {i}
@@ -29,28 +31,43 @@ function ProductItem({ data, page }) {
       <>
          <div className="row">
             {products &&
-               products.map((item) => {
+               products.map((item, index) => {
                   // const { id, attributes: info } = item;
                   return (
-                     <div key={item._id} className="col col-2-4">
+                     <div key={index} className="col col-2-4">
                         <div className={cx("product-item")}>
-                           <Link
-                              to={"/product/" + item._id}
-                              className={cx("product-item_img")}
-                              style={{
-                                 backgroundImage: `url(${item.image})`,
-                                 color: "red",
-                              }}
-                           ></Link>
+                           <div className={cx("product-item-header")}>
+                              {item.data.tra_gop && <span className={cx("label")}>Trả góp 0%</span>}
+                           </div>
+                           <div className={cx("product-item-frame")}>
+                              <img className={cx("product-item-image")} src={item.image} />
+                              {item.data.image_label && (
+                                 <img
+                                    className={cx("product-item-label")}
+                                    src={item.data.image_label}
+                                 />
+                              )}
+                           </div>
+                           <div className={cx("product-item-event")}>
+                              {item.data.event && (
+                                 <span className={cx("event-label")}>{item.data.event}</span>
+                              )}
+                           </div>
                            <div className={cx("product-item-body")}>
                               <h4 className={cx("product-item_name")}>{item.name}</h4>
 
                               <div className={cx("product-item_tag")}>
-                                 <span className={cx("product-item_tag-special")}>#ShopDacBiet</span>
+                                 <span className={cx("product-item_tag-special")}>
+                                    #ShopDacBiet
+                                 </span>
                               </div>
                               <div className={cx("product-item_price")}>
-                                 <span className={cx("product-item_price--old")}>{item.old_price}</span>
-                                 <span className={cx("product-item_price--current")}>{item.cur_price}</span>
+                                 <span className={cx("product-item_price--old")}>
+                                    {item.old_price}
+                                 </span>
+                                 <span className={cx("product-item_price--current")}>
+                                    {item.cur_price}
+                                 </span>
                               </div>
                            </div>
                         </div>
