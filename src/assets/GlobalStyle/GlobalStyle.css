@@ -30,14 +30,34 @@ html {
    padding-left: 4px;
    padding-right: 4px;
 }
+.col-large {
+   padding-left: 12px;
+   padding-right: 12px;
+}
 .col-full {
    width: 100%;
 }
+.col_half {
+   width: 50%;
+   flex: 0 0 50%;
+}
 .col-4 {
-   max-width: 33.33%;
-   flex: 0 0 33.33%;
+   max-width: 33.333%;
+   flex: 0 0 33.3333%;
+}
+.col-5 {
+   max-width: 41.6667%;
+   flex: 0 0 41.6667%;
+}
+.col-7 {
+   max-width: 58.3333%;
+   flex: 0 0 58.3333%;
 }
 .col-2-4 {
    max-width: 20%;
    flex: 0 0 20%;
+}
+.col-8 {
+   max-width: 66.6667%;
+   flex: 0 0 66.6667%;
 }

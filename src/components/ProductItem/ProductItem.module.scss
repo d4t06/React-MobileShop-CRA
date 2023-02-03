@@ -90,16 +90,18 @@
    flex-wrap: wrap;
    align-items: center;
    height: 3.4rem;
+   margin-bottom: 10px;
 }
 .product-item_price--old {
    font-size: 1.6rem;
    line-height: 1.6rem;
-   color: rgba(0, 0, 0, 0.54);
+   color: #333;
    text-decoration: line-through;
 }
 .product-item_price--current {
-   font-size: 1.8rem;
-   line-height: 1.8rem;
+   font-size: 2rem;
+   line-height: 3rem;
+   font-weight: 500;
    color: #ee4d2d;
 }
 .pagination {

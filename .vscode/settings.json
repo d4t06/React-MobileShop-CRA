@@ -2,6 +2,9 @@
    "prettier.tabWidth": 3,
    "editor.formatOnSave": true,
    "editor.defaultFormatter": "esbenp.prettier-vscode",
-   "editor.fontSize": 17,
-   "prettier.printWidth": 120
+   "prettier.printWidth": 120,
+   "emmet.includeLanguages": {
+      "javascript": "javascriptreact",
+      "typescript": "typescriptreact"
+   }
 }

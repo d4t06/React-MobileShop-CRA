@@ -13,18 +13,18 @@ const publicRoutes = [
       component: Products,
    },
    {
+      path: "/products/:key",
+      component: DetailPage,
+   },
+   {
       path: "/product?_page=",
       component: Products,
    },
+
    {
       path: "/login",
       component: Login,
    },
-
-   // {
-   //    path: "/products/:id",
-   //    component: DetailPage,
-   // },
 ];
 
 export { publicRoutes };
