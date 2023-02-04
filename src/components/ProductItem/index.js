@@ -1,16 +1,14 @@
 import classNames from "classnames/bind";
 import styles from "./ProductItem.module.scss";
 import { Link } from "react-router-dom";
+import moneyFormat from "src/utils/moneyFormat";
 
 const cx = classNames.bind(styles);
 
-function ProductItem({ data, page }) {
-   const moneyFormat = (string) => {
-      const formater = new Intl.NumberFormat("en-US", { style: "currency", currency: "VND" });
-      return formater.format(string);
-   };
+function ProductItem({ products, page }) {
+   const totalPage = 3;
 
-   const { products, totalPage } = data;
+   // const { products, totalPage } = data;
 
    var pagesNumElement = [];
    for (var i = 1; i <= totalPage; i++) {
@@ -25,6 +23,8 @@ function ProductItem({ data, page }) {
          </li>
       );
    }
+   // console.log(products);
+   // return <h1>item</h1>;
    return (
       <>
          <div className="row">
@@ -32,7 +32,7 @@ function ProductItem({ data, page }) {
                products.map((item, index) => {
                   // const { id, attributes: info } = item;
                   return (
-                     <Link to={"samsung-galaxy-z-flip-4"} key={index} className="col col-2-4">
+                     <Link to={item.data.key} key={index} className="col col-2-4">
                         <div className={cx("product-item")}>
                            <div className={cx("product-item-header")}>
                               {item.data.tra_gop && <span className={cx("label")}>Trả góp 0%</span>}

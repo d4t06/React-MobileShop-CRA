@@ -8,6 +8,19 @@ html {
    font-family: "Montserrat", Helvetica, sans-serif;
    font-size: 62.5%;
 }
+a {
+   text-decoration: none;
+}
+table {
+   border-collapse: collapse;
+}
+
+.star {
+   color: rgb(255, 208, 0);
+}
+.star.black {
+   color: #ccc;
+}
 .container {
    /* position: relative; */
    min-width: 1000px;
