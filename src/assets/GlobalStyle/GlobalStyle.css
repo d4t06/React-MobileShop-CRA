@@ -14,7 +14,9 @@ a {
 table {
    border-collapse: collapse;
 }
-
+.image-frame img {
+   width: 100%;
+}
 .star {
    color: rgb(255, 208, 0);
 }
@@ -29,6 +31,7 @@ table {
    height: calc(90vh - 60px);
    margin: 0 auto;
    padding-bottom: 20px;
+   height: 1000px;
 }
 .mt-15 {
    margin-top: 15px;

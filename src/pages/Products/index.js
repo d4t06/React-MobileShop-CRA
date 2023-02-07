@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./Products.module.scss";
 import products from "src/assets/products";
+import Pagination from "../../components/Pagination";
 const cx = classNames.bind(styles);
 
 function Home() {
@@ -21,6 +22,7 @@ function Home() {
             <p>Tất cả sản phẩm</p>
          </div>
          {products && <ProductItem products={products} page={page} />}
+         <Pagination totalPage={3} />
       </>
       // </div>
    );
