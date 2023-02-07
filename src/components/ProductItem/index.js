@@ -16,7 +16,7 @@ function ProductItem({ products }) {
                products.map((item, index) => {
                   // const { id, attributes: info } = item;
                   return (
-                     <Link to={item.data.key} key={index} className="col col-2-4">
+                     <a href={`/products/${item.data.key}`} key={index} className="col col-2-4">
                         <div className={cx("product-item")}>
                            <div className={cx("product-item-header")}>
                               {item.data.tra_gop && <span className={cx("label")}>Trả góp 0%</span>}
@@ -47,7 +47,7 @@ function ProductItem({ products }) {
                               </div>
                            </div>
                         </div>
-                     </Link>
+                     </a>
                   );
                })}
          </div>
