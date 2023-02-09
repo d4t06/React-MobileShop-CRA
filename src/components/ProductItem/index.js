@@ -2,9 +2,10 @@ import classNames from "classnames/bind";
 import styles from "./ProductItem.module.scss";
 import { Link } from "react-router-dom";
 import moneyFormat from "src/utils/moneyFormat";
+import products from "src/assets/products";
 const cx = classNames.bind(styles);
 
-function ProductItem({ products }) {
+function ProductItem() {
    // const { products, totalPage } = data;
 
    // console.log(products);
@@ -14,28 +15,30 @@ function ProductItem({ products }) {
          <div className="row">
             {products &&
                products.map((item, index) => {
-                  // const { id, attributes: info } = item;
+                  const feature = item.feature.slice(0, item.feature.length - 3).split("and");
                   return (
-                     <a href={`/products/${item.data.key}`} key={index} className="col col-2-4">
+                     <Link to={`/products/${item.href}`} key={index} className="col col-2-4">
                         <div className={cx("product-item")}>
                            <div className={cx("product-item-header")}>
-                              {item.data.tra_gop && <span className={cx("label")}>Trả góp 0%</span>}
+                              {item.intallment && <span className={cx("label")}>Trả góp 0%</span>}
                            </div>
                            <div className={cx("product-item-frame")}>
                               <img className={cx("product-item-image")} src={item.image} />
-                              {item.data.image_label && (
-                                 <img className={cx("product-item-label")} src={item.data.image_label} />
+                              {item.product_label && (
+                                 <img className={cx("product-item-label")} src={item.product_label} />
                               )}
                            </div>
                            <div className={cx("product-item-event")}>
-                              {item.data.event && <span className={cx("event-label")}>{item.data.event}</span>}
+                              {item.label && <span className={cx("event-label")}>{item.label}</span>}
                            </div>
                            <div className={cx("product-item-body")}>
                               <h4 className={cx("product-item_name")}>{item.name}</h4>
 
                               <div className={cx("product-item_tags")}>
-                                 {item.special.map((tag) => (
-                                    <p className={cx("tag")}>{tag}</p>
+                                 {feature.map((tag, index) => (
+                                    <p key={index} className={cx("tag")}>
+                                       {tag}
+                                    </p>
                                  ))}
                                  {/* <span className={cx("product-item_tag-special")}></span> */}
                               </div>
@@ -47,7 +50,7 @@ function ProductItem({ products }) {
                               </div>
                            </div>
                         </div>
-                     </a>
+                     </Link>
                   );
                })}
          </div>

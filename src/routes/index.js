@@ -9,7 +9,15 @@ const publicRoutes = [
       component: Home,
    },
    {
-      path: "/products",
+      path: "/dtdd",
+      component: Products,
+   },
+   {
+      path: "/laptop",
+      component: Products,
+   },
+   {
+      path: "/phukien",
       component: Products,
    },
    {

@@ -8,10 +8,26 @@ import products from "src/assets/products";
 const cx = classNames.bind(styles);
 
 function DetailProductItem({ data }) {
+   const paramsIndex = [
+      "Màn hình",
+      "Hệ điều hành",
+      "Camera sau",
+      "Camera trước",
+      "CPU",
+      "Bộ nhớ Ram",
+      "Dung lượng",
+      "Sim",
+      "Pin",
+   ];
+   let params = data.data.params;
+   params = params
+      .slice(0, params.length - 4)
+      .replaceAll("-", ", ")
+      .split("and");
    return (
       <>
          <div className={cx("product-header")}>
-            <p>Điện thoại {data.name}</p>
+            <p>Điện thoại {}</p>
             <div className={cx("header-box")}>
                <span>
                   <i className="fa-solid fa-star star"></i>
@@ -24,13 +40,13 @@ function DetailProductItem({ data }) {
             </div>
          </div>
          <div className={cx("row", "main-contain")}>
-            <div className="col-large col-7 box_left">
+            <div className={cx("col-large col-7", "box_left")}>
                {<ImageSlider data={data.data.images} />}
                <div className={cx("detail-image")}>
-                  <img src={`${data.detail_image}`} alt="" />
+                  <img src={`${data.data.param_image}`} alt="" />
                </div>
             </div>
-            <div className="col-large col-5 box_right">
+            <div className={cx("col-large col-5", "box_right")}>
                <div className={cx("product-price")}>
                   <span className={cx("cur-price")}>{moneyFormat(data.cur_price)}₫</span>
                   <span className={cx("old-price")}>{moneyFormat(data.old_price)}₫</span>
@@ -97,42 +113,52 @@ function DetailProductItem({ data }) {
                            <th style={{ width: "30%" }}></th>
                            <th></th>
                         </tr>
+                        {params.map((item, index) => {
+                           return (
+                              <tr>
+                                 <td>{paramsIndex[index]}:</td>
+                                 <td>{item}</td>
+                              </tr>
+                           );
+                        })}
+                     </tbody>
+                  </table>
+               </div>
+               <div className={cx("product-params")}>
+                  <h1>Thông số {data.name}</h1>
+                  <table className={cx("params-table")}>
+                     <tbody>
                         <tr>
-                           <td>Màn hình:</td>
-                           <td>{data.data.params.screen}</td>
+                           <th style={{ width: "30%" }}></th>
+                           <th></th>
                         </tr>
+                        {params.map((item, index) => {
+                           return (
+                              <tr>
+                                 <td>{paramsIndex[index]}:</td>
+                                 <td>{item}</td>
+                              </tr>
+                           );
+                        })}
+                     </tbody>
+                  </table>
+               </div>
+               <div className={cx("product-params")}>
+                  <h1>Thông số {data.name}</h1>
+                  <table className={cx("params-table")}>
+                     <tbody>
                         <tr>
-                           <td>Hệ điều hành:</td>
-                           <td>{data.data.params.os}</td>
+                           <th style={{ width: "30%" }}></th>
+                           <th></th>
                         </tr>
-                        <tr>
-                           <td>Camera sau:</td>
-                           <td>{data.data.params.back_camera}</td>
-                        </tr>
-                        <tr>
-                           <td>Camera trước:</td>
-                           <td>{data.data.params.font_camera}</td>
-                        </tr>
-                        <tr>
-                           <td>Cpu:</td>
-                           <td>{data.data.params.cpu}</td>
-                        </tr>
-                        <tr>
-                           <td>Bộ nhớ Ram:</td>
-                           <td>{data.data.params.ram}</td>
-                        </tr>
-                        <tr>
-                           <td>Dung Lượng:</td>
-                           <td>{data.data.params.rom}</td>
-                        </tr>
-                        <tr>
-                           <td>Sim:</td>
-                           <td>{data.data.params.sim}</td>
-                        </tr>
-                        <tr>
-                           <td>Pin:</td>
-                           <td>{data.data.params.battery}</td>
-                        </tr>
+                        {params.map((item, index) => {
+                           return (
+                              <tr>
+                                 <td>{paramsIndex[index]}:</td>
+                                 <td>{item}</td>
+                              </tr>
+                           );
+                        })}
                      </tbody>
                   </table>
                </div>
@@ -281,11 +307,11 @@ function DetailProductItem({ data }) {
                            </div>
                            <div className={cx("comment-body")}>
                               <span className={cx("customer-rate-star")}>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
                               </span>
                               <p className={cx("customer-rate-content")}>Hài lòng !</p>
                               <div className={cx("customer-cta")}></div>
@@ -301,11 +327,11 @@ function DetailProductItem({ data }) {
                            </div>
                            <div className={cx("comment-body")}>
                               <span className={cx("customer-rate-star")}>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
                               </span>
                               <p className={cx("customer-rate-content")}>Hài lòng !</p>
                               <div className={cx("customer-cta")}></div>
@@ -321,11 +347,11 @@ function DetailProductItem({ data }) {
                            </div>
                            <div className={cx("comment-body")}>
                               <span className={cx("customer-rate-star")}>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
-                                 <i class="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
+                                 <i className="fa-solid fa-star star"></i>
                               </span>
                               <p className={cx("customer-rate-content")}>Hài lòng !</p>
                               {/* <div className={cx("customer-cta")}></div> */}

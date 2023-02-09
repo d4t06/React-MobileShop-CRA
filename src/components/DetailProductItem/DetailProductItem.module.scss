@@ -25,6 +25,11 @@
 }
 .main-contain {
    margin-top: 20px;
+   height: 900px;
+   .box_right {
+      height: 100%;
+      overflow-y: auto;
+   }
 }
 .product-price {
    .cur-price {
