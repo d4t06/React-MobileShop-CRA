@@ -25,10 +25,7 @@ const publicRoutes = [
       component: Products,
    },
 
-   {
-      path: "/login",
-      component: Login,
-   },
+   
 ];
 
 export { publicRoutes };

@@ -3,7 +3,7 @@
    "editor.defaultFormatter": "esbenp.prettier-vscode",
    "prettier.printWidth": 120,
    "prettier.singleQuote": true,
-   "window.zoomLevel": -1.2,
+   "window.zoomLevel": -0.8,
    "emmet.includeLanguages": {
       "javascript": "javascriptreact",
       "typescript": "typescriptreact"

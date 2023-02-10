@@ -10,7 +10,7 @@ function Pagination({ totalPage, page = 1 }) {
          <li key={i} className={cx("pagination-item")}>
             <Link
                className={i == page ? cx("pagination-item_link", "active") : cx("pagination-item_link")}
-               to={"/products?_page=" + i}
+               to={"?_page=" + i}
             >
                {i}
             </Link>

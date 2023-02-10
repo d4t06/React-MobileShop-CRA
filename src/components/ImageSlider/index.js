@@ -5,10 +5,11 @@ import styles from "./ImageSlider.module.scss";
 const cx = classNames.bind(styles);
 
 function ImageSlider({ data }) {
-   const images = data.split("and");
+   const images = data.slice(0, data.length - 3).split("and");
+   // console.log(images)
    const [curIndex, setCurIndex] = useState(0);
 
-   const nextImage = () => setCurIndex((curIndex) => (curIndex == images.length - 1 ? 1 : curIndex + 1));
+   const nextImage = () => setCurIndex((curIndex) => (curIndex == images.length -1 ? 0 : curIndex + 1));
 
    const previousImage = () => setCurIndex((curIndex) => (curIndex == 0 ? images.length - 1 : curIndex - 1));
 
@@ -21,7 +22,7 @@ function ImageSlider({ data }) {
             <i className="fa-solid fa-chevron-right"></i>
          </div>
          <div className={cx("slider-index")}>
-            <span>{curIndex}</span> / <span>{images.length - 1}</span>
+            <span>{curIndex + 1}</span> / <span>{images.length }</span>
          </div>
          <div className={cx("slider-item")}>{images && <img src={`${images[curIndex]}`} alt="" />}</div>
       </div>

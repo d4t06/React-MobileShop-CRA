@@ -23,8 +23,8 @@
          position: absolute;
          left: 0;
          bottom: 0;
-         height: 40px;
-         width: 40px;
+         height: 50px;
+         width: 50px;
       }
    }
    .product-item-event {
@@ -72,18 +72,41 @@
    margin-top: 5px;
 }
 .product-item_tags {
-   margin-top: 10px;
-   height: 5.5rem;
+   // margin-top: 5px;
+   height: 5rem;
    word-wrap: break-word;
    .tag {
       display: inline-block;
       padding: 2px;
       margin: 0 2px;
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       margin-top: 5px;
-      border: 1px solid red;
-      color: red;
+      background-color: #e6e6e6;
+      color: #333;
+      border-radius: 2px;
       user-select: none;
+   }
+}
+.product-item-memory {
+   display: flex;
+   margin-top: 7px;
+   width: 100%;
+   .memory-item {
+      flex: 1;
+      height: 30px;
+      background-color: #e1e1e1;
+      font-size: 1.4rem;
+      font-family: "Poppins";
+      font-weight: 500;
+      border-radius: 8px;
+      &:hover {
+         background-color: #333;
+         color: #fff;
+      }
+   }
+   .memory-item.active {
+      background-color: #333;
+      color: #fff;
    }
 }
 

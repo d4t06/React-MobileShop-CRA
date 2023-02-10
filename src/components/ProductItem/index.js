@@ -6,8 +6,8 @@ import products from "src/assets/products";
 const cx = classNames.bind(styles);
 
 function ProductItem({data, category}) {
+   // console.log(data);
    const { count, rows:products } = data;
-   console.log(products);
    // return;
 
    // console.log(products);
@@ -26,12 +26,12 @@ function ProductItem({data, category}) {
                            </div>
                            <div className={cx("product-item-frame")}>
                               <img className={cx("product-item-image")} src={item.image} />
-                              {item.product_label && (
+                              {!!item.product_label && (
                                  <img className={cx("product-item-label")} src={item.product_label} />
                               )}
                            </div>
                            <div className={cx("product-item-event")}>
-                              {item.label != '0' && <span className={cx("event-label")}>{item.label}</span>}
+                              {!!item.label  && <span className={cx("event-label")}>{item.label}</span>}
                            </div>
                            <div className={cx("product-item-body")}>
                               <h4 className={cx("product-item_name")}>{item.name}</h4>
@@ -44,7 +44,9 @@ function ProductItem({data, category}) {
                                  ))}
                                  {/* <span className={cx("product-item_tag-special")}></span> */}
                               </div>
-                              <div className={("product-item-options")}>
+                              <div className={cx("product-item-memory")}>
+                                 <button className={cx("memory-item","active")}>64GB</button>
+                                 <button className={cx("memory-item")}>128GB</button>
                               </div>
                               <div className={cx("product-item_price")}>
                                  {item.old_price && <span className={cx("product-item_price--old")}>{moneyFormat(item.old_price)}₫</span>}
