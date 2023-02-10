@@ -63,20 +63,24 @@
    font-size: 1.5rem;
    border-radius: 20px;
    border: none;
+   
 }
 .search-btn {
    position: absolute;
    right: 0;
    height: 100%;
    width: 50px;
-   color: #333;
-   background-color: transparent;
-   // background-color: var(--header-nav-color);
+   color: #999;
    font-size: 2rem;
+   padding-top: 1px;
+   background-color: transparent;
+}
+.search-input:not(:placeholder-shown) ~ .search-btn {
+   color: #333;
 }
 .search-btn:hover {
-   // background-color: rgb(84, 148, 84);
-   color: var(--header-nav-color);
+   // color: var(--header-nav-color);
+   color: #333;
 }
 
 .nav-list {
@@ -90,7 +94,9 @@
 }
 .nav-item a {
    font-weight: 500;
-   margin-left: 5px;
+}
+.nav-item span {
+   margin-right: 5px;
 }
 .nav-item:hover {
    color: #666;

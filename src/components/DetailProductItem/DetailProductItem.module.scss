@@ -1,4 +1,4 @@
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css";
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css';
 .product-header {
    display: flex;
    align-items: center;
@@ -127,7 +127,7 @@
          // position: absolute;
          // top: 20px;
          // left: 0;
-         background-image: url("../../assets/images/icon.png");
+         background-image: url('../../assets/images/icon.png');
          background-size: 300px 180px;
          width: 32px;
          height: 32px;
@@ -170,44 +170,47 @@
 .product-detail {
    width: 75%;
    margin: 20px auto 0;
+   text-align: center;
+}
+.content {
+   height: 200px;
+   overflow: hidden;
+   position: relative;
+   transition: height 1s linear;
 
-   .content {
-      .content-title {
-         text-align: center;
-         font-size: 2.8rem;
-         font-weight: 500;
-      }
-      .content-text {
-         margin-top: 20px;
-         font-size: 2.2rem;
-         text-align: justify;
-      }
-      .content-image {
-         margin-top: 20px;
-         position: relative;
-         &::after {
-            content: "";
-            position: absolute;
-            height: 70px;
-            // width: 100%;
-            background: linear-gradient(to bottom, rgba(255 255 255/0), rgba(255 255 255/62.5), rgba(255 255 255/1));
-            bottom: 0;
-            left: 0;
-            right: 0;
-         }
-      }
-      .more-detail {
-         width: 35%;
-         font-size: 1.6rem;
-         font-weight: 500;
-         padding: 10px 0;
-         text-align: center;
-         margin: 0 auto;
-         border: 1px solid #ee4d2d;
-         border-radius: 5px;
-         cursor: pointer;
-      }
+   .content-title {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 500;
    }
+   .content-text {
+      margin-top: 20px;
+      font-size: 2.2rem;
+      text-align: justify;
+   }
+   .content-image {
+      margin-top: 20px;
+   }
+   &::after {
+      content: '';
+      position: absolute;
+      height: 70px;
+      // width: 100%;
+      background: linear-gradient(to bottom, rgba(255 255 255/0), rgba(255 255 255/62.5), rgba(255 255 255/1));
+      bottom: 0;
+      left: 0;
+      right: 0;
+   }
+}
+.more-detail-btn {
+   width: 35%;
+   font-size: 1.6rem;
+   font-weight: 500;
+   padding: 10px 0;
+   margin: 0 auto;
+   border-radius: 5px;
+   background-color: transparent;
+   border: 1px solid #ee4d2d;
 }
 .product-suggest {
    margin-top: 20px;
@@ -302,7 +305,7 @@
             }
          }
          &::before {
-            content: "";
+            content: '';
             position: absolute;
             width: 1px;
             // height: 100%;

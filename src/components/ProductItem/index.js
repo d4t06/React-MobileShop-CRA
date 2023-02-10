@@ -5,8 +5,10 @@ import moneyFormat from "src/utils/moneyFormat";
 import products from "src/assets/products";
 const cx = classNames.bind(styles);
 
-function ProductItem() {
-   // const { products, totalPage } = data;
+function ProductItem({data, category}) {
+   const { count, rows:products } = data;
+   console.log(products);
+   // return;
 
    // console.log(products);
    // return <h1>item</h1>;
@@ -15,12 +17,12 @@ function ProductItem() {
          <div className="row">
             {products &&
                products.map((item, index) => {
-                  const feature = item.feature.slice(0, item.feature.length - 3).split("and");
+                  const feature = item.feature.slice(0, item.feature.length - 1).split("&");
                   return (
                      <Link to={`/products/${item.href}`} key={index} className="col col-2-4">
                         <div className={cx("product-item")}>
                            <div className={cx("product-item-header")}>
-                              {item.intallment && <span className={cx("label")}>Trả góp 0%</span>}
+                              {!!item.intallment && <span className={cx("label")}>Trả góp 0%</span>}
                            </div>
                            <div className={cx("product-item-frame")}>
                               <img className={cx("product-item-image")} src={item.image} />
@@ -29,7 +31,7 @@ function ProductItem() {
                               )}
                            </div>
                            <div className={cx("product-item-event")}>
-                              {item.label && <span className={cx("event-label")}>{item.label}</span>}
+                              {item.label != '0' && <span className={cx("event-label")}>{item.label}</span>}
                            </div>
                            <div className={cx("product-item-body")}>
                               <h4 className={cx("product-item_name")}>{item.name}</h4>
@@ -42,8 +44,10 @@ function ProductItem() {
                                  ))}
                                  {/* <span className={cx("product-item_tag-special")}></span> */}
                               </div>
+                              <div className={("product-item-options")}>
+                              </div>
                               <div className={cx("product-item_price")}>
-                                 <span className={cx("product-item_price--old")}>{moneyFormat(item.old_price)}₫</span>
+                                 {item.old_price && <span className={cx("product-item_price--old")}>{moneyFormat(item.old_price)}₫</span>}
                                  <span className={cx("product-item_price--current")}>
                                     {moneyFormat(item.cur_price)}₫
                                  </span>

@@ -44,22 +44,26 @@ function Header() {
             <div className={cx("container", "header-nav-wrap")}>
                <ul className={cx("nav-list")}>
                   <li className={cx("nav-item")}>
+                   
+                     <Link to={"/dtdd"}>
                      <span>
                         <FontAwesomeIcon icon={faMobileScreen} />
                      </span>
-                     <Link to={"/dtdd"}>Điện thoại</Link>
+                        Điện thoại</Link>
                   </li>
                   <li className={cx("nav-item")}>
+                     <Link to={"/laptop"}>
                      <span>
                         <FontAwesomeIcon icon={faLaptop} />
                      </span>
-                     <Link to={"/laptop"}>Laptop</Link>
+                        Laptop</Link>
                   </li>
                   <li className={cx("nav-item")}>
+                     <Link to={"/phukien"}>
                      <span>
                         <FontAwesomeIcon icon={faHeadphones} />
                      </span>
-                     <Link to={"/phukien"}>Phụ kiện</Link>
+                        Phụ kiện</Link>
                   </li>
                </ul>
             </div>
