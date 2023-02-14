@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import classNames from "classnames/bind";
-import products from "src/assets/products";
+import products from "../../assets/products.js";
 import styles from "./DetailPage.module.scss";
 import ProductDetailItem from "../../components/DetailProductItem";
 

@@ -45,25 +45,25 @@ function Header() {
                <ul className={cx("nav-list")}>
                   <li className={cx("nav-item")}>
                    
-                     <Link to={"/dtdd"}>
+                     <a href={"/dtdd"}>
                      <span>
                         <FontAwesomeIcon icon={faMobileScreen} />
                      </span>
-                        Điện thoại</Link>
+                        Điện thoại</a>
                   </li>
                   <li className={cx("nav-item")}>
-                     <Link to={"/laptop"}>
+                     <a href={"/laptop"}>
                      <span>
                         <FontAwesomeIcon icon={faLaptop} />
                      </span>
-                        Laptop</Link>
+                        Laptop</a>
                   </li>
                   <li className={cx("nav-item")}>
-                     <Link to={"/phukien"}>
+                     <a href={"/phukien"}>
                      <span>
                         <FontAwesomeIcon icon={faHeadphones} />
                      </span>
-                        Phụ kiện</Link>
+                        Phụ kiện</a>
                   </li>
                </ul>
             </div>
