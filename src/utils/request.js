@@ -3,10 +3,10 @@ import axios from "axios";
 // console.log(process.env);
 
 const request = axios.create({
-   baseURL: "http://localhost:1337/api",
+   baseURL: "http://localhost:3000/api",
 });
-export const get = async (path) => {
-   const res = await request.get(path);
+export const get = async (path, option) => {
+   const res = await request.get(path, option);
    return res.data;
 };
 

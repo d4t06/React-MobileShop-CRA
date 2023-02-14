@@ -13,7 +13,7 @@ function ProductItem({ data: products, category }) {
                products.map((item, index) => {
                   const feature = item.feature.slice(0, item.feature.length - 1).split('&');
                   return (
-                     <div key={index} className="col col-2-4">
+                     <div key={index} className="col col-4">
                         <div className={cx('product-item')}>
                            <div className={cx('product-item-header')}>
                               {!!item.intallment && <span className={cx('label')}>Trả góp 0%</span>}

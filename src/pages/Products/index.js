@@ -1,12 +1,10 @@
-import useFetch from '../../hooks/useFetch';
-import ProductItem from '../../components/ProductItem';
-import { useLocation, useParams, useNavigate } from 'react-router-dom';
-import { useState } from "react"
+import { useLocation, useParams, useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import * as productServices from '../../services/productServices';
 import classNames from 'classnames/bind';
 import styles from './Products.module.scss';
-import Pagination from '../../components/Pagination';
-import ImageSlider from '../../components/ImageSlider';
-import BrandSort from '../../components/BrandSort';
+
+import { ProductFilter, ImageSlider, ProductItem, BrandSort } from '../../components';
 const cx = classNames.bind(styles);
 
 const mobileBanners = `https://images.fpt.shop/unsafe/fit-in/1200x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/2/7/638113890324216138_F-C1_1200x300.png
@@ -25,56 +23,71 @@ const laptopBanners = `https://cdn.tgdd.vn/2023/01/banner/acer-800-200-800x200.p
    https://cdn.tgdd.vn/2022/10/banner/lapevo-800-200-800x200.pngand
    https://cdn.tgdd.vn/2022/10/banner/800-200-800x200-142.pngand`;
 
-
-
 function Home() {
-    const { category, key } = useParams();
-    const nagative = useNavigate()
-    const search = useLocation().search;
-    const page = new URLSearchParams(search).get('_page') || 1;
-    const [curPage, setCurPage] = useState(1)
+   const { category, key } = useParams();
+   const nagative = useNavigate();
 
-    let SearchUrl = ``
-    if (key) { 
-    if (key.split('-').length >= 2) SearchUrl = `${key}` // get one dtdd/samsung-galaxy...
-      else SearchUrl = `${key}?_page=${page}` // get all where dtdd/samsung
-    } 
+   //  lay param page
+   const search = useLocation().search;
+   const page = new URLSearchParams(search).get('_page') || 1;
 
-    // console.log(SearchUrl)
-    // return;
+   const [curPage, setCurPage] = useState(1);
+   const [data, setData] = useState([]);
+   let SearchUrl = ``;
 
-    const { data, loading, error } = useFetch('http://localhost:3000/'+ category + "/" + SearchUrl)
-    const { count, rows } = data ? data : {}
-    const countProduct = count < 5 ? 0 : count - page * 5
+   if (key) {
+      if (key.split('-').length >= 2) SearchUrl = `${key}`; // get one dtdd/samsung-galaxy...
+      else SearchUrl = `${key}?_page=${page}`; // get all where dtdd/samsung
+   }
+   console.log(category, key);
 
-    console.log('http://localhost:3000/'+ category + "/" + SearchUrl)
-    console.log(data)
+   //  xu li count product
+   // console.log(process.env.development_PAGE_SIZE)
+   // console.log(process.env.REACT_APP_PAGE_SIZE)
 
+   const { count, rows } = data ? data : {};
+   let countProduct = count - page * 6;
+   if (countProduct < 0) countProduct = 0
 
-    const handleClick = () => {
-        setCurPage(curPage < count / 5 ? curPage + 1 : 0);
-        nagative("?_page=" + (curPage+1));
-    }
+   const handleClick = () => {
+      setCurPage(curPage < count / 6 ? curPage + 1 : 0);
+      nagative('?_page=' + (curPage + 1));
+   };
+   //  lay data
+   useEffect(() => {
+      const fecthApi = async () => {
+         let result = [];
+         if (!key) result = await productServices.getAllByCategory(category, page);
+         else result = await productServices.getAllByBrand(category, key, page);
+         console.log(result);
+         setData(result);
+      };
+      fecthApi();
+   }, [page]);
 
-    return (
-        // <div className="row">
-        <div className={cx('product-container')}>
+   return (
+      <div className={cx('product-container')}>
          <ImageSlider data={category == 'dtdd' ? mobileBanners : laptopBanners} />
-         <BrandSort category={category}/>
-         <div className={cx('product-header')}>
-            <p>Tất cả sản phẩm ({count})</p>
-         </div>
-            {data && <ProductItem data={rows} category={category} />}
-         <div className={cx("pagination")}>
-            <button style={countProduct == 0 ? {opacity: 0.4, pointerEvents: 'none'} : {}} className={cx("see-more-product")}
-            onClick={() => handleClick()}
-            >
-            Xem thêm ( {countProduct} ) sản phẩm
-            </button>
+
+         <BrandSort category={category} />
+
+         <div className={cx("product-body","row")}>
+            <div className="col col-9">
+               {data && <ProductItem data={rows} category={category} />}
+               <div className={cx('pagination')}>
+                  <button
+                     style={countProduct == 0 ? { opacity: 0.4, pointerEvents: 'none' } : {}}
+                     className={cx('see-more-product')}
+                     onClick={() => handleClick()}
+                  >
+                     Xem thêm ( {countProduct > 0 ? countProduct : 0} ) sản phẩm
+                  </button>
+               </div>
+            </div>
+            <ProductFilter />
          </div>
       </div>
-        // </div>
-    );
+   );
 }
 
 export default Home;

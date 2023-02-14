@@ -9,7 +9,7 @@ function useFetch(uri) {
       const fetchData = async () => {
          setLoading(true);
          try {
-            const res = await fetch(uri);
+            const res = await fetch("http://localhost:3000/api/"+uri);
             const json = await res.json();
 
             setLoading(false);

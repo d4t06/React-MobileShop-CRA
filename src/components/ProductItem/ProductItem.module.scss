@@ -16,7 +16,8 @@
         height: 225px;
 
         .product-item-image {
-            width: 100%;
+            max-height: 100%; //fix product image
+            max-width: 100%; //fix product image
             background-size: contain;
             transition: transform 0.15s linear;
             margin-top: 15px;
