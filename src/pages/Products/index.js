@@ -33,12 +33,12 @@ function Home() {
 
    const [curPage, setCurPage] = useState(1);
    const [data, setData] = useState([]);
-   let SearchUrl = ``;
 
-   if (key) {
-      if (key.split('-').length >= 2) SearchUrl = `${key}`; // get one dtdd/samsung-galaxy...
-      else SearchUrl = `${key}?_page=${page}`; // get all where dtdd/samsung
-   }
+   // let SearchUrl = ``;
+   // if (key) {
+   //    if (key.split('-').length >= 2) SearchUrl = `${key}`; // get one dtdd/samsung-galaxy...
+   //    else SearchUrl = `${key}?_page=${page}`; // get all where dtdd/samsung
+   // }
    console.log(category, key);
 
    //  xu li count product
@@ -49,10 +49,6 @@ function Home() {
    let countProduct = count - page * 6;
    if (countProduct < 0) countProduct = 0
 
-   const handleClick = () => {
-      setCurPage(curPage < count / 6 ? curPage + 1 : 0);
-      nagative('?_page=' + (curPage + 1));
-   };
    //  lay data
    useEffect(() => {
       const fecthApi = async () => {
@@ -65,6 +61,12 @@ function Home() {
       fecthApi();
    }, [page]);
 
+   // functions
+   const handleClick = () => {
+      setCurPage(curPage < count / 6 ? curPage + 1 : 0);
+      nagative('?_page=' + (curPage + 1));
+   };
+   
    return (
       <div className={cx('product-container')}>
          <ImageSlider data={category == 'dtdd' ? mobileBanners : laptopBanners} />

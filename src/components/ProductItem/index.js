@@ -2,12 +2,28 @@ import classNames from 'classnames/bind';
 import styles from './ProductItem.module.scss';
 import { Link } from 'react-router-dom';
 import moneyFormat from '../../utils/moneyFormat.js';
-// import products from "src/assets/products";
 const cx = classNames.bind(styles);
 
 function ProductItem({ data: products, category }) {
    return (
       <>
+         <div className={cx("product-sort")}>
+            <h1>Xem theo</h1>
+            <ul className={cx("btn-group")}>
+               <li className={cx("sort-btn", "active")}>
+                  <Link to={''} >Bán chạy nhất</Link>
+               </li>
+               <li className={cx("sort-btn")}>
+                  <Link to={''} >Giá thấp</Link>
+               </li>
+               <li className={cx("sort-btn")}>
+                  <Link to={''} >Giá cao</Link>
+               </li>
+               <li className={cx("sort-btn")}>
+                  <Link to={''} >Trả góp 0%</Link>
+               </li>
+            </ul>
+         </div>
          <div className="row">
             {products &&
                products.map((item, index) => {
@@ -25,7 +41,7 @@ function ProductItem({ data: products, category }) {
                               )}
                            </Link>
                            <div className={cx('product-item-event')}>
-                              {item.label != '0' && <span className={cx('event-label')}>{item.label}</span>}
+                              {item.label && <span className={cx('event-label')}>{item.label}</span>}
                            </div>
                            <div className={cx('product-item-body')}>
                               <h4 className={cx('product-item_name')}>{item.name}</h4>
@@ -45,19 +61,20 @@ function ProductItem({ data: products, category }) {
                               )}
                               <div className={cx('gift')}>{!!item.gift && <span>{item.gift}</span>}</div>
                               <div className={cx('product-item_price')}>
-                                 {item.old_price && (
+                                 {item.discount && (
                                     <div>
                                        <span className={cx('product-item_price--old')}>
-                                          {moneyFormat(item.old_price)}₫
+                                          {moneyFormat(item.price)}₫
                                        </span>
                                        <span className={cx('discount-percent')}>
-                                          -{(((item.old_price - item.cur_price) / item.old_price) * 100).toFixed(0)}%
+                                          -{item.discount}%
                                        </span>
                                     </div>
                                  )}
                                  <span className={cx('product-item_price--current')}>
-                                    {moneyFormat(item.cur_price)}₫
+                                    {moneyFormat(item.price - (item.price * item.discount / 100))}₫
                                  </span>
+                                   {/* {console.log(moneyFormat(item.price * item.discount / 100))} */}
                               </div>
                            </div>
                         </div>

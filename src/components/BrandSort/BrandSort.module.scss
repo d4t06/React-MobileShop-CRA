@@ -1,13 +1,22 @@
-.brand-sort {
+.demand-sort, .brand-sort {
    margin-top: 15px;
    width: 100%;
 }
+.sort-item {
+   background-color: #fff;
+   border: 1px solid transparent;
+   &:hover {
+      border-color: #cd1818;
+   }
+}
+
 .brand-list {
    display: flex;
    flex-wrap: wrap;
    width: 100%;
    border-radius: 15px;
-   background-color: #e1e1e1;
+   // background-color: #e1e1e1;
+   border: 1px solid #e1e1e1;
    column-gap: 12px;
    margin-top: 5px;
    row-gap: 10px;
@@ -20,11 +29,43 @@
 
       img {
          max-height: 100%;
-         // border-radius: 20px;
       }
    }
 
 }
 .filter {
    margin-top: 5px;
+}
+.demand-list {
+   display: flex;
+   margin-top: 5px;
+
+   border-radius: 15px;
+   gap: 15px;
+   // background-color: #e1e1e1;
+   border: 1px solid #e1e1e1;
+
+   padding: 15px 30px;
+
+   a {
+      // flex: 1;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+
+      min-height: 40px;
+      min-width: 120px;
+      // min-height: 50px;
+      
+      font-size: 1.6rem;
+      padding: 3px 5px;
+      border-radius: 5px;
+      img {
+         // max-width: 100%;
+         height: 100%;
+         margin-bottom: 5px;
+      }
+   }
 }

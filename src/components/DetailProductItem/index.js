@@ -3,7 +3,7 @@ import moneyFormat from '../../utils/moneyFormat.js';
 import styles from './DetailProductItem.module.scss';
 import ImageSlider from '../ImageSlider';
 import ProductItem from '../ProductItem';
-import products from '../../assets/products.js';
+// import products from '../../assets/products.js';
 import { useEffect, useState, Fragment } from 'react';
 
 const cx = classNames.bind(styles);
@@ -388,7 +388,7 @@ function DetailProductItem({ data }) {
          <div className={cx('row')}>
             <div className={cx('product-suggest')}>
                <h1 className={cx('suggest-title')}>Xem thêm điện thoại khác</h1>
-               <ProductItem products={products} />
+               {/* <ProductItem products={products} /> */}
             </div>
          </div>
          <div className={cx('product-footer')}>
