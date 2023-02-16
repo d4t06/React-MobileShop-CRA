@@ -1,12 +1,14 @@
 import * as request from "../utils/request.js";
 
-export const getAllByCategory = async (category, page) => {
+export const getProducts = async (category, variables) => {
+   console.log(variables)
    try {
       const response = await request.get(`/${category}`, {
          params: {
-            _page : page
+            ...variables
          }
       });
+      console.log(response)
       return response;
    } catch (error) {
       console.log("có lỗi trong quá trình lấy dữ liệu", error);
@@ -19,7 +21,7 @@ export const getAllByBrand = async (category, brand, page) => {
             _page : page
          }
       });
-      console.log(response)
+      // console.log(response)
       return response;
    } catch (error) {
       console.log("có lỗi trong quá trình lấy dữ liệu", error);

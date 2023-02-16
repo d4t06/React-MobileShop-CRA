@@ -29,33 +29,28 @@ function Home() {
 
    //  lay param page
    const search = useLocation().search;
-   const page = new URLSearchParams(search).get('_page') || 1;
+   const page = new URLSearchParams(search).get('page') || 1;
 
    const [curPage, setCurPage] = useState(1);
    const [data, setData] = useState([]);
 
-   // let SearchUrl = ``;
-   // if (key) {
-   //    if (key.split('-').length >= 2) SearchUrl = `${key}`; // get one dtdd/samsung-galaxy...
-   //    else SearchUrl = `${key}?_page=${page}`; // get all where dtdd/samsung
-   // }
-   console.log(category, key);
-
-   //  xu li count product
-   // console.log(process.env.development_PAGE_SIZE)
-   // console.log(process.env.REACT_APP_PAGE_SIZE)
+   // console.log(category, key);
 
    const { count, rows } = data ? data : {};
    let countProduct = count - page * 6;
    if (countProduct < 0) countProduct = 0
 
+   const variable = {
+      page
+   }
+
    //  lay data
    useEffect(() => {
       const fecthApi = async () => {
          let result = [];
-         if (!key) result = await productServices.getAllByCategory(category, page);
+         if (!key) result = await productServices.getProducts(category, variable);
          else result = await productServices.getAllByBrand(category, key, page);
-         console.log(result);
+         // console.log(result);
          setData(result);
       };
       fecthApi();
@@ -64,7 +59,7 @@ function Home() {
    // functions
    const handleClick = () => {
       setCurPage(curPage < count / 6 ? curPage + 1 : 0);
-      nagative('?_page=' + (curPage + 1));
+      nagative('?page=' + (curPage + 1));
    };
    
    return (
