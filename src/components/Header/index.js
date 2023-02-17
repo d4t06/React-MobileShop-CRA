@@ -8,6 +8,7 @@ import {
    faMobileScreen,
    faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import {getJob} from '../../hooks/reducer/actions.js'
 
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
@@ -15,7 +16,7 @@ import styles from "./Header.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Header() {
+function Header({dispath}) {
    const defaultImage = require("../../assets/images/avatar.jpg");
    return (
       <div className={cx("header")}>
@@ -45,21 +46,24 @@ function Header() {
                <ul className={cx("nav-list")}>
                   <li className={cx("nav-item")}>
                    
-                     <a href={"/dtdd"}>
+                     <Link to={"/dtdd"}>
                      <span>
                         <FontAwesomeIcon icon={faMobileScreen} />
                      </span>
-                        Điện thoại</a>
+                        Điện thoại</Link>
                   </li>
                   <li className={cx("nav-item")}>
-                     <a href={"/laptop"}>
+                     <Link to={"/laptop"} 
+                        onClick={() => {dispath(getJob({category: 'laptop', page: 1}))
+                        }}
+                     >
                      <span>
                         <FontAwesomeIcon icon={faLaptop} />
                      </span>
-                        Laptop</a>
+                        Laptop</Link>
                   </li>
                   <li className={cx("nav-item")}>
-                     <a href={"/phukien"}>
+                     <a to={"/phukien"}>
                      <span>
                         <FontAwesomeIcon icon={faHeadphones} />
                      </span>

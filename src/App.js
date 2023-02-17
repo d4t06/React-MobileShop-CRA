@@ -1,9 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DefaultLayout from "./layouts/DefaultLayout";
 import { publicRoutes } from "./routes";
-import { Fragment } from "react";
+import { Fragment, useReducer } from "react";
+
+import reducer from './hooks/reducer/reducer.js'
+import {initState} from './hooks/reducer/reducer.js'
 
 function App() {
+   const [state, dispath] = useReducer(reducer, initState);
+
+   // const {data} = state
+
+   // console.log("products= ",products)
    return (
       <Router>
          <Routes>
@@ -18,8 +26,8 @@ function App() {
                      key={index}
                      path={route.path}
                      element={
-                        <Layout>
-                           <Page />
+                        <Layout dispath={dispath}>
+                           <Page state={state} dispath={dispath}/>
                         </Layout>
                      }
                   />

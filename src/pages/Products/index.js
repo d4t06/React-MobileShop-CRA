@@ -1,6 +1,8 @@
-import { useLocation, useParams, useNavigate, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import * as productServices from '../../services/productServices';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+// import reducer from '../../hooks/reducer/reducer.js'
+// import initState from '../../hooks/reducer/initState.js'
+// import * as productServices from '../../services/productServices';
 import classNames from 'classnames/bind';
 import styles from './Products.module.scss';
 
@@ -23,68 +25,61 @@ const laptopBanners = `https://cdn.tgdd.vn/2023/01/banner/acer-800-200-800x200.p
    https://cdn.tgdd.vn/2022/10/banner/lapevo-800-200-800x200.pngand
    https://cdn.tgdd.vn/2022/10/banner/800-200-800x200-142.pngand`;
 
-function Home() {
-   const { category, key } = useParams();
-   const nagative = useNavigate();
-
-   //  lay param page
-   const search = useLocation().search;
-   const page = new URLSearchParams(search).get('page') || 1;
-
-   const [curPage, setCurPage] = useState(1);
-   const [data, setData] = useState([]);
-
-   // console.log(category, key);
-
-   const { count, rows } = data ? data : {};
-   let countProduct = count - page * 6;
-   if (countProduct < 0) countProduct = 0
-
-   const variable = {
-      page
-   }
+function Product({ state, dispath }) {
+   console.log("state= ", state)
+   // const [state, dispath] = useReducer(reducer, initState);
+   // const {products} = state
+   //    const { category, key } = useParams();
+   //    const nagative = useNavigate();
+   // 
+   //    const search = useLocation().search;
+   //    const page = new URLSearchParams(search).get('page') || 1;
+   // 
+   //    const [curPage, setCurPage] = useState(1);
+   // 
+      const { count, rows } = state.data ? state.data : {};
+      // console.log("rows= ", rows + "data= ", state.data)
+   //    let countProduct = count - page * 6;
+   //    if (countProduct < 0) countProduct = 0
 
    //  lay data
-   useEffect(() => {
-      const fecthApi = async () => {
-         let result = [];
-         if (!key) result = await productServices.getProducts(category, variable);
-         else result = await productServices.getAllByBrand(category, key, page);
-         // console.log(result);
-         setData(result);
-      };
-      fecthApi();
-   }, [page]);
+   // useEffect(() => {
+   //    const fecthApi = async () => {
+   //       let result = [];
+   //       if (!key) result = await productServices.getProducts(category, variable);
+   //       else result = await productServices.getAllByBrand(category, key, page);
+   //       setData(result);
+   //    };
+   //    fecthApi();
+   // }, [page]);
 
    // functions
    const handleClick = () => {
-      setCurPage(curPage < count / 6 ? curPage + 1 : 0);
-      nagative('?page=' + (curPage + 1));
+      // setCurPage(curPage < count / 6 ? curPage + 1 : 0);
+      // nagative('?page=' + (curPage + 1));
    };
-   
+
    return (
-      <div className={cx('product-container')}>
-         <ImageSlider data={category == 'dtdd' ? mobileBanners : laptopBanners} />
-
-         <BrandSort category={category} />
-
-         <div className={cx("product-body","row")}>
-            <div className="col col-9">
-               {data && <ProductItem data={rows} category={category} />}
-               <div className={cx('pagination')}>
-                  <button
-                     style={countProduct == 0 ? { opacity: 0.4, pointerEvents: 'none' } : {}}
-                     className={cx('see-more-product')}
-                     onClick={() => handleClick()}
+      <div className={ cx('product-container') }>
+        { state.category && <ImageSlider data={ state.category === 'dtdd' ? mobileBanners : laptopBanners } /> }
+        { state.category && <BrandSort category={ state.category } /> }
+        <div className={ cx("product-body", "row") }>
+          <div className='col col-9'>
+            {rows && <ProductItem data={rows} category={state.category}/>} 
+            <div className={ cx('pagination') }>
+               { rows && <button
+                // style={countProduct === 0 ? { opacity: 0.4, pointerEvents: 'none' } : {}}
+                   className={ cx('see-more-product') }
+                   onClick={ () => handleClick() }
                   >
-                     Xem thêm ( {countProduct > 0 ? countProduct : 0} ) sản phẩm
-                  </button>
-               </div>
+                   { /* Xem thêm ( {countProduct > 0 ? countProduct : 0} ) sản phẩm */ }
+               </button> }
             </div>
-            <ProductFilter />
-         </div>
+          </div>
+          <ProductFilter />
+        </div>
       </div>
    );
 }
 
-export default Home;
+export default Product;
