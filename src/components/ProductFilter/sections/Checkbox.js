@@ -72,7 +72,7 @@ const filterContiments = {
    ],
 };
 
-function Checkbox({ item, handleFilter }) {
+function Checkbox({ handleFilter, category }) {
    const [checked, setChecked] = useState([]);
 
    const handleToggle = (value) => {
@@ -88,20 +88,23 @@ function Checkbox({ item, handleFilter }) {
 
    return (
       <>
-         <div className={cx('filter-item')}>
-            <a to={'/ddtd'}>
-               <input
-                  type="checkbox"
-                  checked={checked.indexOf(item.id) === -1 ? false : true}
-               //    checked={false}
-                  onChange={() => handleToggle(item.id)}
-               />
-               <span className={cx('label')}>{item.value}</span>
-            </a>
-         </div>
+         {filterContiments[category].map((item) => {
+            return (
+               <div key={item.id} className={cx('filter-item')}>
+                  <a to={'/ddtd'}>
+                     <input
+                        type="checkbox"
+                        checked={checked.indexOf(item.id) === -1 ? false : true}
+                        //    checked={false}
+                        onChange={() => handleToggle(item.id)}
+                     />
+                     <span className={cx('label')}>{item.value}</span>
+                  </a>
+               </div>
+            );
+         })}
       </>
-   )
-
+   );
 }
 
 export default Checkbox;

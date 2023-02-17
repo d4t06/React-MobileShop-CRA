@@ -4,10 +4,10 @@ import classNames from "classnames/bind";
 import styles from "./DefaultLayout.module.scss";
 const cx = classNames.bind(styles);
 
-function DefaultLayout({ children, dispath }) {
+function DefaultLayout({ children, dispatch }) {
    return (
       <div className={cx("app")}>
-         <Header dispath={dispath}/>
+         <Header dispatch={dispatch}/>
          <div className="container">{children}</div>
          <Footer />
       </div>

@@ -1,10 +1,11 @@
 import * as productServices from '../../services/productServices'
 export const getJob = (payload) => new Promise(async (resolve, reject) => {
    try {
-      const response = await productServices.getProducts(payload)
-
+      const process = productServices.getProducts(payload)
+      const response = await process
+      // console.log("process=", process)
       resolve({
-         type: "GET_ALL",
+         type: "finished",
          payload: response
       })
    } catch {

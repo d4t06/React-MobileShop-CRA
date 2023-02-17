@@ -1,23 +1,32 @@
-import * as productServices from '../../services/productServices'
+// import * as productServices from '../../services/productServices'
+import {ProductContext} from '../../App'
 
 export const initState = {
-	data: [],
-	page: 0,
-	category: '',
-	filters: {}
+	// data: [],
+	status: 'idle'
 }
 
 const reducer = async (state, action) => {
 	// console.log("action= ", action)
+	console.log("pre state = ", state)
+
+	let newState;
 	switch (action.type) {
-		case "GET_ALL":
-			// const response = productServices.getProducts(action.payload)
+		case "finished":
 			return {
 				...state,
-				data: action.payload
-			}			 
-		default: throw new Error('action not found!');
-		}
+				status: 'finished',
+				data: action.payload || []
+			}
+		case "loading":
+			return  {
+				...state,
+				status: 'loading'
+			}	
+		default: 
+			return state
+	}
+
 }
 
 export default reducer

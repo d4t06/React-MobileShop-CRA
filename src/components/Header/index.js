@@ -1,10 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-   faCircleCheck,
    faHeadphones,
    faLaptop,
-   faMobile,
-   faMobileAndroid,
    faMobileScreen,
    faSearch,
 } from "@fortawesome/free-solid-svg-icons";
@@ -13,10 +10,16 @@ import {getJob} from '../../hooks/reducer/actions.js'
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
+import {useContext} from 'react'
+import {ProductContext} from '../../App'
 
 const cx = classNames.bind(styles);
 
-function Header({dispath}) {
+function Header() {
+   const val  = useContext(ProductContext)
+   const {
+      dispatch
+   } = val
    const defaultImage = require("../../assets/images/avatar.jpg");
    return (
       <div className={cx("header")}>
@@ -54,7 +57,7 @@ function Header({dispath}) {
                   </li>
                   <li className={cx("nav-item")}>
                      <Link to={"/laptop"} 
-                        onClick={() => {dispath(getJob({category: 'laptop', page: 1}))
+                        onClick={() => {dispatch({category: 'laptop', page: 1})
                         }}
                      >
                      <span>
