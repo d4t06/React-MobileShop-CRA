@@ -3,7 +3,6 @@ import styles from './ProductFilter.module.scss';
 import { a } from 'react-router-dom';
 import Checkbox from './sections/Checkbox';
 import { useState } from 'react';
-import * as productServices from '../../services/productServices'
 
 const cx = classNames.bind(styles);
 
@@ -22,8 +21,6 @@ function ProductFilter() {
          limit: 6,
          filters,
       }
-      // console.log(params)
-      // productServices.getProducts(params)
 
    }
    const handleFilter = (filters, category) => {

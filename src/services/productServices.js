@@ -1,24 +1,26 @@
-import * as request from "../utils/request.js";
+import axios from "axios";
+
+const request = axios.create({
+   baseURL: "http://localhost:3000/api",
+});
 
 export const getProducts = async (querys) => {
+   if (!querys) {
+      console.log("product service missing query");
+      return []
+   }
+   try {
       const response = await request.get(`/`, {
          params: {
             ...querys
          }
-      });
-      return response;
-};
-export const getAllByBrand = async (category, brand, page) => {
-   try {
-      const response = await request.get(`/${category}/${brand}`, {
-         params: {
-            _page : page
-         }
-      });
-      // console.log(response)
-      return response;
+      })
+      return response.data
    } catch (error) {
-      console.log("có lỗi trong quá trình lấy dữ liệu", error);
+      console.log("loi product services");
+      console.log(error)
    }
+      
 };
+
 

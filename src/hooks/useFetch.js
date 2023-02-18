@@ -1,28 +1,25 @@
 import { useState, useEffect } from "react";
 
-function useFetch(uri) {
-   const [data, setData] = useState(null);
-   const [error, setError] = useState(null);
-   const [loading, setLoading] = useState(false);
+function useFetch({dispatch}) {
+   // const [error, setError] = useState(null);
+   // const [loading, setLoading] = useState(false);
 
    useEffect(() => {
       const fetchData = async () => {
-         setLoading(true);
+         // setLoading(true);
          try {
-            const res = await fetch("http://localhost:3000/api/"+uri);
+            const res = await fetch("http://localhost:3000/api/?category=laptop&page=1");
             const json = await res.json();
-
-            setLoading(false);
-            setData(json);
+             
+            dispatch({type: 'finished', payload: json})
          } catch (error) {
-            setError(true);
-            setLoading(false);
+            console.log("loi useFetch")
          }
+
       };
       fetchData();
-   }, [uri]);
+   }, []);
 
-   return { data, loading, error };
 }
 
 export default useFetch;

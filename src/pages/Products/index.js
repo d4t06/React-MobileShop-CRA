@@ -1,13 +1,9 @@
 // import { useLocation, useParams, useNavigate } from 'react-router-dom';
-// import { useState } from 'react';
-// import reducer from '../../hooks/reducer/reducer.js'
-// import initState from '../../hooks/reducer/initState.js'
-// import * as productServices from '../../services/productServices';
-import {useContext, useEffect, useState} from 'react'
-import {ProductContext} from '../../App'
+import {useContext, useEffect} from 'react'
+import Context from '../../store/Context'
 import classNames from 'classnames/bind';
 import styles from './Products.module.scss';
-import * as productServices from '../../services/productServices'
+import { getProducts } from '../../store/actions';
 
 import { ProductFilter, ImageSlider, ProductItem, BrandSort } from '../../components';
 const cx = classNames.bind(styles);
@@ -30,48 +26,40 @@ const laptopBanners = `https://cdn.tgdd.vn/2023/01/banner/acer-800-200-800x200.p
 
 function Product() {
 
-   const value = useContext(ProductContext)
+   const [state, dispatch] = useContext(Context)
+   
+   const {data, category, page} = state
 
-   console.log("val= ", value)
+   const {rows, count} = data ? data : [];
+   
+   const countProduct = count - page * 6
 
    //    const nagative = useNavigate();
    //    const search = useLocation().search;
    //    const page = new URLSearchParams(search).get('page') || 1;
-   //  lay data
-   // useEffect(() => {
-   //    const fecthApi = async () => {
-   //       let result = [];
-   //       if (!key) result = await productServices.getProducts(category, variable);
-   //       else result = await productServices.getAllByBrand(category, key, page);
-   //       setData(result);
-   //    };
-   //    fecthApi();
-   // }, [page]);
 
-      // const { count, rows } = product ? product : {};
-   return <>Product page</>
-
-//    return (
-//       <div className={ cx('product-container') }>
-//         { state.category && <ImageSlider data={ state.category === 'dtdd' ? mobileBanners : laptopBanners } /> }
-//         { state.category && <BrandSort category={ state.category } /> }
-//         <div className={ cx("product-body", "row") }>
-//           <div className='col col-9'>
-//             {rows && <ProductItem data={rows} category={state.category}/>} 
-//             <div className={ cx('pagination') }>
-//                { rows && <button
-//                 // style={countProduct === 0 ? { opacity: 0.4, pointerEvents: 'none' } : {}}
-//                    className={ cx('see-more-product') }
+   return (
+      <div className={ cx('product-container') }>
+        {/* { category && <ImageSlider data={ category === 'dtdd' ? mobileBanners : laptopBanners } /> }
+        { category && <BrandSort category={ category } /> } */}
+        <div className={ cx("product-body", "row") }>
+          <div className='col col-9'>
+            {rows && <ProductItem data={rows} category={category}/>} 
+            <div className={ cx('pagination') }>
+               { rows && <button
+                  style={countProduct === 0 ? { opacity: 0.4, pointerEvents: 'none' } : {}}
+                   className={ cx('see-more-product') }
+                   onClick={() => getProducts(dispatch, {category: category, page: page + 1})}
                   
-//                   >
-//                    { /* Xem thêm ( {countProduct > 0 ? countProduct : 0} ) sản phẩm */ }
-//                </button> }
-//             </div>
-//           </div>
-//           <ProductFilter />
-//         </div>
-//       </div>
-//    );
+                  >
+                    Xem thêm ( {countProduct > 0 ? countProduct : 0} ) sản phẩm  
+               </button> }
+            </div>
+          </div>
+          <ProductFilter />
+        </div>
+      </div>
+   );
 }
 
 export default Product;

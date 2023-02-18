@@ -41,7 +41,7 @@ function ProductItem({ data: products, category }) {
                               )}
                            </Link>
                            <div className={cx('product-item-event')}>
-                              {item.label && <span className={cx('event-label')}>{item.label}</span>}
+                              {item.label != '0' && <span className={cx('event-label')}>{item.label}</span>}
                            </div>
                            <div className={cx('product-item-body')}>
                               <h4 className={cx('product-item_name')}>{item.name}</h4>
@@ -61,20 +61,19 @@ function ProductItem({ data: products, category }) {
                               )}
                               <div className={cx('gift')}>{!!item.gift && <span>{item.gift}</span>}</div>
                               <div className={cx('product-item_price')}>
-                                 {item.discount && (
+                                 {item.old_price && (
                                     <div>
                                        <span className={cx('product-item_price--old')}>
-                                          {moneyFormat(item.price)}₫
+                                          {moneyFormat(item.old_price)}₫
                                        </span>
                                        <span className={cx('discount-percent')}>
-                                          -{item.discount}%
+                                          -{((item.old_price - item.cur_price) / item.old_price).toFixed(0)}%
                                        </span>
                                     </div>
                                  )}
                                  <span className={cx('product-item_price--current')}>
-                                    {moneyFormat(item.price - (item.price * item.discount / 100))}₫
+                                    {moneyFormat(item.cur_price)}
                                  </span>
-                                   {/* {console.log(moneyFormat(item.price * item.discount / 100))} */}
                               </div>
                            </div>
                         </div>

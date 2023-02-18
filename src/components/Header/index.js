@@ -5,21 +5,18 @@ import {
    faMobileScreen,
    faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import {getJob} from '../../hooks/reducer/actions.js'
+import {getProducts, getProducts2} from '../../store/actions'
 
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import {useContext} from 'react'
-import {ProductContext} from '../../App'
+import Context  from '../../store/Context'
 
 const cx = classNames.bind(styles);
 
 function Header() {
-   const val  = useContext(ProductContext)
-   const {
-      dispatch
-   } = val
+   const [state, dispatch] = useContext(Context)
    const defaultImage = require("../../assets/images/avatar.jpg");
    return (
       <div className={cx("header")}>
@@ -49,7 +46,10 @@ function Header() {
                <ul className={cx("nav-list")}>
                   <li className={cx("nav-item")}>
                    
-                     <Link to={"/dtdd"}>
+                     <Link to={"/dtdd"}
+                     onClick={() => getProducts(dispatch, {category: 'mobile', page: 1})
+                  }
+                     >
                      <span>
                         <FontAwesomeIcon icon={faMobileScreen} />
                      </span>
@@ -57,8 +57,7 @@ function Header() {
                   </li>
                   <li className={cx("nav-item")}>
                      <Link to={"/laptop"} 
-                        onClick={() => {dispatch({category: 'laptop', page: 1})
-                        }}
+                         onClick={() => getProducts(dispatch, {category: 'laptop', page: 1})}
                      >
                      <span>
                         <FontAwesomeIcon icon={faLaptop} />
