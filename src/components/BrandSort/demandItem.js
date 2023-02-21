@@ -5,7 +5,7 @@ import styles from './BrandSort.module.scss';
 const cx = classNames.bind(styles);
 
 const demandHrefs = {
-   mobile: ['choi-game', 'quay-phim-chup-anh', 'mong-nhe', 'nho-gon'],
+   dtdd: ['choi-game', 'quay-phim-chup-anh', 'mong-nhe', 'nho-gon'],
    laptop: [
       'gaming',
       'hoc-tap-van-phong',
@@ -16,7 +16,7 @@ const demandHrefs = {
 };
 
 const brandHrefs = {
-   mobile: ['iphone', 'samsung', 'oppo', 'xiaomi', 'realme', 'nokia', 'tcl'],
+   dtdd: ['iphone', 'samsung', 'oppo', 'xiaomi', 'realme', 'nokia', 'tcl'],
    laptop: [
       'macbook',
       'asus',
@@ -37,7 +37,7 @@ const textDemads = {
       'Mỏng nhẹ',
       'Cao cấp - Sang trọng',
    ],
-   mobile: [
+   dtdd: [
       'Chơi game - Cấu hình cao',
       'Chụp ảnh - Quay phim',
       'Mỏng nhẹ',

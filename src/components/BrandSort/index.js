@@ -7,7 +7,7 @@ import DemandItem from './demandItem';
 const cx = classNames.bind(styles);
 
 const logos = {
-   mobile : `https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png*and*
+   dtdd : `https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png*and*
       https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png*and*
       https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg*and*
       https://cdn.tgdd.vn/Brand/1/logo-xiaomi-220x48-5.png*and*
@@ -39,7 +39,7 @@ function BrandSort({ category }) {
    return (
       <>
          <div className={cx('brand-sort')}>
-            {category === 'mobile' ? <h1>Điện thoại</h1> : <h1>Laptop</h1>}
+            {category === 'dtdd' ? <h1>Điện thoại</h1> : <h1>Laptop</h1>}
             <ul className={cx('brand-list')}>
                {brandImages &&
                   brandImages.map((item, index) => {
@@ -51,7 +51,7 @@ function BrandSort({ category }) {
             </ul>
          </div>
          <div className={cx('demand-sort')}>
-            {category === 'mobile' ? (
+            {category === 'dtdd' ? (
                <h1>Điện thoại theo nhu cầu </h1>
             ) : (
                <h1>Laptop theo nhu cầu</h1>

@@ -12,18 +12,14 @@ function Product() {
 
    const [state, dispatch] = useContext(Context)
 
-   useEffect(() => {
-      
-   })
-
-   console.log(state)
+   console.log("state = ", state)
    
    const {data, category, filters, page} = state
 
    const {rows, count} = data ? data : [];
    
-   const countProduct = count - page * 6
-
+   let countProduct = count - page * 6
+   if (countProduct < 0) countProduct = 0;
       // const nagative = useNavigate();
    //    const search = useLocation().search;
    //    const page = new URLSearchParams(search).get('page') || 1;
@@ -39,12 +35,12 @@ function Product() {
             {rows && <ProductItem data={rows} category={category}/>} 
             <div className={ cx('pagination') }>
                { rows && <button
-                  style={countProduct === 0 ? { opacity: 0.4, pointerEvents: 'none' } : {}}
+                  style={ countProduct <= 0 ? { opacity: 0.4, pointerEvents: 'none' } : {}}
                    className={ cx('see-more-product') }
                    onClick={() => getAll(dispatch, {filters, category: category, page: page + 1})}
                   
                   >
-                    Xem thêm ( {countProduct > 0 ? countProduct : 0} ) sản phẩm  
+                    Xem thêm ( {countProduct} ) sản phẩm  
                </button> }
             </div>
           </div>

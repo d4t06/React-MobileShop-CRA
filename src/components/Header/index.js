@@ -47,7 +47,7 @@ function Header() {
                   <li className={cx("nav-item")}>
                    
                      <Link to={"/dtdd"}
-                     onClick={() => getAll(dispatch, {category: 'mobile', page: 1})
+                     onClick={() => getAll(dispatch, {category: 'dtdd', page: 1})
                   }
                      >
                      <span>

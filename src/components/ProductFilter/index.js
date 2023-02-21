@@ -29,7 +29,7 @@ function ProductFilter() {
   //   console.log("price = ", ...prices)
   //  }
 
-   const handleFilter = (filters, category) => {
+    const handleFilter = (filters, category) => {
       const newFilters = {...Filters}; // lay tu state
       newFilters[category] = filters; // cap nhap
 

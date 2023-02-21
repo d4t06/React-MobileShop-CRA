@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './ProductItem.module.scss';
 import moneyFormat from '../../utils/moneyFormat.js';
 import Context from '../../store/Context'
-import {getProducts, getOne} from '../../store/actions'
+import ProductSort from '../ProductSort';
 
 const cx = classNames.bind(styles);
 function ProductItem({ data: products, category }) {
@@ -14,7 +14,6 @@ function ProductItem({ data: products, category }) {
    // console.log(state)
    const handleDetailPage = (e, params) => {
       e.preventDefault();
-      // getOne(dispatch, {category: params.category ,href: params.href});
       dispatch({type: 'GET_ONE', category: params.category ,href: params.href})
       nagative(`/${params.category}/${params.href}`)
 
@@ -23,23 +22,7 @@ function ProductItem({ data: products, category }) {
 
    return (
       <>
-         <div className={cx("product-sort")}>
-            <h1>Xem theo</h1>
-            <ul className={cx("btn-group")}>
-               <li className={cx("sort-btn", "active")}>
-                  <Link to={''} >Bán chạy nhất</Link>
-               </li>
-               <li className={cx("sort-btn")}>
-                  <Link to={''} >Giá thấp</Link>
-               </li>
-               <li className={cx("sort-btn")}>
-                  <Link to={''} >Giá cao</Link>
-               </li>
-               <li className={cx("sort-btn")}>
-                  <Link to={''} >Trả góp 0%</Link>
-               </li>
-            </ul>
-         </div>
+         <ProductSort />
          <div className="row">
             {products &&
                products.map((item, index) => {
@@ -59,7 +42,7 @@ function ProductItem({ data: products, category }) {
                               )}
                            </a>
                            <div className={cx('product-item-event')}>
-                              {item.label !== '0' && <span className={cx('event-label')}>{item.label}</span>}
+                              {item.label && <span className={cx('event-label')}>{item.label}</span>}
                            </div>
                            <div className={cx('product-item-body')}>
                               <h4 className={cx('product-item_name')}>{item.name}</h4>

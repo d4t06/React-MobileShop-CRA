@@ -12,7 +12,7 @@ const reducer = (state, action) => {
 		case "GET_ALL":
 			return {
 				...state,
-				category: action.category ? action.category : 'mobile',
+				category: action.category ? action.category : 'dtdd',
 				page: action.page ? action.page : 1,
 				data: action.payload,
 				filters: action.filters ? action.filters : ''
@@ -20,7 +20,7 @@ const reducer = (state, action) => {
 		case "GET_ONE":
 			return  {
 				...state,
-				category: action.category ? action.category : 'mobile',
+				category: action.category ? action.category : 'dtdd',
 				href: action.href ? action.href : '/'
 			}
 		default: 
