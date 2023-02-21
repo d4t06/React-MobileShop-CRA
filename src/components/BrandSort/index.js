@@ -1,13 +1,13 @@
 import classNames from 'classnames/bind';
 import styles from './BrandSort.module.scss';
 import { Link } from 'react-router-dom';
-import { laptopDemad } from '../../assets/data/images.js';
+// import { laptopDemad } from '../../assets/data/images.js';
 import DemandItem from './demandItem';
 
 const cx = classNames.bind(styles);
 
 const logos = {
-   dtdd : `https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png*and*
+   mobile : `https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png*and*
       https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png*and*
       https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg*and*
       https://cdn.tgdd.vn/Brand/1/logo-xiaomi-220x48-5.png*and*
@@ -24,15 +24,22 @@ const logos = {
       https://cdn.tgdd.vn/Brand/1/logo-surface-149x40-1.png*and*`
 }
 
+const laptopDemandLogos = `
+https://cdn.tgdd.vn/ValueIcons/laptop-gaming.png*and*
+https://cdn.tgdd.vn/ValueIcons/laptop-hoc-tap-van-phong.png*and*
+https://cdn.tgdd.vn/ValueIcons/laptop-do-hoa.png*and*
+https://cdn.tgdd.vn/ValueIcons/laptop-mong-nhe.png*and*
+https://cdn.tgdd.vn/ValueIcons/laptop-cao-cap-sang-trong.png*and*`
+
 
 function BrandSort({ category }) {
-   const demands = laptopDemad.slice(0, laptopDemad.length - 5).split('*and*');
+   const demands = laptopDemandLogos.slice(0, laptopDemandLogos.length - 5).split('*and*');
    const brandImages = logos[category].slice(0, logos[category].length - 5).split('*and*');
 
    return (
       <>
          <div className={cx('brand-sort')}>
-            {category == 'dtdd' ? <h1>Điện thoại</h1> : <h1>Laptop</h1>}
+            {category === 'mobile' ? <h1>Điện thoại</h1> : <h1>Laptop</h1>}
             <ul className={cx('brand-list')}>
                {brandImages &&
                   brandImages.map((item, index) => {
@@ -44,7 +51,7 @@ function BrandSort({ category }) {
             </ul>
          </div>
          <div className={cx('demand-sort')}>
-            {category == 'dtdd' ? (
+            {category === 'mobile' ? (
                <h1>Điện thoại theo nhu cầu </h1>
             ) : (
                <h1>Laptop theo nhu cầu</h1>

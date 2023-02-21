@@ -5,7 +5,7 @@ import styles from './BrandSort.module.scss';
 const cx = classNames.bind(styles);
 
 const demandHrefs = {
-   dtdd: ['choi-game', 'quay-phim-chup-anh', 'mong-nhe', 'nho-gon'],
+   mobile: ['choi-game', 'quay-phim-chup-anh', 'mong-nhe', 'nho-gon'],
    laptop: [
       'gaming',
       'hoc-tap-van-phong',
@@ -16,7 +16,7 @@ const demandHrefs = {
 };
 
 const brandHrefs = {
-   dtdd: ['iphone', 'samsung', 'oppo', 'xiaomi', 'realme', 'nokia', 'tcl'],
+   mobile: ['iphone', 'samsung', 'oppo', 'xiaomi', 'realme', 'nokia', 'tcl'],
    laptop: [
       'macbook',
       'asus',
@@ -37,12 +37,12 @@ const textDemads = {
       'Mỏng nhẹ',
       'Cao cấp - Sang trọng',
    ],
-   dtdd: [
+   mobile: [
       'Chơi game - Cấu hình cao',
       'Chụp ảnh - Quay phim',
       'Mỏng nhẹ',
-      'Nhỏ gọn',
-   ],
+      'Nhỏ gọn'
+   ]
 };
 
 function DemandItem({ category, index, image, imageOnly = false, demand = false }) {

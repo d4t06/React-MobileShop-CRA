@@ -1,10 +1,26 @@
+import { Link, useNavigate } from 'react-router-dom';
+import {useContext} from 'react'
 import classNames from 'classnames/bind';
 import styles from './ProductItem.module.scss';
-import { Link } from 'react-router-dom';
 import moneyFormat from '../../utils/moneyFormat.js';
-const cx = classNames.bind(styles);
+import Context from '../../store/Context'
+import {getProducts, getOne} from '../../store/actions'
 
+const cx = classNames.bind(styles);
 function ProductItem({ data: products, category }) {
+   const [state, dispatch] = useContext(Context);
+   const nagative = useNavigate();
+
+   // console.log(state)
+   const handleDetailPage = (e, params) => {
+      e.preventDefault();
+      // getOne(dispatch, {category: params.category ,href: params.href});
+      dispatch({type: 'GET_ONE', category: params.category ,href: params.href})
+      nagative(`/${params.category}/${params.href}`)
+
+   }
+
+
    return (
       <>
          <div className={cx("product-sort")}>
@@ -34,14 +50,16 @@ function ProductItem({ data: products, category }) {
                            <div className={cx('product-item-header')}>
                               {!!item.intallment && <span className={cx('label')}>Trả góp 0%</span>}
                            </div>
-                           <Link to={`/products/${item.href}`} className={cx('product-item-frame')}>
+                           <a href={`/dtdd/${item.href}`} className={cx('product-item-frame')}
+                              onClick={(e) => handleDetailPage(e, {href: item.href, category: category})}
+                           >
                               <img className={cx('product-item-image')} src={item.image} />
                               {!!item.product_label && (
                                  <img className={cx('product-item-label')} src={item.product_label} />
                               )}
-                           </Link>
+                           </a>
                            <div className={cx('product-item-event')}>
-                              {item.label != '0' && <span className={cx('event-label')}>{item.label}</span>}
+                              {item.label !== '0' && <span className={cx('event-label')}>{item.label}</span>}
                            </div>
                            <div className={cx('product-item-body')}>
                               <h4 className={cx('product-item_name')}>{item.name}</h4>
@@ -53,7 +71,7 @@ function ProductItem({ data: products, category }) {
                                     </p>
                                  ))}
                               </div>
-                              {category == 'dtdd' && (
+                              {category === 'dtdd' && (
                                  <div className={cx('product-item-memory')}>
                                     <button className={cx('memory-item', 'active')}>64GB</button>
                                     <button className={cx('memory-item')}>128GB</button>

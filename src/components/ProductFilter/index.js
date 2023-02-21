@@ -1,34 +1,44 @@
 import classNames from 'classnames/bind';
 import styles from './ProductFilter.module.scss';
-import { a } from 'react-router-dom';
 import Checkbox from './sections/Checkbox';
 import { useState } from 'react';
-
+import useStore from '../../hooks/useStore'
+import {getAll} from '../../store/actions'
 const cx = classNames.bind(styles);
 
 function ProductFilter() {
+  const [state, dispatch] = useStore()
+
+  // console.log("state = ", state)
 
    const [Filters, setFilters] = useState({
-      brand: [],
-      price: [],
-      feature: [],
+      // brand: [],
+      // price: [],
+      // feature: [],
    });
 
    const showFilteredResults = (filters) => {
 
-      const params = {
-         skip: 0,
-         limit: 6,
-         filters,
-      }
+    console.log(filters)
+    getAll(dispatch, {filters:{...filters}, category: state.category, page: 1})
+    // dispatch()
+
 
    }
+  //  const handlePrice = (prices) => {
+  //   console.log("price = ", ...prices)
+  //  }
+
    const handleFilter = (filters, category) => {
       const newFilters = {...Filters}; // lay tu state
       newFilters[category] = filters; // cap nhap
 
       if (category === 'price') {
+        let priceValues = newFilters.price
 
+        const [rest] = priceValues
+        // console.log(rest)
+        newFilters.price = rest 
       }
 
       showFilteredResults(newFilters)

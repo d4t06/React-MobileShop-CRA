@@ -11,7 +11,7 @@ const filterContiments = {
       },
       {
          id: 2,
-         value: 'Apple',
+         value: 'iPhone',
       },
       {
          id: 3,
@@ -38,18 +38,22 @@ const filterContiments = {
       {
          id: 2,
          value: 'Dưới 3 triệu',
+         array: [0, 3]
       },
       {
          id: 3,
          value: 'Từ 3 - 7 triệu',
+         array: [3, 7]
       },
       {
          id: 4,
          value: 'Từ 7 - 13 triệu',
+         array: [7,13]
       },
       {
          id: 5,
          value: 'Trên 13 triệu',
+         array: [13, 50]
       },
    ],
    feature: [
@@ -94,9 +98,9 @@ function Checkbox({ handleFilter, category }) {
                   <a to={'/ddtd'}>
                      <input
                         type="checkbox"
-                        checked={checked.indexOf(item.id) === -1 ? false : true}
+                        // checked={checked.indexOf(item.value) === -1 ? false : true}
                         //    checked={false}
-                        onChange={() => handleToggle(item.id)}
+                        onChange={() => handleToggle(item.array ? item.array : item.value)}
                      />
                      <span className={cx('label')}>{item.value}</span>
                   </a>

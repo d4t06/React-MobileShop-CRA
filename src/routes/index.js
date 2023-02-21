@@ -14,18 +14,8 @@ const publicRoutes = [
    },
    {
       path: "/:category/:key",
-      component: Products,
-   },
-   {
-      path: "/products/:key",
       component: DetailPage,
    },
-   {
-      path: "/product?_page=",
-      component: Products,
-   },
-
-   
 ];
 
 export { publicRoutes };

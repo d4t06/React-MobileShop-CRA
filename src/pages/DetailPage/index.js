@@ -1,16 +1,28 @@
-import { useParams } from "react-router-dom";
+import {useEffect, useState} from 'react'
 import classNames from "classnames/bind";
 import styles from "./DetailPage.module.scss";
 import ProductDetailItem from "../../components/DetailProductItem";
-
+import * as productServices from '../../services/productServices'
+import useStore from '../../hooks/useStore'
 const cx = classNames.bind(styles);
 
+
 function DetailPage() {
-   const { key } = useParams();
+   const [state, dispatch] = useStore()
+   const [product, setProduct] = useState('')
 
-   const product = ''; // products.find((item) => item.data.key == key);
-   // console.log(product);
+   useEffect(() => {
+      const fetchData = async () => {
+         const response = await productServices.getProductDetail({href: state.href})
+         if (response) setProduct(response)
+      }
+      fetchData()
+   }, [])
 
-   return <h1>Detail product item</h1>;
+   // console.log("product = ", product)
+
+    //product = [{name:adf,price:.....}] 
+   return <> {product && <ProductDetailItem data={product[0]} />} </>
+   // return <h1>Detail page</h1>
 }
 export default DetailPage;

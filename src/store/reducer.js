@@ -1,24 +1,27 @@
 const initState = {
-	status: 'idle'
+	category: '',
+	href: '',
+	page: '',
 }
 
 const reducer = (state, action) => {
-	// console.log("action= ", action)
+	console.log("action= ", action)
 	// console.log("pre state = ", state)
-
+	
 	switch (action.type) {
-		case "finished":
+		case "GET_ALL":
 			return {
 				...state,
-				status: 'finished',
-				data: action.data.payload,
-				category: action.data.category ? action.data.category : '',
-				page: action.data.page ? action.data.page : 1
+				category: action.category ? action.category : 'mobile',
+				page: action.page ? action.page : 1,
+				data: action.payload,
+				filters: action.filters ? action.filters : ''
 			}
-		case "loading":
+		case "GET_ONE":
 			return  {
 				...state,
-				status: 'loading'
+				category: action.category ? action.category : 'mobile',
+				href: action.href ? action.href : '/'
 			}
 		default: 
 			console.log(action.type, "action invalid")

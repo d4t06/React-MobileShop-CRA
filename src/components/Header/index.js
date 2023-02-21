@@ -5,7 +5,7 @@ import {
    faMobileScreen,
    faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import {getProducts, getProducts2} from '../../store/actions'
+import {getAll} from '../../store/actions'
 
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
@@ -47,7 +47,7 @@ function Header() {
                   <li className={cx("nav-item")}>
                    
                      <Link to={"/dtdd"}
-                     onClick={() => getProducts(dispatch, {category: 'mobile', page: 1})
+                     onClick={() => getAll(dispatch, {category: 'mobile', page: 1})
                   }
                      >
                      <span>
@@ -57,7 +57,7 @@ function Header() {
                   </li>
                   <li className={cx("nav-item")}>
                      <Link to={"/laptop"} 
-                         onClick={() => getProducts(dispatch, {category: 'laptop', page: 1})}
+                         onClick={() => getAll(dispatch, {category: 'laptop', page: 1})}
                      >
                      <span>
                         <FontAwesomeIcon icon={faLaptop} />
