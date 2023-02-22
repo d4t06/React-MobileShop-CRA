@@ -8,7 +8,7 @@ export const getProducts = async (querys) => {
    console.log("service querys", querys)
    const {filters,sort, ...rest} = querys
 
-   // return;
+   // return testData;
    // console.log({rest})
    if (!querys) {
       console.log("product service missing query");
@@ -18,10 +18,8 @@ export const getProducts = async (querys) => {
       const response = await request.get(`/`, {
          params: {
             ...rest,
-            short:true,
-            ...filters,
-            ...sort
-            // filters ? ...filters : ''
+            ...filters, //brand='samsung,iphone'
+            ...sort //column=cur_price&type=asc
          }
       })
       return response.data

@@ -1,5 +1,5 @@
 // import { useLocation, useParams, useNavigate } from 'react-router-dom';
-import {useContext, useEffect} from 'react'
+import {useContext} from 'react'
 import Context from '../../store/Context'
 import classNames from 'classnames/bind';
 import styles from './Products.module.scss';
@@ -11,20 +11,18 @@ const cx = classNames.bind(styles);
 function Product() {
 
    const [state, dispatch] = useContext(Context)
-
    console.log("state = ", state)
    
    const {data, category, filters, page} = state
-
    const {rows, count} = data ? data : [];
    
    let countProduct = count - page * 6
    if (countProduct < 0) countProduct = 0;
-      // const nagative = useNavigate();
-   //    const search = useLocation().search;
-   //    const page = new URLSearchParams(search).get('page') || 1;
 
-
+   const handleGetMore = () => {
+      const {data, ...rest} = state;
+      getAll(dispatch, {...rest, page: page + 1})
+   }
 
    return (
       <div className={ cx('product-container') }>
@@ -37,7 +35,7 @@ function Product() {
                { rows && <button
                   style={ countProduct <= 0 ? { opacity: 0.4, pointerEvents: 'none' } : {}}
                    className={ cx('see-more-product') }
-                   onClick={() => getAll(dispatch, {filters, category: category, page: page + 1})}
+                   onClick={() => handleGetMore()}
                   
                   >
                     Xem thêm ( {countProduct} ) sản phẩm  

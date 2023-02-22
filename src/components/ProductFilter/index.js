@@ -1,9 +1,13 @@
-import classNames from 'classnames/bind';
-import styles from './ProductFilter.module.scss';
-import Checkbox from './sections/Checkbox';
 import { useState } from 'react';
 import useStore from '../../hooks/useStore'
+
+import classNames from 'classnames/bind';
+import styles from './ProductFilter.module.scss';
+
+import Checkbox from './sections/Checkbox';
+import Radiobox from './sections/Radiobox';
 import {getAll} from '../../store/actions'
+
 const cx = classNames.bind(styles);
 
 function ProductFilter() {
@@ -12,38 +16,21 @@ function ProductFilter() {
   // console.log("state = ", state)
 
    const [Filters, setFilters] = useState({
-      // brand: [],
-      // price: [],
-      // feature: [],
    });
 
    const showFilteredResults = (filters) => {
-
-    console.log(filters)
-    getAll(dispatch, {filters:{...filters}, category: state.category, page: 1})
-    // dispatch()
-
-
+      const {data, ...rest} = state
+      console.log(data, rest)    
+      getAll(dispatch, {...rest ,filters:filters})
    }
-  //  const handlePrice = (prices) => {
-  //   console.log("price = ", ...prices)
-  //  }
 
     const handleFilter = (filters, category) => {
+
       const newFilters = {...Filters}; // lay tu state
       newFilters[category] = filters; // cap nhap
 
-      if (category === 'price') {
-        let priceValues = newFilters.price
-
-        const [rest] = priceValues
-        // console.log(rest)
-        newFilters.price = rest 
-      }
-
       showFilteredResults(newFilters)
       setFilters(newFilters) // set lai state
-
    };
    return (
       <div className={ cx('col', 'col-3') }>
@@ -63,7 +50,7 @@ function ProductFilter() {
           <div className={ cx('filter-section') }>
             <h2 className={ cx('filter-title') }>Mức giá</h2>
             <div className={ cx('filter-list') }>
-              <Checkbox handleFilter={ (filter) => handleFilter(filter, 'price') } category={ "price" } />
+              <Radiobox handleFilter={ (filter) => handleFilter(filter, 'price') } category={ "price" } />
             </div>
           </div>
           <div className={ cx('filter-section') }>

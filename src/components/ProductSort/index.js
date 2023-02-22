@@ -22,7 +22,7 @@ const contiments = [
       id: 3,
       value: 'Giá cao',
       column: "cur_price",
-      type: 'asc',
+      type: 'desc',
    },
    {
       id: 4,
@@ -34,17 +34,16 @@ const contiments = [
 
 function ProductSort() { 
    const [state, dispatch] = useStore()
-   const [checked, setChecked] = useState();
+   const [checked, setChecked] = useState(1);
 
       const handleFilter = (id) => {
-         console.log(id)
          if (id) {
             const sort = {
                column: contiments[id-1].column,
                type: contiments[id-1].type,
             }
-            console.log(sort)
-            getAll(dispatch, {category: state.category, page: state.page, sort: sort})
+            const {data, ...rest} = state;
+            getAll(dispatch, {...rest ,sort: sort})
          }
          // newSort[]
 
@@ -54,10 +53,12 @@ function ProductSort() {
    const handleToggle = (id) => {
       let newChecked = checked;
 
-      id == newChecked ? newChecked = 0 :  newChecked = id
+      if (id !== checked) {
 
-      handleFilter(newChecked)
-      setChecked(newChecked)
+         newChecked = id
+         handleFilter(newChecked)
+         setChecked(newChecked)
+      }
    }
    // console.log("checked = ", checked)
    return (
@@ -65,7 +66,7 @@ function ProductSort() {
             <h1>Xem theo</h1>
             <ul className={cx("btn-group")}>
                {contiments.map(item => {
-                  return <li className={cx('sort-btn', (checked == item.id ? "active" : ''))} 
+                  return <li className={cx('sort-btn', (checked === item.id ? "active" : ''))} 
                   key={item.id}
                   onClick={() => handleToggle(item.id)}
                   >{item.value}</li>

@@ -1,7 +1,5 @@
 const initState = {
-	category: '',
-	href: '',
-	page: '',
+
 }
 
 const reducer = (state, action) => {
@@ -15,7 +13,8 @@ const reducer = (state, action) => {
 				category: action.category ? action.category : 'dtdd',
 				page: action.page ? action.page : 1,
 				data: action.payload,
-				filters: action.filters ? action.filters : ''
+				filters: action.filters ? action.filters : '',
+				sort: action.sort ? action.sort : ''
 			}
 		case "GET_ONE":
 			return  {

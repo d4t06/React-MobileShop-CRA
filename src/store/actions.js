@@ -1,12 +1,8 @@
 import * as productServices from '../services/productServices'
-import { useNavigate } from 'react-router-dom'
 
 // const nagative = useNavigate();
 
 const getAll = async (dispatch, querys) => {  
-   // const {filters, ...rest} = querys
-
-   // console.log("action querys = ", querys)
    try {
       const response  = await productServices.getProducts(querys)
       if (response) {
