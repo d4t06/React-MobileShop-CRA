@@ -3,9 +3,9 @@ import * as request from '../utils/request'
 
 export const searchService = async (query) => {
     try {
-        const response = await request.get("/search", {
+        const response = await request.get(`/search`, {
            params: {
-            query
+            ...query
            }
         });
         console.log(response)
@@ -14,3 +14,5 @@ export const searchService = async (query) => {
         console.log("có lỗi trong quá trình lấy dữ liệu", error);
      }
 }
+
+export default searchService

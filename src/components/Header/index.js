@@ -3,20 +3,18 @@ import {
    faHeadphones,
    faLaptop,
    faMobileScreen,
-   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import {getAll} from '../../store/actions'
-
-import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
+import {getAll} from '../../store/actions'
+import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
-import {useContext} from 'react'
-import Context  from '../../store/Context'
+import Search from "../Search";
+import useStore from "../../hooks/useStore"
 
 const cx = classNames.bind(styles);
 
 function Header() {
-   const [state, dispatch] = useContext(Context)
+   const [state, dispatch] = useStore()
    const defaultImage = require("../../assets/images/avatar.jpg");
    return (
       <div className={cx("header")}>
@@ -25,14 +23,7 @@ function Header() {
                <a className={cx("brand")} href="/">
                   HD Shop
                </a>
-               <div className={cx("search-wrap")}>
-                  <form action="#" className={cx("search-form")}>
-                     <input className={cx("search-input")} type="text" placeholder="Hôm nay bạn muốn tìm gì..." />
-                     <button className={cx("search-btn")}>
-                        <FontAwesomeIcon icon={faSearch} />
-                     </button>
-                  </form>
-               </div>
+              <Search />
                <div className={cx("user-cta")}>
                   <span className={cx("user-name")}>Nguyễn Hữu Đạt</span>
                   <div className={cx("image-frame")}>

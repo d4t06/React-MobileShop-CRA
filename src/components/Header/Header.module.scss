@@ -45,44 +45,6 @@
    // background: linear-gradient(to right, rgba(0, 0, 0, 0.8), #cd1818, rgba(0, 0, 0, 0.8));
    background: linear-gradient(to right, #6c0a0a, #cd1818, #6c0a0a);
 }
-
-.search-wrap {
-   width: 500px;
-   height: 35px;
-   position: relative;
-}
-.search-form {
-   height: 100%;
-}
-.search-input {
-   height: 100%;
-   width: 100%;
-   outline: none;
-   padding-left: 20px;
-   padding-right: 70px;
-   font-size: 1.5rem;
-   border-radius: 20px;
-   border: none;
-   
-}
-.search-btn {
-   position: absolute;
-   right: 0;
-   height: 100%;
-   width: 50px;
-   color: #999;
-   font-size: 2rem;
-   padding-top: 1px;
-   background-color: transparent;
-}
-.search-input:not(:placeholder-shown) ~ .search-btn {
-   color: #333;
-}
-.search-btn:hover {
-   // color: var(--header-nav-color);
-   color: #333;
-}
-
 .nav-list {
    display: flex;
    gap: 20px;
