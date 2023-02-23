@@ -5,9 +5,10 @@ import {
    faSearch,
    faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
+import moneyFormat from '../../utils/moneyFormat';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
-import searchService from '../../services/searchService'
+import searchService from '../../services/searchService';
 import PopupStyles from '../Popup/Popup.module.scss';
 import useDebounce from '../../hooks/useDebound';
 import Popup from '../Popup';
@@ -15,50 +16,85 @@ import Popup from '../Popup';
 const cx = classNames.bind(styles);
 const cy = classNames.bind(PopupStyles);
 
-function Search() {
+function Search({ setShowOverlay }) {
    const [loading, setLoading] = useState(false);
    const [query, setQuery] = useState('');
    const [searchResult, setSearchResult] = useState('');
+   const [show, setShow] = useState(false)
 
    let debounceValue = useDebounce(query, 1000);
-   console.log(debounceValue);
 
    useEffect(() => {
       if (!query.trim()) return;
+
       const fetchApi = async () => {
+      const result = await searchService({ q: debounceValue });
 
-        const result = await searchService({q:debounceValue})
-
-        // setLoading(false);
-        setSearchResult(result)
-      }
+      return result;
+      };
 
       setLoading(true);
-      const handler = setTimeout(() => {
-        fetchApi();
-        setLoading(false);
+      const handler = setTimeout(async () => {
+         const result = await fetchApi();
+         setSearchResult(result || '');
+         setLoading(false);
       }, 1000);
 
-      return () => clearTimeout(handler);
+      return () => {
+         clearTimeout(handler);
+      };
    }, [debounceValue]);
+
+   const handleClear = () => {
+      setQuery('');
+      debounceValue = '';
+      setSearchResult([]);
+   };
+
+   const handleShow = () => {
+      setShow(true)
+      setShowOverlay(true)
+   }
+
+   const handleHide = () => {
+      setShow(false)
+      // setShowOverlay(false)
+   }
 
    return (
       <Popup
          content={
-            debounceValue ? (
+            !!searchResult ? (
                <div className={cy('wrap')}>
-                  {searchResult &&
-                     searchResult?.map((item) => {
-                        return <h2 key={item.id}>{item.name}</h2>;
-                     })}
+                  <h2 className={cy('search-result-title')}>
+                     Sản phẩm được gợi ý
+                  </h2>
+                  <ul>
+                     {searchResult &&
+                        searchResult?.map((item) => {
+                           return (
+                              <li className={cy('product-item')} key={item.id}>
+                                 <div className={cy('product-img')}>
+                                    <img src={item.image} alt="" />
+                                 </div>
+                                 <div className={cy('product-info')}>
+                                    <h2>{item.name}</h2>
+                                    <span>{moneyFormat(item.cur_price)}₫</span>
+                                 </div>
+                              </li>
+                           );
+                        })}
+                  </ul>
                </div>
             ) : (
                false
             )
          }
          option={{
-            visible: searchResult && debounceValue.length > 0,
+            visible: show && searchResult && query.length,
             appendTo: () => document.body,
+            onClickOutside: () => handleHide()
+            // delay:[0,0]
          }}
       >
          <div className={cx('wrap')}>
@@ -69,6 +105,7 @@ function Search() {
                   placeholder="Hôm nay bạn muốn tìm gì..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
+                  onFocus={() => handleShow()}
                />
                {loading && query && (
                   <button className={cx('loading-btn')}>
@@ -78,7 +115,7 @@ function Search() {
                {!loading && query && (
                   <button
                      className={cx('clear-btn')}
-                     onClick={() => setQuery('')}
+                     onClick={() => handleClear()}
                   >
                      <FontAwesomeIcon icon={faCircleXmark} />
                   </button>

@@ -42,7 +42,7 @@ function ProductSort() {
                column: contiments[id-1].column,
                type: contiments[id-1].type,
             }
-            const {data, ...rest} = state;
+            const {data, status, ...rest} = state;
             getAll(dispatch, {...rest ,sort: sort})
          }
          // newSort[]

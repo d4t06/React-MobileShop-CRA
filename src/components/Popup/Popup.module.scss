@@ -2,6 +2,34 @@
    width: 500px;
    background-color: #fff;
    border-radius: 8px;
+   padding: 8px 0;
 
    box-shadow: -2px 5px 10px rgba($color: #000000, $alpha: 0.15);
+}
+.search-result-title {
+   padding: 5px 0 5px 15px;
+}
+.product-item {
+   display: flex;
+   padding: 10px 8px;
+   border-left: 2px solid transparent;
+   transition: transform .15s linear;
+   &:hover {
+      border-color: #cd1818;
+      transform: translateX(5px);
+   }
+}
+.product-img {
+   width: 60px;
+   margin-right: 15px;
+   img {
+      width: 100%;
+   }
+}
+.product-info {
+   flex: 1;
+   padding: 8px;
+   span{
+      font-size: 1.5rem;
+   }
 }

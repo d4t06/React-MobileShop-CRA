@@ -1,4 +1,4 @@
-const Contiments = {
+const Continents = {
 	brand: [
       {
          id: 1,
@@ -72,4 +72,4 @@ const Contiments = {
    	],
 }
 
-export default Contiments
+export default Continents

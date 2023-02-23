@@ -1,5 +1,9 @@
-## Những thứ cần xem lại
-
+## falsy
+- 0
+- ''
+- null
+- NaN
+- undefine
 
 
 
@@ -23,3 +27,9 @@
 ###useEffect(() => { return() => {} }, [deps])
 -clean up function luôn được gọi trước khi component unmout, gọi sau callback
 - dọn dẹp cái cũ khi gọi cái mới
+
+### Update thứ 5 23/2/2023
+- Thêm chức năng search có SetTimeout, thêm overlay
+- Thêm SetTimeout cho service
+- Thêm prop status cho state
+- Filter sẽ không chon được trong lúc lây data

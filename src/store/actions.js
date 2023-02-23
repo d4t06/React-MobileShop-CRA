@@ -4,12 +4,15 @@ import * as productServices from '../services/productServices'
 
 const getAll = async (dispatch, querys) => {  
    try {
-      const response  = await productServices.getProducts(querys)
-      if (response) {
-         dispatch({ type:"GET_ALL", payload: response, ...querys})
-      } else {
-         console.log("action getProduct response undefine")
-      }
+      dispatch({type: "loading", status: 'loading'})
+      setTimeout( async() => {
+         const response  = await productServices.getProducts(querys)
+         if (response) {
+            dispatch({ type:"GET_ALL", status : 'finished', payload: response, ...querys})
+         } else {
+            console.log("action getProduct response undefine")
+         }
+      }, 1000);
    } catch (error) {
       console.log("loi trong action", error)
    }

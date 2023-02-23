@@ -24,7 +24,7 @@ function ProductItem({ data: products, category }) {
       <>
          <ProductSort />
          <div className="row">
-            {products &&
+            {products ?
                products.map((item, index) => {
                   const feature = item.feature.slice(0, item.feature.length - 1).split('&');
                   return (
@@ -80,7 +80,7 @@ function ProductItem({ data: products, category }) {
                         </div>
                      </div>
                   );
-               })}
+               }) : <h1>IWhduawhdu</h1>}
          </div>
       </>
    );

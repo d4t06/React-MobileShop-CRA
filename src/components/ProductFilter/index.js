@@ -13,14 +13,12 @@ const cx = classNames.bind(styles);
 function ProductFilter() {
   const [state, dispatch] = useStore()
 
-  // console.log("state = ", state)
-
-   const [Filters, setFilters] = useState({
-   });
+   const [Filters, setFilters] = useState({});
 
    const showFilteredResults = (filters) => {
-      const {data, ...rest} = state
-      console.log(data, rest)    
+      const {data, status, ...rest} = state
+
+      console.log("filters = ", filters)
       getAll(dispatch, {...rest ,filters:filters})
    }
 

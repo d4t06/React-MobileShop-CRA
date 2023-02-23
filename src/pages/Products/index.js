@@ -20,7 +20,7 @@ function Product() {
    if (countProduct < 0) countProduct = 0;
 
    const handleGetMore = () => {
-      const {data, ...rest} = state;
+      const {data, status, ...rest} = state;
       getAll(dispatch, {...rest, page: page + 1})
    }
 

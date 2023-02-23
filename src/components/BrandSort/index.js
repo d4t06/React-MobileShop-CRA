@@ -1,7 +1,6 @@
+import useStore from '../../hooks/useStore';
 import classNames from 'classnames/bind';
 import styles from './BrandSort.module.scss';
-import { Link } from 'react-router-dom';
-// import { laptopDemad } from '../../assets/data/images.js';
 import DemandItem from './demandItem';
 
 const cx = classNames.bind(styles);
@@ -33,6 +32,7 @@ https://cdn.tgdd.vn/ValueIcons/laptop-cao-cap-sang-trong.png*and*`
 
 
 function BrandSort({ category }) {
+   const [state, dispatch] = useStore()
    const demands = laptopDemandLogos.slice(0, laptopDemandLogos.length - 5).split('*and*');
    const brandImages = logos[category].slice(0, logos[category].length - 5).split('*and*');
 

@@ -7,7 +7,9 @@ function useDebounce(value, delay) {
    useEffect(() => {
       const timeId = setTimeout(() => {setDebounceValue(value)}, delay);
 
-      return () => clearTimeout(timeId);
+      return () =>{
+         // setSearchResult('')
+         clearTimeout(timeId)};
    }, [value]);
 
    return debounceValue;

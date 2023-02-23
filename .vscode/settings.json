@@ -7,5 +7,6 @@
    "emmet.includeLanguages": {
       "javascript": "javascriptreact",
       "typescript": "typescriptreact"
-   }
+   },
+   "editor.acceptSuggestionOnCommitCharacter": false
 }

@@ -7,14 +7,21 @@ const reducer = (state, action) => {
 	// console.log("pre state = ", state)
 	
 	switch (action.type) {
+		case "loading":
+			return {
+				...state,
+				status: action.status || 'error',
+				data: ''
+			}
 		case "GET_ALL":
 			return {
 				...state,
-				category: action.category ? action.category : 'dtdd',
-				page: action.page ? action.page : 1,
+				status: action.status || 'error',
+				category: action.category || 'dtdd',
+				page: action.page || 1,
 				data: action.payload,
-				filters: action.filters ? action.filters : '',
-				sort: action.sort ? action.sort : ''
+				filters: action.filters || '',
+				sort: action.sort || ''
 			}
 		case "GET_ONE":
 			return  {
