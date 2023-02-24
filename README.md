@@ -17,15 +17,15 @@
 - có thể gán initState qua callback
 
 ##useEffect
--callback luôn được gọi mội khi component mout
+-callback luôn được gọi mội khi component mount
 
 ###useEffect(() => {}, [])
-- chỉ gọi call back một lần khi component thêm egọilement vào dom
+- chỉ gọi call back một lần khi component thêm element vào dom
 ###useEffect(() => {}, [deps])
 - gọi call back một lần khi component thêm element vào dom
 - gọi callback khi deps they đổi
 ###useEffect(() => { return() => {} }, [deps])
--clean up function luôn được gọi trước khi component unmout, gọi sau callback
+-clean up function luôn được gọi trước khi component unmount, gọi sau callback
 - dọn dẹp cái cũ khi gọi cái mới
 
 ### Update thứ 5 23/2/2023

@@ -11,18 +11,18 @@ function DetailPage() {
    const [state, dispatch] = useStore()
    const [product, setProduct] = useState('')
 
-   useEffect(() => {
-      const fetchData = async () => {
-         const response = await productServices.getProductDetail({href: state.href})
-         if (response) setProduct(response)
-      }
-      fetchData()
-   }, [])
+   // useEffect(() => {
+   //    const fetchData = async () => {
+   //       const response = await productServices.getProductDetail({href: state.href})
+   //       if (response) setProduct(response)
+   //    }
+   //    fetchData()
+   // }, [])
 
    // console.log("product = ", product)
 
     //product = [{name:adf,price:.....}] 
-   return <> {product && <ProductDetailItem data={product[0]} />} </>
-   // return <h1>Detail page</h1>
+   // return <> {product && <ProductDetailItem data={product[0]} />} </>
+   return <h1>Detail page</h1>
 }
 export default DetailPage;

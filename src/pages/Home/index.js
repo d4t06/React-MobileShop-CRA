@@ -3,7 +3,7 @@ import styles from "./Home.module.scss";
 
 const cx = classNames.bind(styles);
 
-function LoginPage() {
+function Home() {
    return <h1>Home Page</h1>;
 }
-export default LoginPage;
+export default Home;

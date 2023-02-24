@@ -8,7 +8,7 @@ export const searchService = async (query) => {
             ...query
            }
         });
-        console.log(response)
+        console.log("response = ", response)
         return response;
      } catch (error) {
         console.log("có lỗi trong quá trình lấy dữ liệu", error);
