@@ -1,15 +1,16 @@
-import {useEffect, useState} from 'react'
-import classNames from "classnames/bind";
-import styles from "./DetailPage.module.scss";
-import ProductDetailItem from "../../components/DetailProductItem";
-import * as productServices from '../../services/productServices'
-import useStore from '../../hooks/useStore'
+import { useEffect, useState } from 'react';
+import classNames from 'classnames/bind';
+import styles from './DetailPage.module.scss';
+import ProductDetailItem from '../../components/DetailProductItem';
+import * as productServices from '../../services/productServices';
+import useStore from '../../hooks/useStore';
+import Popup from '../../components/Popup';
+import {Cart} from '../../components'
+
 const cx = classNames.bind(styles);
-
-
 function DetailPage() {
-   const [state, dispatch] = useStore()
-   const [product, setProduct] = useState('')
+   const [state, dispatch] = useStore();
+   const [product, setProduct] = useState('');
 
    // useEffect(() => {
    //    const fetchData = async () => {
@@ -21,8 +22,21 @@ function DetailPage() {
 
    // console.log("product = ", product)
 
-    //product = [{name:adf,price:.....}] 
+   //product = [{name:adf,price:.....}]
    // return <> {product && <ProductDetailItem data={product[0]} />} </>
-   return <h1>Detail page</h1>
+   return (
+      <>
+         <Popup
+         content={
+            <Cart></Cart>
+         }
+         option = {
+           {trigger: 'click'}
+         }
+         >
+            <h1>Detail page</h1>
+         </Popup>
+      </>
+   );
 }
 export default DetailPage;

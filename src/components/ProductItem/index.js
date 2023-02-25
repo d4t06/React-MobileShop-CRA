@@ -39,11 +39,6 @@ function ProductItem({ data: products, searchResultPage }) {
                         )}
                      >
                         <div className={cx('product-item')}>
-                           <div className={cx('product-item-header')}>
-                              {!!item.intallment && (
-                                 <span className={cx('label')}>Trả góp 0%</span>
-                              )}
-                           </div>
                            <a
                               href={`/dtdd/${item.href}`}
                               className={cx('product-item-frame')}
@@ -72,6 +67,9 @@ function ProductItem({ data: products, searchResultPage }) {
                                  </span>
                               )}
                            </div>
+                          {item.intallment && <div className={cx("product-item-installment")}>
+                              <span>Trả góp 0%</span>
+                           </div>}
                            <div className={cx('product-item-body')}>
                               <h4 className={cx('product-item_name')}>
                                  {item.name}

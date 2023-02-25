@@ -10,6 +10,9 @@ html {
    font-family: 'Montserrat', Helvetica, sans-serif;
    font-size: 62.5%;
 }
+body {
+   background-color: #f9f9f9;
+}
 a {
    text-decoration: none;
    color: inherit;
@@ -47,12 +50,12 @@ li {
 .row {
    display: flex;
    flex-wrap: wrap;
-   margin-left: -4px;
-   margin-right: -4px;
+   margin-left: -6px;
+   margin-right: -6px;
 }
 .col {
-   padding-left: 4px;
-   padding-right: 4px;
+   padding-left: 6px;
+   padding-right: 6px;
 }
 .col-large {
    padding-left: 12px;

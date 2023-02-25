@@ -56,6 +56,9 @@ function SearchResultPage(prop) {
             {data.rows ? (
                <div className={cx('product-body', 'row')}>
                   <div className="col col-full">
+                     <h1 className={cx("search-page-title")}>
+                        Tìm thấy <span style={{color: "#cd1818"}}>{data?.count}</span> kết quả cho từ khóa "{key}"
+                     </h1>
                      {rows && <ProductItem data={rows} searchResultPage />}
                      <div className={cx('pagination')}>
                         {rows && (

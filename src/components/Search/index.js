@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {redirect, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
    faCircleXmark,
@@ -24,6 +24,7 @@ function Search({ setShowOverlay }) {
    const [searchResult, setSearchResult] = useState('');
    const [show, setShow] = useState(false);
    const [isSubmit, setIsSubmit] = useState(false)
+   // const inputRef = useRef()
 
    let debounceValue = useDebounce(query, 1000);
 
@@ -43,7 +44,6 @@ function Search({ setShowOverlay }) {
       const handler = setTimeout(async () => {
          const result = await fetchApi();
 
-
          setSearchResult(result || '');
          setLoading(false);
       }, 100);
@@ -54,13 +54,13 @@ function Search({ setShowOverlay }) {
    }, [debounceValue]);
 
    const handleSearchText = (e) => {
+      handleShow(true)
       setQuery(e.target.value)
       if (!query) setSearchResult([])
    }
 
    const handleClear = (e) => {
       e.stopPropagation()
-      // console.log('handle clear');
       setQuery('');
       debounceValue = '';
       setSearchResult([]);
@@ -108,6 +108,7 @@ function Search({ setShowOverlay }) {
       }
    };
 
+   console.log('search re render');
    return (
       <Popup
          content={
