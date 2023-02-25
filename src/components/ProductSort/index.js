@@ -36,18 +36,20 @@ function ProductSort() {
    const [state, dispatch] = useStore();
    const [checked, setChecked] = useState(1);
 
+   const {data, href, status, ...rest} = state
+
    const handleFilter = (id) => {
+      // console.log("sort state ", state)
       if (id) {
          const sort = {
             column: contiments[id - 1].column,
             type: contiments[id - 1].type,
          };
-         const { href, data, status, ...rest } = state;
+         const { category, page } = state;
          if (state.category.includes('search')) {
-            getSearchPage({ ...rest, sort: sort });
+            getSearchPage(dispatch,{ category: category, page: page, sort: sort });
          } else getAll(dispatch, { ...rest, sort: sort });
       }
-      // newSort[]
    };
 
    const handleToggle = (id) => {
@@ -57,7 +59,7 @@ function ProductSort() {
          setChecked(id);
       }
    };
-   console.log('sort checked re-render ', checked);
+   // console.log('sort checked re-render ', checked);
 
    // console.log("checked = ", checked)
    return (

@@ -2,10 +2,14 @@ import * as request from '../utils/request'
 
 
 export const searchService = async (query) => {
+   // phai xu li sort
+   const {sort, ...rest} = query
+
     try {
         const response = await request.get(`/search`, {
            params: {
-            ...query
+            ...query,
+            ...sort
            }
         });
         console.log("response = ", response)

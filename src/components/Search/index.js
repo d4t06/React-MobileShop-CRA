@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {redirect, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
    faCircleXmark,
@@ -23,16 +23,19 @@ function Search({ setShowOverlay }) {
    const [query, setQuery] = useState('');
    const [searchResult, setSearchResult] = useState('');
    const [show, setShow] = useState(false);
+   const [isSubmit, setIsSubmit] = useState(false)
 
    let debounceValue = useDebounce(query, 1000);
 
    useEffect(() => {
+      if (isSubmit) {
+         setIsSubmit(false);
+         return;
+      };
       if (!query.trim()) return;
 
       const fetchApi = async () => {
          const result = await searchService({ q: debounceValue });
-         console.log(result);
-
          return result;
       };
 
@@ -40,17 +43,24 @@ function Search({ setShowOverlay }) {
       const handler = setTimeout(async () => {
          const result = await fetchApi();
 
+
          setSearchResult(result || '');
-         // console.log(searchResult)
          setLoading(false);
-      }, 1000);
+      }, 100);
 
       return () => {
          clearTimeout(handler);
       };
    }, [debounceValue]);
 
-   const handleClear = () => {
+   const handleSearchText = (e) => {
+      setQuery(e.target.value)
+      if (!query) setSearchResult([])
+   }
+
+   const handleClear = (e) => {
+      e.stopPropagation()
+      // console.log('handle clear');
       setQuery('');
       debounceValue = '';
       setSearchResult([]);
@@ -61,34 +71,41 @@ function Search({ setShowOverlay }) {
       setShowOverlay(value);
    };
 
-   const handleHide = () => {
-      setShow(false);
-      // setShowOverlay(false)
-   };
-
-   const nagative = useNavigate();
    const [state, dispatch] = useStore();
+   const navigate = useNavigate()
 
    const handleDetailPage = (params) => {
+      handleShow(false)
       dispatch({
          type: 'GET_ONE',
          category: params.category,
          href: params.href,
       });
-      nagative(`/${params.category}/${params.href}`);
+      navigate(`/${params.category}/${params.href}`);
    };
 
+
    const handleSubmit = (e) => {
-      e.preventDefault();
-      dispatch({
-         type: 'GET_ALL',
-         status: 'finished',
-         href: '',
-         category: `search=${debounceValue}`,
-         payload: searchResult,
-      });
+
+      e.preventDefault()
+      setIsSubmit(true)
       handleShow(false);
-      nagative(`/search/${debounceValue}`);
+
+      if (searchResult.rows?.length) {
+
+         console.log('has result');
+         dispatch({
+            type: 'GET_ALL',
+            status: 'finished',
+            href: '',
+            category: `search=${debounceValue}`,
+            payload: searchResult,
+         });
+         navigate(`/search/${query}`);
+      } else {
+         
+         navigate(`/search/${query}`);
+      }
    };
 
    return (
@@ -118,18 +135,25 @@ function Search({ setShowOverlay }) {
                                  </div>
                                  <div className={cy('product-info')}>
                                     <h2 className={cy('title')}>{item.name}</h2>
-                                    <span className={cy('old_price')}>
-                                       {moneyFormat(item?.old_price)}₫
-                                    </span>
-                                    <span className={cy('discount-percent')}>
-                                       -
-                                       {(
-                                          ((+item.old_price - +item.cur_price) /
-                                             +item.old_price) *
-                                          100
-                                       ).toFixed(0)}
-                                       %
-                                    </span>
+                                    {item.old_price && (
+                                       <>
+                                          <span className={cy('old_price')}>
+                                             {moneyFormat(item?.old_price)}₫
+                                          </span>
+                                          <span
+                                             className={cy('discount-percent')}
+                                          >
+                                             -
+                                             {(
+                                                ((+item.old_price -
+                                                   +item.cur_price) /
+                                                   +item.old_price) *
+                                                100
+                                             ).toFixed(0)}
+                                             %
+                                          </span>
+                                       </>
+                                    )}
                                     <p className={cy('cur_price')}>
                                        {moneyFormat(item.cur_price)}₫
                                     </p>
@@ -144,10 +168,9 @@ function Search({ setShowOverlay }) {
             )
          }
          option={{
-            visible: show && searchResult.rows && query.length,
+            visible: show && searchResult.rows?.length && query.length,
             appendTo: () => document.body,
-            onClickOutside: () => handleHide(),
-            // delay:[0,0]
+            onClickOutside: () => handleShow(false),
          }}
       >
          <div className={cx('wrap')}>
@@ -157,8 +180,9 @@ function Search({ setShowOverlay }) {
                   type="text"
                   placeholder="Hôm nay bạn muốn tìm gì..."
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
+                  onChange={(e) => handleSearchText(e)}
                   onFocus={() => handleShow(true)}
+                  onKeyDown={(e) => { e.key === 'Enter' && handleSubmit(e); }}
                />
                {loading && query && (
                   <button className={cx('loading-btn')}>
@@ -168,12 +192,12 @@ function Search({ setShowOverlay }) {
                {!loading && query && (
                   <button
                      className={cx('clear-btn')}
-                     onClick={() => handleClear()}
+                     onClick={(e) => handleClear(e)}
                   >
                      <FontAwesomeIcon icon={faCircleXmark} />
                   </button>
                )}
-               <button className={cx('search-btn')}>
+               <button onClick={(e) => handleSubmit(e)} className={cx('search-btn')}>
                   <FontAwesomeIcon icon={faSearch} />
                </button>
             </form>

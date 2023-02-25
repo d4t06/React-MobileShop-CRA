@@ -16,9 +16,8 @@ function ProductFilter() {
    const [Filters, setFilters] = useState({});
 
    const showFilteredResults = (filters) => {
-      const {data, status, ...rest} = state
-
-      console.log("filters = ", filters)
+    
+      const {data, status, href, ...rest} = state
       getAll(dispatch, {...rest ,filters:filters})
    }
 

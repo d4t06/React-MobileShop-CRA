@@ -6,10 +6,8 @@ const request = axios.create({
 
 export const getProducts = async (querys) => {
    console.log("service querys", querys)
-   const {filters,sort, ...rest} = querys
-
-   // return testData;
-   // console.log({rest})
+   const {filters, sort, ...rest} = querys
+   
    if (!querys) {
       console.log("product service missing query");
       return []

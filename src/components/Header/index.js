@@ -4,7 +4,7 @@ import {
    faLaptop,
    faMobileScreen,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {getAll} from '../../store/actions'
 import classNames from "classnames/bind";
@@ -18,6 +18,14 @@ function Header() {
    const [state, dispatch] = useStore()
    const [show, setShow] = useState(false)
    const defaultImage = require("../../assets/images/avatar.jpg");
+   const navigate = useNavigate()
+
+   const handleGetAll = async(e, category) => {
+      e.preventDefault()
+      await getAll(dispatch, {category: category, page: 1})
+      navigate(`/${category}`)
+   }
+
    return (
       <>
          <div className={cx("header")}>
@@ -43,23 +51,23 @@ function Header() {
                   <ul className={cx("nav-list")}>
                      <li className={cx("nav-item")}>
                      
-                        <Link to={"/dtdd"}
-                        onClick={() => getAll(dispatch, {category: 'dtdd', page: 1})
-                     }
+                        <a href={"/dtdd"}
+                        onClick={(e) => handleGetAll(e, "dtdd")}
+                     
                         >
                         <span>
                            <FontAwesomeIcon icon={faMobileScreen} />
                         </span>
-                           Điện thoại</Link>
+                           Điện thoại</a>
                      </li>
                      <li className={cx("nav-item")}>
-                        <Link to={"/laptop"} 
-                           onClick={() => getAll(dispatch, {category: 'laptop', page: 1})}
+                        <a href={"/laptop"} 
+                           onClick={(e) => handleGetAll(e, "laptop")}
                         >
                         <span>
                            <FontAwesomeIcon icon={faLaptop} />
                         </span>
-                           Laptop</Link>
+                           Laptop</a>
                      </li>
                      <li className={cx("nav-item")}>
                         <a to={"/phukien"}>

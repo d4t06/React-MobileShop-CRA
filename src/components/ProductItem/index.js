@@ -11,7 +11,6 @@ function ProductItem({ data: products, searchResultPage }) {
    const [state, dispatch] = useContext(Context);
    const nagative = useNavigate();
 
-   // console.log(state)
    const handleDetailPage = (e, params) => {
       e.preventDefault();
       dispatch({

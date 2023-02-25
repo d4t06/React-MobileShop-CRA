@@ -24,13 +24,14 @@ function Product() {
    if (countProduct < 0) countProduct = 0;
 
    const handleGetMore = () => {
-      const { data, status, ...rest } = state;
+      const { data, status, href, ...rest } = state;
       getAll(dispatch, { ...rest, page: page + 1 });
    };
 
+   console.log("product re-render");
    return (
       <div className={cx('product-container')}>
-         {data ? (
+         { data?.rows && 
             <>
                {category && <ImageSlider category={category} />}
                {category && <BrandSort category={category} />}
@@ -55,10 +56,8 @@ function Product() {
                   </div>
                   <ProductFilter />
                </div>
-            </>
-         ) : (
-            <h1>Loading...</h1>
-         )}
+            </>}
+        
       </div>
    );
 }
