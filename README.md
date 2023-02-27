@@ -33,3 +33,9 @@
 - Thêm SetTimeout cho service
 - Thêm prop status cho state
 - Filter sẽ không chon được trong lúc lây data
+
+### update thứ 7 25/2/2023
+- get One, get ALl sẽ không dispatch mà truyền url parameter
+
+### update thứ 2 27/2/2023
+- Thêm com modal

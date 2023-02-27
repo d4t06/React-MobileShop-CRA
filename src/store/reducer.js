@@ -19,7 +19,6 @@ const reducer = (state, action) => {
             data: action.payload,
             filters: action.filters || '',
             sort: action.sort || '',
-            href: action.href || '',
          };
       case 'GET_ONE':
          return {

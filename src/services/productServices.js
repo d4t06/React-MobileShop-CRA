@@ -32,9 +32,8 @@ export const getProductDetail = async (querys) => {
    }
    const {category, href} = querys
    try {
-      const response = await request.get(`/${category}/`, {
+      const response = await request.get(`/${category}/${href}`, {
          params: {
-            href: href
          }
       })
       return response.data

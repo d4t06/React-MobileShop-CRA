@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {useNavigate } from 'react-router-dom';
+import {useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
    faCircleXmark,
@@ -18,21 +18,16 @@ import useStore from '../../hooks/useStore';
 const cx = classNames.bind(styles);
 const cy = classNames.bind(PopupStyles);
 
-function Search({ setShowOverlay }) {
+function Search({setShowModal}) {
    const [loading, setLoading] = useState(false);
    const [query, setQuery] = useState('');
    const [searchResult, setSearchResult] = useState('');
    const [show, setShow] = useState(false);
-   const [isSubmit, setIsSubmit] = useState(false)
    // const inputRef = useRef()
 
    let debounceValue = useDebounce(query, 1000);
 
    useEffect(() => {
-      if (isSubmit) {
-         setIsSubmit(false);
-         return;
-      };
       if (!query.trim()) return;
 
       const fetchApi = async () => {
@@ -68,7 +63,7 @@ function Search({ setShowOverlay }) {
 
    const handleShow = (value) => {
       setShow(value);
-      setShowOverlay(value);
+      setShowModal(value)
    };
 
    const [state, dispatch] = useStore();
@@ -76,11 +71,6 @@ function Search({ setShowOverlay }) {
 
    const handleDetailPage = (params) => {
       handleShow(false)
-      dispatch({
-         type: 'GET_ONE',
-         category: params.category,
-         href: params.href,
-      });
       navigate(`/${params.category}/${params.href}`);
    };
 
@@ -88,7 +78,7 @@ function Search({ setShowOverlay }) {
    const handleSubmit = (e) => {
 
       e.preventDefault()
-      setIsSubmit(true)
+      // setIsSubmit(true)
       handleShow(false);
 
       if (searchResult.rows?.length) {
@@ -101,11 +91,8 @@ function Search({ setShowOverlay }) {
             category: `search=${debounceValue}`,
             payload: searchResult,
          });
-         navigate(`/search/${query}`);
-      } else {
-         
-         navigate(`/search/${query}`);
-      }
+      } 
+      navigate(`/search/${query}`);
    };
 
    console.log('search re render');
@@ -121,7 +108,8 @@ function Search({ setShowOverlay }) {
                      {searchResult &&
                         searchResult.rows?.map((item) => {
                            return (
-                              <li
+                              <Link
+                                 to={`/${item.category}/${item.href}`}
                                  className={cy('product-item')}
                                  key={item.id}
                                  onClick={() => {
@@ -159,7 +147,7 @@ function Search({ setShowOverlay }) {
                                        {moneyFormat(item.cur_price)}₫
                                     </p>
                                  </div>
-                              </li>
+                              </Link>
                            );
                         })}
                   </ul>
@@ -169,7 +157,7 @@ function Search({ setShowOverlay }) {
             )
          }
          option={{
-            visible: show && searchResult.rows?.length && query.length,
+            visible: show && searchResult.rows?.length && query,
             appendTo: () => document.body,
             onClickOutside: () => handleShow(false),
          }}

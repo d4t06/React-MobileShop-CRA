@@ -4,11 +4,10 @@ import searchService from '../services/searchService';
 // const nagative = useNavigate();
 
 const getAll = async (dispatch, query) => {
-   console.log('action get all ', query);
+   // console.log('action get all ', query);
    try {
       const response = await productServices.getProducts(query);
       if (response) {
-         console.log(response)
          dispatch({
             type: 'GET_ALL',
             status: 'finished',
@@ -25,7 +24,7 @@ const getAll = async (dispatch, query) => {
    }
 };
 const getOne = async (dispatch, query) => {
-   console.log('action get one ', query);
+   // console.log('action get one ', query);
    try {
       dispatch({ type: 'GET_ONE', category: query.category, href: query.href });
    } catch {
@@ -33,7 +32,7 @@ const getOne = async (dispatch, query) => {
    }
 };
 const getSearchPage = async (dispatch, query) => {
-   console.log('action search ', query);
+   // console.log('action search ', query);
 
    try {
       const key = query.category.split('search=')[1]; //search=iphone 14

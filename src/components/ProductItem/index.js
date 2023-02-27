@@ -8,18 +8,18 @@ import ProductSort from '../ProductSort';
 
 const cx = classNames.bind(styles);
 function ProductItem({ data: products, searchResultPage }) {
-   const [state, dispatch] = useContext(Context);
-   const nagative = useNavigate();
+   // const [state, dispatch] = useContext(Context);
+   // const nagative = useNavigate();
 
-   const handleDetailPage = (e, params) => {
-      e.preventDefault();
-      dispatch({
-         type: 'GET_ONE',
-         category: params.category,
-         href: params.href,
-      });
-      nagative(`/${params.category}/${params.href}`);
-   };
+   // const handleDetailPage = (e, params) => {
+   //    e.preventDefault();
+   //    dispatch({
+   //       type: 'GET_ONE',
+   //       category: params.category,
+   //       href: params.href,
+   //    });
+   //    nagative(`/${params.category}/${params.href}`);
+   // };
 
    return (
       <>
@@ -39,15 +39,15 @@ function ProductItem({ data: products, searchResultPage }) {
                         )}
                      >
                         <div className={cx('product-item')}>
-                           <a
-                              href={`/dtdd/${item.href}`}
+                           <Link
+                              to={`/${item.category}/${item.href}`}
                               className={cx('product-item-frame')}
-                              onClick={(e) =>
-                                 handleDetailPage(e, {
-                                    href: item.href,
-                                    category: item.category,
-                                 })
-                              }
+                              // onClick={(e) =>
+                              //    handleDetailPage(e, {
+                              //       href: item.href,
+                              //       category: item.category,
+                              //    })
+                              // }
                            >
                               <img
                                  className={cx('product-item-image')}
@@ -59,7 +59,7 @@ function ProductItem({ data: products, searchResultPage }) {
                                     src={item.product_label}
                                  />
                               )}
-                           </a>
+                           </Link>
                            <div className={cx('product-item-event')}>
                               {item.label && (
                                  <span className={cx('event-label')}>

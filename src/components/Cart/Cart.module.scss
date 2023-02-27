@@ -3,6 +3,7 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: -2px 5px 10px rgba($color: #000000, $alpha: .3);
+    z-index: 6;
 
     .cart-header {
         display: flex;
@@ -48,6 +49,7 @@
     }
 }
 .item-description {
+    flex: 1;
     margin-left: 10px;
     h2 {
         color: #666;

@@ -11,16 +11,12 @@ const publicRoutes = [
       component: Home,
    },
    {
+      path: "/:category",
+      component: Products,
+   },
+   {
       path: "/search/:key",
       component: SearchResultPage,
-   },
-   {
-      path: "/dtdd",
-      component: Products,
-   },
-   {
-      path: "/laptop",
-      component: Products,
    },
    {
       path: "/:category/:key",

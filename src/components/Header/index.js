@@ -4,27 +4,17 @@ import {
    faLaptop,
    faMobileScreen,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import {getAll} from '../../store/actions'
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
-import Search from "../Search";
-import useStore from "../../hooks/useStore"
+import {Search, Modal} from "../../components";
 
 const cx = classNames.bind(styles);
 
 function Header() {
-   const [state, dispatch] = useStore()
-   const [show, setShow] = useState(false)
+   const [showModal, setShowModal] = useState(false);
    const defaultImage = require("../../assets/images/avatar.jpg");
-   const navigate = useNavigate()
-
-   const handleGetAll = async(e, category) => {
-      e.preventDefault()
-      await getAll(dispatch, {category: category, page: 1})
-      navigate(`/${category}`)
-   }
 
    return (
       <>
@@ -37,7 +27,7 @@ function Header() {
                   <a className={cx("brand")} href="/">
                      HD Shop
                   </a>
-               <Search setShowOverlay={setShow}/>
+               <Search setShowModal={setShowModal}/>
                   <div className={cx("user-cta")}>
                      <span className={cx("user-name")}>Nguyễn Hữu Đạt</span>
                      <div className={cx("image-frame")}>
@@ -51,36 +41,35 @@ function Header() {
                   <ul className={cx("nav-list")}>
                      <li className={cx("nav-item")}>
                      
-                        <a href={"/dtdd"}
-                        onClick={(e) => handleGetAll(e, "dtdd")}
-                     
+                        <Link to={"/dtdd"}
                         >
                         <span>
                            <FontAwesomeIcon icon={faMobileScreen} />
                         </span>
-                           Điện thoại</a>
+                           Điện thoại</Link>
                      </li>
                      <li className={cx("nav-item")}>
-                        <a href={"/laptop"} 
-                           onClick={(e) => handleGetAll(e, "laptop")}
+                        <Link to={"/laptop"} 
                         >
                         <span>
                            <FontAwesomeIcon icon={faLaptop} />
                         </span>
-                           Laptop</a>
+                           Laptop</Link>
                      </li>
                      <li className={cx("nav-item")}>
-                        <a to={"/phukien"}>
+                        <Link to={"/laptop"}>
                         <span>
                            <FontAwesomeIcon icon={faHeadphones} />
                         </span>
-                           Phụ kiện</a>
+                           Phụ kiện</Link>
                      </li>
                   </ul>
                </div>
             </div>
          </div>
-         <div className={cx("overlay", show ? "on" : "")} onClick={() => setShow(false)}></div>
+        {showModal && <Modal showModal={showModal} setShowModal={setShowModal}>
+         </Modal>}
+
       </>
    );
 }
