@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from '../ProductFilter.module.scss';
-import Continents from './Continents'
+// import Continents from './Continents'
 import useStore from '../../../hooks/useStore';
 
 const cx = classNames.bind(styles);
 
-function Checkbox({ handleFilter, category }) {
+function Checkbox({ handleFilter, data }) {
    const [checked, setChecked] = useState([]);
    const [state, dispatch]  = useStore()
 
@@ -24,17 +24,17 @@ function Checkbox({ handleFilter, category }) {
 
    return (
       <>
-         {Continents[category].map((item) => {
+         {data && data.map((item, index) => {
             return (
-               <div key={item.id} className={cx('filter-item')}>
+               <div key={index} className={cx('filter-item')}>
                   <a to={'/ddtd'}>
                      <input
                         type="checkbox"
-                        checked={checked.indexOf(item.value) === -1 ? false : true}
-                        //    checked={false}
-                        onChange={() => handleToggle(item.array ? item.array : item.value)}
+                        checked={checked.indexOf(item.href) === -1 ? false : true}
+                        // item.array la cho filter by price
+                        onChange={() => handleToggle(item.href)}
                      />
-                     <span className={cx('label')}>{item.value}</span>
+                     <span className={cx('label')}>{item.text}</span>
                   </a>
                </div>
             );

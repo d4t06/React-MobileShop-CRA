@@ -28,8 +28,8 @@ function ProductItem({ data: products, searchResultPage }) {
             {products ? (
                products.map((item, index) => {
                   const feature = item.feature
-                     .slice(0, item.feature.length - 1)
-                     .split('&');
+                     .slice(0, item.feature.length - 5)
+                     .split('*and*');
                   return (
                      <div
                         key={index}
@@ -65,7 +65,8 @@ function ProductItem({ data: products, searchResultPage }) {
                                  <span className={cx('event-label')}>
                                     {item.label}
                                  </span>
-                              )}
+                              )
+                           }
                            </div>
                           {item.intallment && <div className={cx("product-item-installment")}>
                               <span>Trả góp 0%</span>

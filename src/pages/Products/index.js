@@ -67,7 +67,7 @@ function Product({}) {
                         )}
                      </div>
                   </div>
-                  <ProductFilter />
+                  <ProductFilter category={category} />
                </div>
             </>}
         

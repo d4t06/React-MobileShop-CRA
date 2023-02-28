@@ -6,29 +6,35 @@ import styles from './ProductFilter.module.scss';
 
 import Checkbox from './sections/Checkbox';
 import Radiobox from './sections/Radiobox';
+
+import { brand, price } from '../../assets/data';
 import {getAll} from '../../store/actions'
+import {handleFilter} from '../../utils/handleFilter';
 
 const cx = classNames.bind(styles);
 
-function ProductFilter() {
+function ProductFilter({category}) {
   const [state, dispatch] = useStore()
 
    const [Filters, setFilters] = useState({});
 
-   const showFilteredResults = (filters) => {
+  //  const showFilteredResults = (filters) => {
     
-      const {data, status, href, ...rest} = state
-      getAll(dispatch, {...rest ,filters:filters})
-   }
+  //     const {data, status, href, ...rest} = state
+  //     getAll(dispatch, {...rest ,filters:filters})
+  //  }
 
-    const handleFilter = (filters, category) => {
+  //   const handleFilter = (filters, by) => {
 
-      const newFilters = {...Filters}; // lay tu state
-      newFilters[category] = filters; // cap nhap
+  //     const newFilters = {...Filters}; // lay tu state
+  //     newFilters[by] = filters; // cap nhap
 
-      showFilteredResults(newFilters)
-      setFilters(newFilters) // set lai state
-   };
+  //     showFilteredResults(newFilters)
+  //     setFilters(newFilters) // set lai state
+  //  };
+  const newFilters = handleFilter()
+  console.log(newFilters)
+
    return (
       <div className={ cx('col', 'col-3') }>
         <div className={ cx('product-filter') }>
@@ -40,20 +46,20 @@ function ProductFilter() {
               { /* tại vì mỗi checkbook có một state riêng, state lấy dữ liệu từ nhiều item, nhưng không thể render nhiều checkbox */ }
               { /* ban đầu render nhiều checkbox */ }
               { /* fix: chỉ có mỗi checkbox nhưng trong checkbox có nhiều item */ }
-              <Checkbox handleFilter={ (filters) => handleFilter(filters, 'brand') } category={ 'brand' } />
+              <Checkbox data={brand[category]} handleFilter={ (filters) => handleFilter(filters, 'brand', Filters) } by={'brand'} />
               {/* truyền handleFilter vào cop Checkbox, chực hiện sau trể về đối số là filter sau đó tt*/}
             </div>
           </div>
           <div className={ cx('filter-section') }>
             <h2 className={ cx('filter-title') }>Mức giá</h2>
-            <div className={ cx('filter-list') }>
-              <Radiobox handleFilter={ (filter) => handleFilter(filter, 'price') } category={ "price" } />
+            <div className={ cx('filter-list', 'price') }>
+              <Radiobox data={price[category]} handleFilter={ (filter) => handleFilter(filter, 'price') } by={'price'} />
             </div>
           </div>
           <div className={ cx('filter-section') }>
             <h2 className={ cx('filter-title') }>Tính năng đặc biệt</h2>
             <div className={ cx('filter-list') }>
-              <Checkbox handleFilter={ (filter) => handleFilter(filter, 'feature') } category={ "feature" } />
+              {/* <Checkbox handleFilter={ (filter) => handleFilter(filter, 'feature') } by={'feature'} category={ "feature" } /> */}
             </div>
           </div>
         </div>

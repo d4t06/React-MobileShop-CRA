@@ -5,7 +5,7 @@ import useStore from '../../../hooks/useStore';
 const cx = classNames.bind(styles);
 
 
-function Radiobox({ handleFilter, category }) {
+function Radiobox({ handleFilter, data }) {
    const [state, dispatch] = useStore()
    // const [checked, setChecked] = useState([]);
 
@@ -19,9 +19,9 @@ function Radiobox({ handleFilter, category }) {
 
    return (
       <>
-         {Continents[category].map((item) => {
+         {data.map((item, index) => {
             return (
-               <div key={item.id} className={cx('filter-item')}>
+               <div key={index} className={cx('filter-item')}>
                   <a to={'/ddtd'}>
                      <input
                         type="radio"
@@ -29,7 +29,7 @@ function Radiobox({ handleFilter, category }) {
                         onClick={(e) => handleToggle(item.array, e)}
                         // onChange={() => handleFilter(item.array)}
                      />
-                     <span className={cx('label')}>{item.value}</span>
+                     <span className={cx('label')}>{item.text}</span>
                   </a>
                </div>
             );

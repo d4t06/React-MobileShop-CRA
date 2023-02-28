@@ -1,4 +1,7 @@
-const initState = {};
+const initState = {
+   filters: {},
+   sort: {}
+};
 
 const reducer = (state, action) => {
    console.log('reducer ', action);
@@ -17,8 +20,8 @@ const reducer = (state, action) => {
             category: action.category || 'search',
             page: action.page || 1,
             data: action.payload,
-            filters: action.filters || '',
-            sort: action.sort || '',
+            filters: action.filters || {},
+            sort: action.sort || {},
          };
       case 'GET_ONE':
          return {
