@@ -62,8 +62,8 @@ function DetailProductItem({ data }) {
             <>
                <div className={cx('product-header')}>
                   <p>
-                     Điện thoại
-                     {}
+                    {data.category === 'dtdd' ? "Điện thoại " : "Laptop "}
+                    {data.name}
                   </p>
                   <div className={cx('header-box')}>
                      <span>
@@ -88,19 +88,20 @@ function DetailProductItem({ data }) {
                         <span className={cx('cur-price')}>
                            {moneyFormat(data?.cur_price)}₫
                         </span>
-                        <span className={cx('old-price')}>
-                           {moneyFormat(data?.old_price)}₫
-                        </span>
+                        {data.old_price && <span className={cx('old-price')}>
+                           {moneyFormat(data?.old_price)}₫ |
+                        </span>}
                         <span className={cx('vat-tag')}>
-                           | Đã bao gồm 10% VAT
+                           Đã bao gồm 10% VAT
                         </span>
                      </div>
                      <div className={cx('product-options')}>
+                        <h2>{`Phiên bản:`}</h2>
                         {memories && (
                            <div className={cx('option-group')}>
-                              {memories.map((item) => {
+                              {memories.map((item, index) => {
                                  return (
-                                    <div className={cx('option')}>
+                                    <div className={cx('option', index == 0 && 'active')}>
                                        <p>{item}</p>
                                        <span>+ 500.000₫</span>
                                     </div>
@@ -108,12 +109,13 @@ function DetailProductItem({ data }) {
                               })}
                            </div>
                         )}
+                        <h2 style={{marginTop: '7px'}}>Màu:</h2>
                         <div className={cx('option-group')}>
                            {colors && (
                               <>
-                                 {colors?.map((item) => {
+                                 {colors?.map((item, index) => {
                                     return (
-                                       <div className={cx('option')}>
+                                       <div className={cx('option', index == 0 && 'active')}>
                                           <p>{item}</p>
                                           <span>+ 200.000₫</span>
                                        </div>
@@ -232,7 +234,9 @@ function DetailProductItem({ data }) {
                      </button>
                   </div>
                </div>
-               <div className="row">{/* <ProductRate /> */}</div>
+               <div className="row">
+                  <ProductRate />
+                  </div>
                <div className={cx('row')}>
                   <div className={cx('product-suggest')}>
                      <h1 className={cx('suggest-title')}>

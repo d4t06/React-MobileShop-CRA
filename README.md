@@ -39,3 +39,7 @@
 
 ### update thứ 2 27/2/2023
 - Thêm com modal
+
+### update thứ 4 29/2/2023
+- Sửa lại layout trang product
+- SelectedSort tương tác được

@@ -47,9 +47,9 @@ function Product({}) {
          { data?.rows && 
             <>
                {category && <ImageSlider category={category} />}
-               {category && <BrandSort category={category} />}
                <div className={cx('product-body', 'row')}>
                   <div className="col col-9">
+               {category && <BrandSort category={category} count={count}/>}
                      {rows && <ProductItem data={rows} category={category} />}
                      <div className={cx('pagination')}>
                         {rows && (

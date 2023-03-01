@@ -10,6 +10,7 @@ function DetailPage() {
    useEffect(() => {
       const fetchData = async () => {
          const response = await productServices.getProductDetail({href: key, category: category})
+         console.log(response);
          if (response) setProduct(response)
       }
       fetchData()

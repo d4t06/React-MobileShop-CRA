@@ -13,7 +13,6 @@ function Radiobox({ handleFilter, data }) {
       if (state.status == 'loading') {
          e.preventDefault()
       };
-      console.log("pass")
       handleFilter(array);
    };
 

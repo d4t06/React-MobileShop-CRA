@@ -36,14 +36,9 @@ const brand = {
          href: 'oppo',
       },
       {
-         image: 'https://cdn.tgdd.vn/Brand/1/Mobell42-b_19.jpg',
-         text: 'Mobell',
-         href: 'mobell',
-      },
-      {
-         image: 'https://cdn.tgdd.vn/Brand/1/Masstel42-b_0.png',
-         text: 'Masstel',
-         href: 'masstel',
+         image: 'https://cdn.tgdd.vn/Brand/1/tcl-logo-lon-220x48.jpg',
+         text: 'Tcl',
+         href: 'tcl',
       },
    ],
    laptop: [
@@ -119,6 +114,10 @@ const demand = {
       },
    ],
    dtdd: [
+      {
+         text: 'Tất cả',
+         href: 'tat-ca',
+      },
       {
          text: 'Chơi game - Cấu hình cao',
          href: 'choi-game',

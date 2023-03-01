@@ -23,20 +23,16 @@ function ProductFilter({category}) {
    }
 
     const handleFilter = (filters, by) => {
+
+      console.log("filters = ", filters)
       const newFilters = {...Filters}; // lay tu stat
-
-      // console.log("newFilters = ", newFilters)
-
-      // if (Array.isArray(newFilters[by])) {
-      //   newFilters[by].push(...filters)
-      // } else {
-      //   newFilters[by] = filters
-      // }
 
       newFilters[by] = filters; // cap nhap
 
+  
+
       showFilteredResults(newFilters)
-      // setFilters(newFilters) // set lai state
+      setFilters(newFilters)
    };
 
    return (

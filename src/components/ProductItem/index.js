@@ -22,7 +22,7 @@ function ProductItem({ data: products, searchResultPage }) {
    // };
 
    return (
-      <>
+      <div className={cx("product-container")}>
          <ProductSort />
          <div className="row">
             {products ? (
@@ -83,7 +83,7 @@ function ProductItem({ data: products, searchResultPage }) {
                                     </p>
                                  ))}
                               </div>
-                              {item.category === 'dtdd' && (
+                              {/* {item.category === 'dtdd' && (
                                  <div className={cx('product-item-memory')}>
                                     <button
                                        className={cx('memory-item', 'active')}
@@ -94,10 +94,10 @@ function ProductItem({ data: products, searchResultPage }) {
                                        128GB
                                     </button>
                                  </div>
-                              )}
-                              <div className={cx('gift')}>
+                              )} */}
+                              {/* <div className={cx('gift')}>
                                  {!!item.gift && <span>{item.gift}</span>}
-                              </div>
+                              </div> */}
                               <div className={cx('product-item_price')}>
                                  {item.old_price && (
                                     <div>
@@ -118,13 +118,13 @@ function ProductItem({ data: products, searchResultPage }) {
                                        </span>
                                     </div>
                                  )}
-                                 <span
+                                 <h1
                                     className={cx(
                                        'product-item_price--current'
                                     )}
                                  >
-                                    {moneyFormat(item.cur_price)}
-                                 </span>
+                                    {moneyFormat(item.cur_price)}₫
+                                 </h1>
                               </div>
                            </div>
                         </div>
@@ -135,7 +135,7 @@ function ProductItem({ data: products, searchResultPage }) {
                <h1>IWhduawhdu</h1>
             )}
          </div>
-      </>
+      </div>
    );
 }
 

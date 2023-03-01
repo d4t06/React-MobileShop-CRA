@@ -12,7 +12,7 @@ import { getAll } from '../../store/actions';
 
 const cx = classNames.bind(styles);
 
-function BrandSort({ category }) {
+function BrandSort({ category, count }) {
    const [state, dispatch] = useStore()
    const [Filters, setFilters] = useState({})
 
@@ -33,22 +33,19 @@ function BrandSort({ category }) {
    return (
       <>
          <div className={cx('brand-sort')}>
-            {category === 'dtdd' ? <h1>Điện thoại</h1> : <h1>Laptop</h1>}
+            {category === 'dtdd' ? <h1>Điện thoại {`( `}<span style={{color: '#cd1818'}}>{count}</span>{` )`} sản phẩm</h1> : <h1>Laptop</h1>}
+            {/* <h1 className={cx('count')}>{`(${count}) Sản phẩm`}</h1> */}
             <div className={cx('container')}>
                {/* selected sort luon thay dổi mỗi khi state thay dổi */}
-               {state.filters?.brand?.length ? <SelectedSort data={state.filters.brand} handleFilter={handleFilter}/> :<DemandItem
+               {state.filters?.brand?.length ? <SelectedSort data={state.filters} handleFilter={(filter => handleFilter(filter, 'brand'))}/> :<DemandItem
                category={category}
                data = {brand[category]}
                handleFilter={ (filter) => handleFilter(filter, 'brand') }
                />}
             </div>
          </div>
-         <div className={cx('demand-sort')}>
-            {category === 'dtdd' ? (
-               <h1>Điện thoại theo nhu cầu </h1>
-            ) : (
-               <h1>Laptop theo nhu cầu</h1>
-            )}
+         {/* <div className={cx('demand-sort')}>
+          <h1>Nhu cầu</h1>
             <div className={cx('container')}>
                <DemandItem
                   demand
@@ -56,7 +53,7 @@ function BrandSort({ category }) {
                   handleFilter={ (filter) => handleFilter(filter, 'price') }
                />
             </div>
-         </div>
+         </div> */}
       </>
    );
 }
