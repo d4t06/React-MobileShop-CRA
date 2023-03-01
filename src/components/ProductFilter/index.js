@@ -56,12 +56,12 @@ function ProductFilter({category}) {
               <Radiobox data={price[category]} handleFilter={ (filter) => handleFilter(filter, 'price') } />
             </div>
           </div>
-          <div className={ cx('filter-section') }>
+          {/* <div className={ cx('filter-section') }>
             <h2 className={ cx('filter-title') }>Tính năng đặc biệt</h2>
             <div className={ cx('filter-list') }>
-              {/* <Checkbox handleFilter={ (filter) => handleFilter(filter, 'feature') } by={'feature'} category={ "feature" } /> */}
+              <Checkbox handleFilter={ (filter) => handleFilter(filter, 'feature') } by={'feature'} category={ "feature" } />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
    );

@@ -53,9 +53,6 @@ function Footer() {
             <li>
               Hệ thống cửa hàng
             </li>
-            <li>
-              anwid
-            </li>
           </ul>
         </div>
       </div>

@@ -30,7 +30,10 @@ function Product({}) {
    useEffect(() => {
       const fetch = async () => {
          const result = await productServices.getProducts({category: category, page: 1})
-         dispatch({type: "GET_ALL", status: "finished", payload: result, category: category, page: 1})
+         if (result) {
+            dispatch({type: "GET_ALL", status: "finished", payload: result, category: category, page: 1})
+         }
+         return;
       }
       fetch()
    }, [category])
@@ -44,7 +47,6 @@ function Product({}) {
    // console.log("product re-render");
    return (
       <div className={cx('product-container')}>
-         { data?.rows && 
             <>
                {category && <ImageSlider category={category} />}
                <div className={cx('product-body', 'row')}>
@@ -69,7 +71,7 @@ function Product({}) {
                   </div>
                   <ProductFilter category={category} />
                </div>
-            </>}
+            </>
         
       </div>
    );

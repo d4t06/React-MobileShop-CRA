@@ -23,6 +23,7 @@ export const getProducts = async (querys) => {
       return response.data
    } catch (error) {
       console.log("loi getProducts services", error);
+      return []
    }
 };
 export const getProductDetail = async (querys) => {

@@ -28,7 +28,8 @@
    height: 900px;
    .box_right {
       height: 100%;
-      overflow-y: auto;
+      // overflow-y: auto;
+      background-color: #f9f9f9;
    }
 }
 .product-price {
@@ -56,15 +57,20 @@
 
    .option-group {
       display: flex;
-      overflow-y: auto;
+      flex-wrap: wrap;
+      // overflow-y: auto;
       gap: 10px;
       padding: 4px 0;
       .option {
          min-width: 100px;
-         border: 2px solid #999;
+         border: 3px solid #999;
          border-radius: 4px;
          padding: 2px 4px;
          flex-shrink: 0;
+         &:hover {
+            border-color: #cd1818;
+         }
+         cursor: pointer;
 
          p {
             font-size: 1.5rem;
@@ -72,11 +78,11 @@
          }
          span {
             font-size: 1.4rem;
-            color: #ee4d2d;
+            color: #cd1818;
          }
       }
       .option.active {
-         border-color: #ee4d2d;
+         border-color: #cd1818;
       }
    }
 }

@@ -33,7 +33,9 @@ function BrandSort({ category, count }) {
    return (
       <>
          <div className={cx('brand-sort')}>
-            {category === 'dtdd' ? <h1>Điện thoại {`( `}<span style={{color: '#cd1818'}}>{count}</span>{` )`} sản phẩm</h1> : <h1>Laptop</h1>}
+            {category === 'dtdd' ?
+             <h1>Điện thoại {`( `}<span style={{color: '#cd1818'}}>{count}</span>{` )`} sản phẩm</h1> : 
+             <h1>Laptop {`( `}<span style={{color: '#cd1818'}}>{count}</span>{` )`} sản phẩm</h1>}
             {/* <h1 className={cx('count')}>{`(${count}) Sản phẩm`}</h1> */}
             <div className={cx('container')}>
                {/* selected sort luon thay dổi mỗi khi state thay dổi */}
