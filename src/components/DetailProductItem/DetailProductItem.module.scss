@@ -52,11 +52,11 @@
 }
 .product-options {
    margin-top: 10px;
-   overflow: auto;
+   // overflow: auto;
 
    .option-group {
       display: flex;
-      // overflow: auto;
+      overflow-y: auto;
       gap: 10px;
       padding: 4px 0;
       .option {

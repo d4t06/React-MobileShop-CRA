@@ -1,10 +1,14 @@
-function SelectedSort({ data }) {
+
+function SelectedSort({ data, handleFilter }) {
    return (
       <>
-         {data.brand &&
-            data.brand.map((item, index) => {
+         {data &&
+            data.map((item, index) => {
                return <span key={index}>{item}</span>;
             })}
+         <button
+         onClick={() => handleFilter([], 'brand')}
+         >Xoa tat ca</button>
       </>
    );
 }

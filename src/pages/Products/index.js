@@ -41,7 +41,7 @@ function Product({}) {
    };
 
 
-   console.log("product re-render");
+   // console.log("product re-render");
    return (
       <div className={cx('product-container')}>
          { data?.rows && 

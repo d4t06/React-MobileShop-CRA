@@ -95,7 +95,7 @@ function Search({setShowModal}) {
       navigate(`/search/${query}`);
    };
 
-   console.log('search re render');
+   // console.log('search re render');
    return (
       <Popup
          content={

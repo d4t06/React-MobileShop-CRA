@@ -16,10 +16,6 @@ const handleFilter = (filters, by, state) => {
     console.log(newFilters)
     return newFilters
 
-    // return newFilters
-
-    // showFilteredResults(newFilters)
-    // setFilters(newFilters) // set lai state
  };
 
  function Filter() {

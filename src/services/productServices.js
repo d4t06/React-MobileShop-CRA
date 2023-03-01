@@ -42,4 +42,20 @@ export const getProductDetail = async (querys) => {
    }
 };
 
+export const buyProduct = async (data) => {
+   if (!data) {
+      console.log("data missing !");
+      return
+   }
+   try {
+      request.post('/', {
+         body: {
+            ...data
+         }
+      })
+   } catch (error) {
+      console.log('buy product fail, ', error)
+   }
 
+
+}
