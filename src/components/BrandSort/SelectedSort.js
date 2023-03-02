@@ -30,6 +30,16 @@ function SelectedSort({ data, handleFilter }) {
                   </span>
                );
             })}
+         {
+            data.price && (
+               <span
+                  // onClick={() => handleToggle(item)}
+                  className={cx('filter-item')}
+               >
+                  {data.price[0]} triệu - {data.price[1]} triệu <strong>X</strong>
+               </span>
+            )
+         }
         {data.brand.length > 1 && <button
             className={cx('clear-filter')}
             onClick={() => handleFilter([], 'brand')}

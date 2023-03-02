@@ -7,7 +7,7 @@ function ProductRate() {
    return (
       <div className={cx('col-full', 'product-rate')}>
                <div className={cx('rate-container')}>
-                  <h1>Đánh giá điện thoại</h1>
+                  <h1>Đánh giá</h1>
                   <div className={cx('rate-body')}>
                      <div className={cx('rate-left', 'col-5')}>
                         <div className={cx('header-box', 'rate-top')}>

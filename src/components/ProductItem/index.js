@@ -8,21 +8,9 @@ import ProductSort from '../ProductSort';
 
 const cx = classNames.bind(styles);
 function ProductItem({ data: products, searchResultPage }) {
-   // const [state, dispatch] = useContext(Context);
-   // const nagative = useNavigate();
-
-   // const handleDetailPage = (e, params) => {
-   //    e.preventDefault();
-   //    dispatch({
-   //       type: 'GET_ONE',
-   //       category: params.category,
-   //       href: params.href,
-   //    });
-   //    nagative(`/${params.category}/${params.href}`);
-   // };
 
    return (
-      <div className={cx("product-container")}>
+      <div className={cx('product-container')}>
          <ProductSort />
          <div className="row">
             {products ? (
@@ -42,12 +30,6 @@ function ProductItem({ data: products, searchResultPage }) {
                            <Link
                               to={`/${item.category}/${item.href}`}
                               className={cx('product-item-frame')}
-                              // onClick={(e) =>
-                              //    handleDetailPage(e, {
-                              //       href: item.href,
-                              //       category: item.category,
-                              //    })
-                              // }
                            >
                               <img
                                  className={cx('product-item-image')}
@@ -65,12 +47,13 @@ function ProductItem({ data: products, searchResultPage }) {
                                  <span className={cx('event-label')}>
                                     {item.label}
                                  </span>
-                              )
-                           }
+                              )}
                            </div>
-                          {item.intallment && <div className={cx("product-item-installment")}>
-                              <span>Trả góp 0%</span>
-                           </div>}
+                           {item.intallment && (
+                              <div className={cx('product-item-installment')}>
+                                 <span>Trả góp 0%</span>
+                              </div>
+                           )}
                            <div className={cx('product-item-body')}>
                               <h4 className={cx('product-item_name')}>
                                  {item.name}
@@ -99,31 +82,33 @@ function ProductItem({ data: products, searchResultPage }) {
                                  {!!item.gift && <span>{item.gift}</span>}
                               </div> */}
                               <div className={cx('product-item_price')}>
-                                 {item.old_price && (
-                                    <div>
-                                       <span
-                                          className={cx(
-                                             'product-item_price--old'
-                                          )}
-                                       >
-                                          {moneyFormat(item.old_price)}₫
-                                       </span>
+                                 <div className={cx('price-top')}>
+                                    <span
+                                       className={cx('product-item_price--old')}
+                                    >
+                                       {item.old_price &&
+                                          moneyFormat(item.old_price)}
+                                    </span>
+                                    {item.old_price && (
                                        <span className={cx('discount-percent')}>
                                           -
                                           {(
-                                             (item.old_price - item.cur_price) /
-                                             item.old_price
+                                             ((item.old_price -
+                                                item.cur_price) /
+                                                item.old_price) *
+                                             100
                                           ).toFixed(0)}
                                           %
                                        </span>
-                                    </div>
-                                 )}
+                                    )}
+                                 </div>
+
                                  <h1
                                     className={cx(
                                        'product-item_price--current'
                                     )}
                                  >
-                                    {moneyFormat(item.cur_price)}₫
+                                    {moneyFormat(item.cur_price)}
                                  </h1>
                               </div>
                            </div>

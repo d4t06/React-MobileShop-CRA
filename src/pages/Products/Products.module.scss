@@ -16,21 +16,7 @@
 .product-body {
     margin-top: 15px;
 }
-
 .pagination {
+    margin-top: 15px;
     text-align: center;
-    margin-top: 20px;
-
-    .see-more-product {
-        border: 1px solid red;
-        padding: 10px 30px;
-        font-size: 1.6rem;
-        background-color: transparent;
-
-        border-radius: 5px;
-         &:hover {
-            background-color: #cd1818;
-            color: #fff;
-        }
-    }
 }
