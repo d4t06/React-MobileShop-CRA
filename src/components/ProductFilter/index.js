@@ -25,9 +25,11 @@ function ProductFilter({category}) {
     const handleFilter = (filters, by) => {
 
       console.log("filters = ", filters)
-      const newFilters = {...Filters}; // lay tu stat
+      let newFilters = {...Filters}; // lay tu stat
 
       newFilters[by] = filters; // cap nhap
+
+      // if (newFilters[by] === '') newFilters = {}
 
   
 

@@ -20,7 +20,7 @@ const cx = classNames.bind(styles);
 function Product({}) {
    const [state, dispatch] = useContext(Context);
    const { category } = useParams();
-   // console.log('state = ', state);
+   console.log('state = ', state);
 
    const { data, status, page, ...rest } = state;
    const { rows, count } = data ? data : [];

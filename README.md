@@ -44,10 +44,17 @@
 - Sửa lại layout trang product
 - SelectedSort tương tác được
 
-### update thứ 5 2/32023
+### update thứ 5 1/3/2023
 - Sửa css DetailProductItem
 - Sửa css ProductItem
 - Fix không reset index khi chuyển giữa dtdd và laptop
 - Thêm transition cho ImageSlider, tự đông next ảnh, sửa css
 - Thêm component Button
-- Chưa fix được tương tác SelecteSort và filter price
+- issue : Chưa fix được tương tác SelecteSort và filter price
+
+### update thứ 6 2/3/2023
+- Đặt sort theo bán chạy nhât sẽ không chuyền param, thêm sort theo trả góp
+- filter price tất cả sẽ không truyền paramn
+- Fix issue selected sort nhưng chưa xong
+- Nếu không có filter thì gía trị là ''
+- Thêm input tất cả cho các filter

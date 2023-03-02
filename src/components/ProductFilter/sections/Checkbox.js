@@ -11,11 +11,13 @@ function Checkbox({ handleFilter, data }) {
    const [checked, setChecked] = useState([]);
 
    const handleToggle = (value) => {
-      const newChecked = [...checked];
+      let newChecked = [...checked];
       const currentIndex = newChecked.indexOf(value);
 
       if (currentIndex === -1) newChecked.push(value);
       else newChecked.splice(currentIndex, 1);
+
+      if (JSON.stringify(newChecked) === '[]') newChecked= '';
 
       setChecked(newChecked);
       handleFilter(newChecked);

@@ -7,11 +7,11 @@ import Context from '../../store/Context';
 import ProductSort from '../ProductSort';
 
 const cx = classNames.bind(styles);
-function ProductItem({ data: products, searchResultPage }) {
+function ProductItem({ data: products, searchResultPage, category }) {
 
    return (
       <div className={cx('product-container')}>
-         <ProductSort />
+         <ProductSort category={category} />
          <div className="row">
             {products ? (
                products.map((item, index) => {

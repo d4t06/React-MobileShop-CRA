@@ -5,7 +5,7 @@ const request = axios.create({
 });
 
 export const getProducts = async (querys) => {
-   console.log("service querys", querys)
+   // console.log("service querys", querys)
    const {filters, sort, ...rest} = querys
    
    if (!querys) {
@@ -13,14 +13,15 @@ export const getProducts = async (querys) => {
       return []
    }
    try {
-      const response = await request.get(`/`, {
-         params: {
-            ...rest,
-            ...filters, //brand='samsung,iphone'
-            ...sort //column=cur_price&type=asc
-         }
-      })
-      return response.data
+      // const response = await request.get(`/`, {
+      //    params: {
+      //       ...rest,
+      //       ...filters, //brand='samsung,iphone'
+      //       ...sort //column=cur_price&type=asc
+      //    }
+      // })
+      // return response.data
+      return []
    } catch (error) {
       console.log("loi getProducts services", error);
       return []

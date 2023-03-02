@@ -5,47 +5,50 @@ const cx = classNames.bind(styles);
 
 function SelectedSort({ data, handleFilter }) {
    const handleToggle = (string) => {
-
-      console.log('click')
+      console.log('click');
       const index = data.brand.indexOf(string);
-      const newChecked = data.brand
+      const newChecked = data.brand;
       newChecked.splice(index, 1);
       // console.log("newChecked = ", newChecked)
 
       handleFilter(newChecked);
    };
-   console.log(data);
+   console.log('data selected sord = ', data);
    return (
       <>
-         <h2>Bộ lọc:</h2>
-         {data &&
-            data.brand.map((item, index) => {
-               return (
+     
+               <h2>Bộ lọc:</h2>
+               {data.brand &&
+                  data?.brand.map((item, index) => {
+                     return (
+                        <span
+                           onClick={() => handleToggle(item)}
+                           className={cx('filter-item')}
+                           key={index}
+                        >
+                           {item} <strong>X</strong>
+                        </span>
+                     );
+                  })}
+               {data?.price && (
                   <span
-                     onClick={() => handleToggle(item)}
+                     // onClick={() => handleToggle(item)}
                      className={cx('filter-item')}
-                     key={index}
                   >
-                     {item} <strong>X</strong>
+                     {data.price[0]} triệu - {data.price[1]} triệu{' '}
+                     <strong>X</strong>
                   </span>
-               );
-            })}
-         {
-            data.price && (
-               <span
-                  // onClick={() => handleToggle(item)}
-                  className={cx('filter-item')}
-               >
-                  {data.price[0]} triệu - {data.price[1]} triệu <strong>X</strong>
-               </span>
-            )
-         }
-        {data.brand.length > 1 && <button
-            className={cx('clear-filter')}
-            onClick={() => handleFilter([], 'brand')}
-         >
-            Xóa tất cả
-         </button>}
+               )}
+               {data?.brand?.length > 1 ||
+                  (data?.brand?.length > 0 && data.price && (
+                     <button
+                        className={cx('clear-filter')}
+                        onClick={() => handleFilter([], 'brand')}
+                     >
+                        Xóa tất cả
+                     </button>
+                  ))}
+         
       </>
    );
 }

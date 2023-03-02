@@ -3,12 +3,13 @@ import styles from './ProductSort.module.scss';
 import { useState } from 'react';
 import { getAll, getSearchPage } from '../../store/actions';
 import useStore from '../../hooks/useStore';
+import { useEffect } from 'react';
 const cx = classNames.bind(styles);
 
 const contiments = [
    {
       id: 1,
-      value: 'Bán chạy nhất',
+      value: 'Mới nhất',
       column: '',
       type: '',
    },
@@ -32,20 +33,31 @@ const contiments = [
    },
 ];
 
-function ProductSort() {
+function ProductSort({category}) {
    const [state, dispatch] = useStore();
    const [checked, setChecked] = useState(1);
 
    const {data, href, status, ...rest} = state
 
-   const handleFilter = (id) => {
+   useEffect(() => {
+      if (checked ===  1) return;
+      setChecked(1)
+   }, [category])
+
+   const handleSort = (id) => {
       // console.log("sort state ", state)
       if (id) {
-         const sort = {
+         let sort = {
             column: contiments[id - 1].column,
             type: contiments[id - 1].type,
          };
+
+         // nếu là tất cả
+         if (!sort.column) sort = '';
+
          const { category, page } = state;
+
+         // nếu filter ở search page
          if (state.category.includes('search')) {
             getSearchPage(dispatch,{ category: category, page: page, sort: sort });
          } else getAll(dispatch, { ...rest, sort: sort });
@@ -55,13 +67,11 @@ function ProductSort() {
    const handleToggle = (id) => {
       console.log(id);
       if (id !== checked) {
-         handleFilter(id);
+         handleSort(id);
          setChecked(id);
       }
    };
-   // console.log('sort checked re-render ', checked);
 
-   // console.log("checked = ", checked)
    return (
       <div className={cx('product-sort')}>
          <h1>Xem theo</h1>
