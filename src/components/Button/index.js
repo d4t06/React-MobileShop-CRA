@@ -15,6 +15,7 @@ function Button({
    onClick,
 }) {
    const classes = cx('wrapper', {
+      disable: count === 0,
       outline,
       fill,
       rounded,

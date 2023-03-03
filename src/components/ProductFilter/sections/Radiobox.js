@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from '../ProductFilter.module.scss';
 // import Continents from './Continents'
@@ -8,19 +8,21 @@ const cx = classNames.bind(styles);
 
 function Radiobox({ handleFilter, data }) {
    const [state, dispatch] = useStore()
-   const [checked, setChecked] = useState(state.filters.price || '');
+   const [checked, setChecked] = useState();
 
-   console.log("checked radio = ", checked)
+   // console.log("checked radio = ", checked)
 
-   const handleToggle = (array, e) => {
+   const handleToggle = (array) => {
       if (JSON.stringify(array) ==  JSON.stringify(checked)) return
-      // const newChecked = array
-      // if (state.status == 'loading') {
-      //    e.preventDefault()
-      // };
-      setChecked(array)
+
+      console.log("price value =", array)
       handleFilter(array);
+      setChecked(array)
    };
+
+   useEffect(() => {
+      setChecked(state.filters.price || '')
+   }, [state])
 
    return (
       <>
@@ -30,11 +32,11 @@ function Radiobox({ handleFilter, data }) {
                   <a to={'/ddtd'}>
                      <input
                         type="radio"
-                        name="price"
+                        id={item.text}
                         checked={JSON.stringify(checked) == JSON.stringify(item.array) ? true : false}
                         onChange={(e) => handleToggle(item.array, e)}
                      />
-                     <span className={cx('label')}>{item.text}</span>
+                     <label htmlFor={item.text} className={cx('label')}>{item.text}</label>
                   </a>
                </div>
             );

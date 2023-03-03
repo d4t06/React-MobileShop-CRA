@@ -1,6 +1,10 @@
 const brand = {
    dtdd: [
       {
+         text: 'Tất cả',
+         href: '',
+      },
+      {
          image: 'https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png',
          text: 'iPhone',
          href: 'iphone',
@@ -42,6 +46,10 @@ const brand = {
       },
    ],
    laptop: [
+      {
+         text: 'Tất cả',
+         href: '',
+      },
       {
          image: 'https://cdn.tgdd.vn/Brand/1/logo-macbook-149x40.png',
          text: 'Macbook',

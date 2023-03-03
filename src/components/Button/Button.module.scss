@@ -28,3 +28,9 @@
 .rounded {
    border-radius: 6px;
 }
+.disable {
+   opacity: .6;
+   pointer-events: none;
+   color: #fff;
+   background-color: #cd1818;
+}

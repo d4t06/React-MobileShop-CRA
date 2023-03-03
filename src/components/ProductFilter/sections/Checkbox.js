@@ -8,15 +8,20 @@ const cx = classNames.bind(styles);
 
 function Checkbox({ handleFilter, data }) {
    const [state, dispatch]  = useStore()
-   const [checked, setChecked] = useState([]);
+   const [checked, setChecked] = useState('');
 
    const handleToggle = (value) => {
       let newChecked = [...checked];
       const currentIndex = newChecked.indexOf(value);
 
-      if (currentIndex === -1) newChecked.push(value);
+      // nếu value là tát cả
+      if (!value) newChecked = '';
+
+      else if (currentIndex === -1) newChecked.push(value);
+
       else newChecked.splice(currentIndex, 1);
 
+      // nếu không chọn gì cả
       if (JSON.stringify(newChecked) === '[]') newChecked= '';
 
       setChecked(newChecked);
@@ -25,7 +30,7 @@ function Checkbox({ handleFilter, data }) {
 
    // cập nhật lại checked từ global state
    useEffect(() => {
-      setChecked(state.filters.brand || [])
+      setChecked(state.filters.brand || '')
    }, [state])
 
    return (
@@ -35,12 +40,13 @@ function Checkbox({ handleFilter, data }) {
                <div key={index} className={cx('filter-item')}>
                   <a to={'/ddtd'}>
                      <input
+                     id={item.text}
                         type="checkbox"
-                        checked={checked.indexOf(item.href) === -1 ? false : true}
+                        checked={checked.indexOf(item.href) !== -1 ? true : false}
                         // item.array la cho filter by price
                         onChange={() => handleToggle(item.href)}
                      />
-                     <span className={cx('label')}>{item.text}</span>
+                     <label htmlFor={item.text} className={cx('label')}>{item.text}</label>
                   </a>
                </div>
             );

@@ -1,3 +1,5 @@
+import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import styles from './BrandSort.module.scss';
 
@@ -5,21 +7,23 @@ const cx = classNames.bind(styles);
 
 function SelectedSort({ data, handleFilter }) {
    const handleToggle = (string) => {
-      console.log('click');
+
+      let newChecked = data.brand;
       const index = data.brand.indexOf(string);
-      const newChecked = data.brand;
       newChecked.splice(index, 1);
+
+      if (!newChecked.length) newChecked = ''
       // console.log("newChecked = ", newChecked)
 
-      handleFilter(newChecked);
+      handleFilter(newChecked, 'brand');
    };
-   console.log('data selected sord = ', data);
+   // console.log('data selected sord = ', data);
    return (
       <>
      
                <h2>Bộ lọc:</h2>
-               {data.brand &&
-                  data?.brand.map((item, index) => {
+               {data?.brand &&
+                  data?.brand?.map((item, index) => {
                      return (
                         <span
                            onClick={() => handleToggle(item)}
@@ -32,22 +36,24 @@ function SelectedSort({ data, handleFilter }) {
                   })}
                {data?.price && (
                   <span
-                     // onClick={() => handleToggle(item)}
+                     onClick={() => handleFilter('', 'price')}
                      className={cx('filter-item')}
                   >
                      {data.price[0]} triệu - {data.price[1]} triệu{' '}
                      <strong>X</strong>
                   </span>
                )}
-               {data?.brand?.length > 1 ||
-                  (data?.brand?.length > 0 && data.price && (
+               {(data?.brand?.length > 1 ||
+                  (data?.brand?.length > 0 && data.price)) && (
                      <button
                         className={cx('clear-filter')}
-                        onClick={() => handleFilter([], 'brand')}
+                        onClick={() => handleFilter('','clear')}
                      >
-                        Xóa tất cả
+                        <span>
+                           <FontAwesomeIcon icon={faDeleteLeft}/>
+                        </span>
                      </button>
-                  ))}
+                  )}
          
       </>
    );

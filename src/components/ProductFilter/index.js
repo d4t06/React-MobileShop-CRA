@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useStore from '../../hooks/useStore'
 
 import classNames from 'classnames/bind';
@@ -15,7 +15,7 @@ const cx = classNames.bind(styles);
 
 function ProductFilter({category}) {
   const [state, dispatch] = useStore()
-   const [Filters, setFilters] = useState(state.filters || {});
+   const [Filters, setFilters] = useState({});
 
    const showFilteredResults = (filters) => {
       const {data, status, href, ...rest} = state
@@ -23,19 +23,24 @@ function ProductFilter({category}) {
    }
 
     const handleFilter = (filters, by) => {
+      let newFilters = {...Filters};
+      console.log("old product filters = ", newFilters)
 
-      console.log("filters = ", filters)
-      let newFilters = {...Filters}; // lay tu stat
+      newFilters[by] = filters;
 
-      newFilters[by] = filters; // cap nhap
+      // nếu không có filter gì cả
+      if (!newFilters.price && !newFilters.brand) newFilters=  '';
+      console.log("new product filters = ", newFilters)
 
-      // if (newFilters[by] === '') newFilters = {}
-
-  
 
       showFilteredResults(newFilters)
       setFilters(newFilters)
    };
+
+   useEffect(() => {
+    // if (!Filters) return
+    setFilters(state.filters)
+   }, [state])
 
    return (
       <div className={ cx('col', 'col-3') }>

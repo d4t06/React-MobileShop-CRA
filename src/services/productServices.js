@@ -13,15 +13,15 @@ export const getProducts = async (querys) => {
       return []
    }
    try {
-      // const response = await request.get(`/`, {
-      //    params: {
-      //       ...rest,
-      //       ...filters, //brand='samsung,iphone'
-      //       ...sort //column=cur_price&type=asc
-      //    }
-      // })
-      // return response.data
-      return []
+      const response = await request.get(`/`, {
+         params: {
+            ...rest,
+            ...filters, //brand='samsung,iphone'
+            ...sort //column=cur_price&type=asc
+         }
+      })
+      return response.data
+      // return []
    } catch (error) {
       console.log("loi getProducts services", error);
       return []

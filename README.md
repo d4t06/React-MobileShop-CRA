@@ -58,3 +58,9 @@
 - Fix issue selected sort nhưng chưa xong
 - Nếu không có filter thì gía trị là ''
 - Thêm input tất cả cho các filter
+
+### update thứ 6 3.3/2023
+- Đã fix issue selected sort và filter
+- Fix searchPage trả về 'Không tìm thất nếu không có kết quả' và hiện loading trong lúc tìm kiếm
+- Đã thêm chọn tất cả cho filter
+- Craw data rate nhưng chưa xong

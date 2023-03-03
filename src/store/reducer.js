@@ -1,10 +1,10 @@
 const initState = {
-   filters: {},
-   sort: {}
+   filters: '',
+   sort: ''
 };
 
 const reducer = (state, action) => {
-   console.log('reducer ', action);
+   console.log('reducer ', action.filters);
 
    switch (action.type) {
       case 'loading':
@@ -20,8 +20,8 @@ const reducer = (state, action) => {
             category: action.category || 'search',
             page: action.page || 1,
             data: action.payload,
-            filters: action.filters || {},
-            sort: action.sort || {},
+            filters: action.filters || '',
+            sort: action.sort || '',
          };
       case 'GET_ONE':
          return {

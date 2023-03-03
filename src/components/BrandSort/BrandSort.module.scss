@@ -76,13 +76,11 @@
    }
 }
 .clear-filter {
-   padding: 4px 8px;
-   font-size: 1.6rem;
-   border-radius: 8px;
-   background-color: #666;
-   color: #fff;
+   font-size: 2.2rem;
+   background-color: transparent;
+   color: #666;
    &:hover {
-      background-color: #cd1818;
+      color: #cd1818;
       // color: #fff;
    } 
 }

@@ -23,13 +23,14 @@ function DemandItem({ data, handleFilter, demand = false }) {
       // }
 
       setChecked(string)
-      handleFilter([string])
+      handleFilter([string], 'brand')
    }
 
    return (
       <>
          {data &&
             data.map((item, index) => {
+               if (!item.image) return
                return (
                   <div
                      // to={``}

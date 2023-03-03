@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useStore from '../../hooks/useStore';
 
 import classNames from 'classnames/bind';
@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 
 function BrandSort({ category, count }) {
    const [state, dispatch] = useStore();
-   const [Filters, setFilters] = useState({});
+   const [Filters, setFilters] = useState('');
 
    const showFilteredResults = (filters) => {
       const { data, status, ...rest } = state;
@@ -22,8 +22,22 @@ function BrandSort({ category, count }) {
    };
 
    const handleFilter = (filters, by) => {
-      const newFilters = { ...Filters }; // lay tu state
-      newFilters[by] = filters; // cap nhap
+
+      let newFilters = { ...Filters };
+      console.log("old brandsort filters = ", newFilters) ;
+      console.log('brandsort filter = ', filters, by);
+
+      // nêu bấm nút xóa tất cả
+      if (by === 'clear') {
+         newFilters = ''
+      } else {
+         // nếu filter không có giá trị
+         if (!filters) newFilters[by] = ''
+         else newFilters[by] = filters; // cap nhap
+      }
+      // nếu không có filter gì cả
+      if (!newFilters.price && !newFilters.brand) newFilters=  '';
+      console.log("new brandsort filters =", newFilters);
 
       setFilters(newFilters); // set lai state
       showFilteredResults(newFilters);
@@ -31,7 +45,12 @@ function BrandSort({ category, count }) {
 
    const isFiltered = JSON.stringify(state.filters) !== '{}' && state?.filters?.brand || state?.filters?.price
 
-   console.log("isFiltered =", !!isFiltered)
+   useEffect(() => {
+      console.log("state filter useEffect = ", Filters);
+      // if (!Filters) return
+      // console.log("useEffect");
+      setFilters(state.filters)
+   }, [state])
 
    return (
       <>
@@ -54,14 +73,14 @@ function BrandSort({ category, count }) {
                {/* selected sort luon thay dổi mỗi khi state thay dổi */}
                {isFiltered ? (
                   <SelectedSort
-                     data={state.filters}
-                     handleFilter={(filter) => handleFilter(filter, 'brand')}
+                     data={Filters}
+                     handleFilter={(filter, by) => handleFilter(filter, by)}
                   />
                ) : (
                   <DemandItem
                      category={category}
                      data={brand[category]}
-                     handleFilter={(filter) => handleFilter(filter, 'brand')}
+                     handleFilter={(filter, by) => handleFilter(filter, by)}
                   />
                )}
             </div>

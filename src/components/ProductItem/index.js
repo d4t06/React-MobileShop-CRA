@@ -1,13 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './ProductItem.module.scss';
 import moneyFormat from '../../utils/moneyFormat.js';
-import Context from '../../store/Context';
 import ProductSort from '../ProductSort';
 
 const cx = classNames.bind(styles);
 function ProductItem({ data: products, searchResultPage, category }) {
+
+   console.log("products = ", products)
 
    return (
       <div className={cx('product-container')}>
@@ -117,7 +117,7 @@ function ProductItem({ data: products, searchResultPage, category }) {
                   );
                })
             ) : (
-               <h1>IWhduawhdu</h1>
+               <h1 className='col-full' style={{marginTop:"30px", textAlign: "center"}}>Không tìm thấy !!!</h1>
             )}
          </div>
       </div>
