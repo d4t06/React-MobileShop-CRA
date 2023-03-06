@@ -16,6 +16,7 @@ function Radiobox({ handleFilter, data }) {
       if (JSON.stringify(array) ==  JSON.stringify(checked)) return
 
       console.log("price value =", array)
+      // neu chon tat ca
       handleFilter(array);
       setChecked(array)
    };
@@ -36,7 +37,7 @@ function Radiobox({ handleFilter, data }) {
                         checked={JSON.stringify(checked) == JSON.stringify(item.array) ? true : false}
                         onChange={(e) => handleToggle(item.array, e)}
                      />
-                     <label htmlFor={item.text} className={cx('label')}>{item.text}</label>
+                     <label className={cx('label')}>{item.text}</label>
                   </a>
                </div>
             );

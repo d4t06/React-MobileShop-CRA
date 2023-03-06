@@ -12,14 +12,15 @@ function Checkbox({ handleFilter, data }) {
 
    const handleToggle = (value) => {
       let newChecked = [...checked];
-      const currentIndex = newChecked.indexOf(value);
-
-      // nếu value là tát cả
+      
+      // nếu chon là tát cả
       if (!value) newChecked = '';
-
-      else if (currentIndex === -1) newChecked.push(value);
-
-      else newChecked.splice(currentIndex, 1);
+      else {
+         const currentIndex = newChecked.indexOf(value);
+   
+         if (currentIndex === -1) newChecked.push(value);
+         else newChecked.splice(currentIndex, 1);
+      }
 
       // nếu không chọn gì cả
       if (JSON.stringify(newChecked) === '[]') newChecked= '';

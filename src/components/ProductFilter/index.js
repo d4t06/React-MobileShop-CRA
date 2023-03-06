@@ -23,10 +23,20 @@ function ProductFilter({category}) {
    }
 
     const handleFilter = (filters, by) => {
+
+     console.log(filters)        
       let newFilters = {...Filters};
       console.log("old product filters = ", newFilters)
 
-      newFilters[by] = filters;
+      // nếu chọn tất cả
+      if (filters === '') {
+        const {by, ...rest} = newFilters
+        newFilters = {rest}
+      }
+      else {
+        newFilters[by] = filters;
+      }
+
 
       // nếu không có filter gì cả
       if (!newFilters.price && !newFilters.brand) newFilters=  '';

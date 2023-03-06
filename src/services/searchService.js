@@ -8,7 +8,7 @@ export const searchService = async (query) => {
     try {
         const response = await request.get(`/search`, {
            params: {
-            ...query,
+            ...rest,
             ...sort
            }
         });
