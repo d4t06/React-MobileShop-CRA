@@ -1,7 +1,14 @@
-.image-slider {
+.image-slider-frame {
    position: relative;
-   // min-height: 275px;
+}
+.image-slider {
+   display: flex;
+   // position: relative;
+   overflow: hidden;
    height: 350px;
+   width: 100%;
+   scroll-behavior: smooth;
+
    // control
    .slider-control {
       position: absolute;
@@ -44,8 +51,8 @@
 
    // image
    .slider-item {
+      // display: inline-block;
       height: 100%;
-      position: absolute;
       transition: opacity .2s linear;
       transition-delay: 200ms;
       cursor: pointer;

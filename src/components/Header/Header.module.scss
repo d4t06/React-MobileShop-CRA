@@ -54,19 +54,23 @@
    background: linear-gradient(to right, #6c0a0a, #cd1818, #6c0a0a);
 }
 .nav-list {
+   height: 100%;
    display: flex;
    gap: 20px;
 }
 .nav-item {
    color: #fff;
    font-size: 1.6rem;
-   line-height: 30px;
+   // line-height: 30px;
 }
 .nav-item a {
+   height: 100%;
+   display: flex;
+   align-items: center;
    font-weight: 500;
-}
-.nav-item span {
-   margin-right: 5px;
+   .nav-text {
+      margin-left: 5px;
+   }
 }
 .nav-item:hover {
    color: #666;

@@ -64,7 +64,6 @@
    padding: 4px 8px;
    color: #666;
    border: 1px solid #666;
-   // background-color: #e1e1e1;
 
    font-size: 1.6rem;
    border-radius: 8px;
@@ -74,13 +73,22 @@
       border-color: #cd1818;
       color: #cd1818;
    }
+   // p {
+   // line-height: 30px;
+
+   // }
 }
 .clear-filter {
+   height: 30px;
    font-size: 2.2rem;
    background-color: transparent;
    color: #666;
    &:hover {
       color: #cd1818;
       // color: #fff;
-   } 
+   }
+   span {
+      display: inline-block;
+      padding-top: 3px;
+   }
 }

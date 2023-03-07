@@ -1,7 +1,5 @@
 import axios from "axios";
 
-// console.log(process.env);
-
 const request = axios.create({
    baseURL: "http://localhost:3000/api",
 });

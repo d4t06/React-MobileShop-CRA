@@ -64,3 +64,10 @@
 - Fix searchPage trả về 'Không tìm thất nếu không có kết quả' và hiện loading trong lúc tìm kiếm
 - Đã thêm chọn tất cả cho filter
 - Craw data rate nhưng chưa xong
+
+
+### update thứ 3 7/3/2023
+- Đã fix fix issue selected sort và filter
+- Image chuyển từ fade sang scroll
+- xóa frontawesome, cài react icon
+- Issue: scroll qua nhanh imageSilder

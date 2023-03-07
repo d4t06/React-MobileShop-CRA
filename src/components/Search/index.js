@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import {useNavigate, Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-   faCircleXmark,
-   faSearch,
-   faSpinner,
-} from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import {
+//    faCircleXmark,
+//    faSearch,
+//    faSpinner,
+// } from '@fortawesome/free-solid-svg-icons';
 import moneyFormat from '../../utils/moneyFormat';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
@@ -175,7 +175,7 @@ function Search({setShowModal}) {
                />
                {loading && query && (
                   <button className={cx('loading-btn')}>
-                     <FontAwesomeIcon icon={faSpinner} />
+                     {/* <FontAwesomeIcon icon={faSpinner} /> */}
                   </button>
                )}
                {!loading && query && (
@@ -183,11 +183,11 @@ function Search({setShowModal}) {
                      className={cx('clear-btn')}
                      onClick={(e) => handleClear(e)}
                   >
-                     <FontAwesomeIcon icon={faCircleXmark} />
+                     {/* <FontAwesomeIcon icon={faCircleXmark} /> */}
                   </button>
                )}
                <button onClick={(e) => handleSubmit(e)} className={cx('search-btn')}>
-                  <FontAwesomeIcon icon={faSearch} />
+                  {/* <FontAwesomeIcon icon={faSearch} /> */}
                </button>
             </form>
          </div>

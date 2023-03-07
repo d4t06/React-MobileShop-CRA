@@ -22,27 +22,24 @@ function ProductFilter({category}) {
       getAll(dispatch, {...rest ,filters:filters})
    }
 
-    const handleFilter = (filters, by) => {
 
-     console.log(filters)        
+    const handleFilter = (filters, by) => {
       let newFilters = {...Filters};
-      console.log("old product filters = ", newFilters)
+      // console.log("old product filters = ", newFilters)
+      // console.log('product filter = ', filters, by);
 
       // nếu chọn tất cả
-      if (filters === '') {
-        const {by, ...rest} = newFilters
-        newFilters = {rest}
+      if (!filters) {
+         delete newFilters[by]
       }
       else {
         newFilters[by] = filters;
       }
 
-
       // nếu không có filter gì cả
       if (!newFilters.price && !newFilters.brand) newFilters=  '';
-      console.log("new product filters = ", newFilters)
-
-
+      
+      // console.log("new product filters = ", newFilters)
       showFilteredResults(newFilters)
       setFilters(newFilters)
    };

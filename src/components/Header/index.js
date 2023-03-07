@@ -1,9 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-   faHeadphones,
-   faLaptop,
-   faMobileScreen,
-} from "@fortawesome/free-solid-svg-icons";
+import {BsHeadphones, BsLaptop} from 'react-icons/bs'
+import {MdPhonelinkRing} from 'react-icons/md'
+import {HiOutlineDeviceMobile} from 'react-icons/hi'
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import classNames from "classnames/bind";
@@ -43,25 +40,22 @@ function Header() {
                      
                         <Link to={"/dtdd"}
                         >
-                        <span>
-                           <FontAwesomeIcon icon={faMobileScreen} />
-                        </span>
-                           Điện thoại</Link>
+                           <MdPhonelinkRing/>
+                           <p className={cx('nav-text')}>Điện thoại</p>
+                           </Link>
                      </li>
                      <li className={cx("nav-item")}>
                         <Link to={"/laptop"} 
                         >
-                        <span>
-                           <FontAwesomeIcon icon={faLaptop} />
-                        </span>
-                           Laptop</Link>
+                           <BsLaptop/>
+                           <p className={cx('nav-text')}>Laptop</p>
+                           </Link>
                      </li>
                      <li className={cx("nav-item")}>
                         <Link to={"/laptop"}>
-                        <span>
-                           <FontAwesomeIcon icon={faHeadphones} />
-                        </span>
-                           Phụ kiện</Link>
+                           <BsHeadphones/>
+                           <p className={cx('nav-text')}>Phụ kiện</p>
+                           </Link>
                      </li>
                   </ul>
                </div>

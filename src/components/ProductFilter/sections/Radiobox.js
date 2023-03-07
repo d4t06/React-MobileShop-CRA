@@ -15,7 +15,7 @@ function Radiobox({ handleFilter, data }) {
    const handleToggle = (array) => {
       if (JSON.stringify(array) ==  JSON.stringify(checked)) return
 
-      console.log("price value =", array)
+      // console.log("price value =", array)
       // neu chon tat ca
       handleFilter(array);
       setChecked(array)

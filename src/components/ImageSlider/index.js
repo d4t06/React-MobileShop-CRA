@@ -4,55 +4,79 @@ import styles from './ImageSlider.module.scss';
 
 const cx = classNames.bind(styles);
 
-function ImageSlider({banner, data }) {
+function ImageSlider({ banner, data }) {
+   const [curIndex, setCurIndex] = useState(0);
+   const [isEnter, setIsEnter] = useState(false);
+   const imageSliderRef = useRef();
 
-  const [curIndex, setCurIndex] = useState(0);
-  const [isEnter, setIsEnter]= useState(false)
-  const imageRef = useRef()
+   useEffect(() => {
+      if (curIndex === 0) return;
+      setCurIndex(0);
+   }, [data]);
 
-  useEffect(() => {
+   // useEffect(() => {
+   //    // imageRef.current.addEventListener("click", () => {
+   //    //    // console.log("click")
+   //    //    return
+   //    // })
 
-    if (curIndex === 0) return;
-    setCurIndex(0)
-  },[data])
+   //    if (isEnter) return;
+   //    const id = setInterval(() => {
+   //       nextImage();
+   //    }, 4500);
 
-  useEffect(() => {
-      // imageRef.current.addEventListener("click", () => {
-      //    // console.log("click")
-      //    return
-      // })
+   //    return () => clearInterval(id);
+   // }, [isEnter]);
 
-      // console.log(isEnter);
-      if (isEnter) return;
-      const id = setInterval(() => {
-         nextImage()
-      }, 6000)
+   useEffect(() => {
+      // console.log(imageSliderRef.current.scrollWidth)
+      
+      // const handleScrollImage = (e) => {
+      //    imageSliderRef.current.scrollLeft = e.pageX
+      //    console.log(e.pageX)
+      // }
+      // imageSliderRef.current.addEventListener('mousemove', (e) => handleScrollImage(e))
+   }, [])
 
-      return () => clearInterval(id)
 
-  }, [isEnter])
+   data = data.slice(0, data.length - 5).split('*and*');
 
-   data = data.slice(0, data.length - 5).split("*and*")
+   const nextImage = () => {
+      console.log(imageSliderRef.current.scrollLeft)
 
-   const nextImage = () =>
-      setCurIndex((curIndex) =>
+      setCurIndex((curIndex) => 
          curIndex == data.length - 1 ? 0 : curIndex + 1
-      );
+         );
 
-   const previousImage = () =>
+      imageSliderRef.current.scrollLeft >= 3300 ? 
+         imageSliderRef.current.scrollLeft = 0 :
+         imageSliderRef.current.scrollLeft += 1100
+
+   }
+
+   const previousImage = () => {
       setCurIndex((curIndex) =>
          curIndex == 0 ? data.length - 1 : curIndex - 1
       );
+      imageSliderRef.current.scrollLeft == 0 ?
+         imageSliderRef.current.scrollLeft = 3300 :
+         imageSliderRef.current.scrollLeft -= 1100
+   }
 
-      const classes = cx("image-slider",{
-        banner
-      })
+   const classes = cx('image-slider', {
+      banner,
+   });
 
    return (
-      <div className={classes} ref={imageRef} onMouseEnter={() => {
-         setIsEnter(true);
-      }}
-      onMouseLeave={() => setIsEnter(false)}>
+      <div className={cx("image-slider-frame")}>
+      <div
+         className={classes}
+         ref={imageSliderRef}
+         onMouseEnter={() => {
+            setIsEnter(true);
+         }}
+         onMouseLeave={() => setIsEnter(false)}
+      >
          <div
             className={cx('left-arrow', 'slider-control')}
             onClick={() => previousImage()}
@@ -68,19 +92,25 @@ function ImageSlider({banner, data }) {
          <div className={cx('slider-index')}>
             <span>{curIndex + 1}</span> / <span>{data.length}</span>
          </div>
-         {Array.isArray(data) ? data.map((item, index) => {
-            return (
-               <div
-                  key={index}
-                  className={cx(
-                     'slider-item',
-                     index === curIndex ? 'active' : ''
-                  )}
-               >
-                  <img src={item} alt="" />
-               </div>
-            );
-         }) : <h2>Data is not array</h2>}
+         {Array.isArray(data) ? (
+            data.map((item, index) => {
+               return (
+                  <div
+                     key={index}
+                     className={cx(
+                        'slider-item',
+                        'active'
+                        // index === curIndex ? 'active' : ''
+                     )}
+                  >
+                     <img src={item} alt="" />
+                  </div>
+               );
+            })
+         ) : (
+            <h2>Data is not array</h2>
+         )}
+      </div>
       </div>
    );
 }

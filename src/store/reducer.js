@@ -4,7 +4,7 @@ const initState = {
 };
 
 const reducer = (state, action) => {
-   console.log('reducer ', action.filters);
+   // console.log('reducer ', action.filters);
 
    switch (action.type) {
       case 'loading':

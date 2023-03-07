@@ -22,35 +22,38 @@ function BrandSort({ category, count }) {
    };
 
    const handleFilter = (filters, by) => {
-
       let newFilters = { ...Filters };
-      console.log("old brandsort filters = ", newFilters) ;
-      console.log('brandsort filter = ', filters, by);
+      // console.log("old brandsort filters = ", newFilters) ;
+      // console.log('brandsort filter = ', filters, by);
 
-      // nêu bấm nút xóa tất cả
+      // nêu bấm nút clear filter
       if (by === 'clear') {
-         newFilters = ''
-      } else {
-         // nếu filter không có giá trị
-         if (!filters) newFilters[by] = ''
-         else newFilters[by] = filters; // cap nhap
+         newFilters = '';
       }
-      // nếu không có filter gì cả
-      if (!newFilters.price && !newFilters.brand) newFilters=  '';
-      console.log("new brandsort filters =", newFilters);
 
-      setFilters(newFilters); // set lai state
+      // nếu chọn tất cả
+      if (!filters) {
+         delete newFilters[by];
+      } else newFilters[by] = filters;
+
+      // nếu không có filter gì cả
+      if (!newFilters.price && !newFilters.brand) newFilters = '';
+
+      // console.log("new brandsort filters =", newFilters);
+      setFilters(newFilters);
       showFilteredResults(newFilters);
    };
 
-   const isFiltered = JSON.stringify(state.filters) !== '{}' && state?.filters?.brand || state?.filters?.price
+   const isFiltered =
+      (JSON.stringify(state.filters) !== '{}' && state?.filters?.brand) ||
+      state?.filters?.price;
 
    useEffect(() => {
-      console.log("state filter useEffect = ", Filters);
+      // console.log("state filter useEffect = ", Filters);
       // if (!Filters) return
       // console.log("useEffect");
-      setFilters(state.filters)
-   }, [state])
+      setFilters(state.filters);
+   }, [state]);
 
    return (
       <>
@@ -73,6 +76,7 @@ function BrandSort({ category, count }) {
                {/* selected sort luon thay dổi mỗi khi state thay dổi */}
                {isFiltered ? (
                   <SelectedSort
+                     category={category}
                      data={Filters}
                      handleFilter={(filter, by) => handleFilter(filter, by)}
                   />

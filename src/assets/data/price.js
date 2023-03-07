@@ -30,7 +30,7 @@ const price = {
       {
          id: 1,
          text: 'Tất cả',
-         array: [],
+         array: '',
       },
       {
          id: 2,

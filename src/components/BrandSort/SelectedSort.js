@@ -1,11 +1,12 @@
-import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import styles from './BrandSort.module.scss';
+// import {price} from '../../assets/data'
+import {RiDeleteBack2Fill} from 'react-icons/ri'
+import { price } from '../../assets/data';
 
 const cx = classNames.bind(styles);
 
-function SelectedSort({ data, handleFilter }) {
+function SelectedSort({category, data, handleFilter }) {
    const handleToggle = (string) => {
 
       let newChecked = data.brand;
@@ -17,6 +18,9 @@ function SelectedSort({ data, handleFilter }) {
 
       handleFilter(newChecked, 'brand');
    };
+
+   const priceContent = price[category].find(item => JSON.stringify(item.array) === JSON.stringify(data.price))
+
    // console.log('data selected sord = ', data);
    return (
       <>
@@ -25,22 +29,24 @@ function SelectedSort({ data, handleFilter }) {
                {data?.brand &&
                   data?.brand?.map((item, index) => {
                      return (
-                        <span
+                        <div
                            onClick={() => handleToggle(item)}
                            className={cx('filter-item')}
                            key={index}
                         >
+                           <p>
                            {item} <strong>X</strong>
-                        </span>
+                           </p>
+                        </div>
                      );
                   })}
-               {data?.price && (
+               {data?.price &&  (
                   <span
                      onClick={() => handleFilter('', 'price')}
                      className={cx('filter-item')}
                   >
-                     {data.price[0]} triệu - {data.price[1]} triệu{' '}
-                     <strong>X</strong>
+                      {priceContent.text || ''}
+                     <strong> X</strong>
                   </span>
                )}
                {(data?.brand?.length > 1 ||
@@ -50,7 +56,8 @@ function SelectedSort({ data, handleFilter }) {
                         onClick={() => handleFilter('','clear')}
                      >
                         <span>
-                           <FontAwesomeIcon icon={faDeleteLeft}/>
+                           {/* <FontAwesomeIcon icon={faDeleteLeft}/> */}
+                        <RiDeleteBack2Fill/>
                         </span>
                      </button>
                   )}
