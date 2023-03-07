@@ -71,3 +71,5 @@
 - Image chuyển từ fade sang scroll
 - xóa frontawesome, cài react icon
 - Issue: scroll qua nhanh imageSilder
+- Gần hoàn thiện ImageSlider theo cách scrollLeft
+
