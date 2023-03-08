@@ -73,3 +73,8 @@
 - Issue: scroll qua nhanh imageSilder
 - Gần hoàn thiện ImageSlider theo cách scrollLeft
 
+### update thứ 4 8/3/2003
+- Gân hoan thien ImageSlider
+- Tụ viết hàm fixScroll()
+- Nếu click không handleStopDrag
+- Dùng useRef lưu ảnh, curScroll và index;

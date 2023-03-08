@@ -6,19 +6,27 @@ import styles from './ImageSlider.module.scss';
 const cx = classNames.bind(styles);
 
 function ImageSlider({ banner, data }) {
-   const [distance, setDistance] = useState(0)
    const [isDrag, setIsDrag] = useState(false)
    const [prevPageX, setPrevPageX] = useState(0)
    const [prevScrollLeft, setPrevScrollLeft] = useState(0)
-   const [curIndex, setCurIndex] = useState(0);
-   const [curScroll, setCurScroll] = useState(0)
+   const [curIndex, setCurIndex] = useState(1);
+   // const [curScroll, setCurScroll] = useState(0)
    const [isEnter, setIsEnter] = useState(false);
    const imageSliderRef = useRef();
 
+   const dataRef = useRef(data.slice(0, data.length - 5).split('*and*'));
+   const indexRef = useRef(1)
+   const scrollRef = useRef(0)
+   
+   const imageWidth = 1100;
+   const maxScrollRef = useRef(imageWidth * (dataRef.current.length - 1));
+
+
    useEffect(() => {
-      if (curIndex === 0) return;
-      setCurIndex(0);
-   }, [data]);
+      console.log("set Index useEffect")
+      if (curIndex === 1) return;
+      setCurIndex(1);
+   }, [dataRef.current]);
 
    // useEffect(() => {
    //    // imageRef.current.addEventListener("click", () => {
@@ -36,18 +44,16 @@ function ImageSlider({ banner, data }) {
 
    useEffect(() => {
 
-      console.log("curScroll = ", curScroll)
-      imageSliderRef.current.scrollLeft = curScroll
+      console.log("curScroll = ", scrollRef.current)
+      // setCurIndex()
+      imageSliderRef.current.scrollLeft = scrollRef.current
 
-   }, [curScroll])
+   }, [scrollRef.current])
 
 
-   data = data.slice(0, data.length - 5).split('*and*');
 
-   // const handleDrag = (e, value) => {
-   //    setIsDrag(value)
-   // }
    const handleStartDrag = (e) => {
+
       if (isEnter) return;
       setIsDrag(true);
       setPrevPageX( e.pageX);
@@ -56,74 +62,112 @@ function ImageSlider({ banner, data }) {
 
    }
 
-   const autoSlide = () => {
-      const imageWidth = 1100;
-      console.log("distance = ", distance)
-      const imageWidthRemaining = imageWidth - Math.abs(distance)
+   const fixScroll = () => {
+      if (scrollRef.current <= 0) return 0;
 
-      let isAutoSlide = Math.abs(distance) > imageWidth / 3;
+      let i = 0
+      while (i < 10) {
+         if (scrollRef.current >= (i * imageWidth) && scrollRef.current <= ((i + 1) * imageWidth)) {
+            const distance = scrollRef.current - prevScrollLeft
+            
+            // scroll to the left
+            if (distance > 0) {
+               if (Math.abs(distance) > imageWidth / 4) return imageWidth * (i + 1) // ke tiep
+               else return imageWidth * i
+            }
+            // scroll to the right
+            if (distance < 0) {
+               if (Math.abs(distance) > imageWidth / 4) return imageWidth * i // truoc do
+               else return imageWidth * (i + 1)
+            } 
+         } 
 
-      if (imageSliderRef.current.scrollLeft > prevScrollLeft) {
-         console.log("auto slide = ", isAutoSlide);
-         setCurScroll(prev => prev += isAutoSlide ? 
-            imageWidthRemaining : 
-            - Math.abs(distance)) 
-      } else {
-         console.log("auto slide = ", isAutoSlide);
-
-         setCurScroll(prev => prev -= isAutoSlide ? 
-            imageWidthRemaining : 
-            - Math.abs(distance)) 
+         i++;
       }
-      // console.log("newScroll = ", newScroll);
-      console.log("distance = ", distance);
-      console.log("imageWidthRemaining = ", imageWidthRemaining);
-      // console.log(newScroll);
-      // console.log("scrolled ", isAutoSlide);
-      console.log("curScroll = ", curScroll);
-
-      // console.log("total = ", imageWidthRemaining + newScroll);
    }
 
+
    const handleDrag = (e)  => {
-      // if (isEnter)
       if (!isDrag || isEnter) return;
       e.preventDefault()
 
       const distance = e.pageX - prevPageX
-      setDistance(distance)
+      // setDistance(distance)
 
       const newScroll = prevScrollLeft - distance
-      // setDistance(e.pageX - prevPageX)
-      imageSliderRef.current.scrollLeft = newScroll
-      setCurScroll(newScroll)
+      const  isInValid =  newScroll < 0 || newScroll > imageWidth * (dataRef.current.length - 1)
+
+      // console.log("invalid = ", isInValid)
+      if (!isInValid) {
+         imageSliderRef.current.scrollLeft = newScroll
+         scrollRef.current = newScroll
+      }
    }
 
    const handleStopDrag = (e) => {
-      if (isEnter) return;
+
+      // console.log('handle stop drag')
+
+
       setIsDrag(false);
       imageSliderRef.current.style.scrollBehavior = 'smooth'
-      autoSlide()
+      if (isEnter) return;
+      if (scrollRef.current == 0 || scrollRef.current ==  maxScrollRef.current) return;
+      if (scrollRef.current == prevScrollLeft) return;
+
+      console.log("handle stop drag");
+
+      // auto slide
+      const fixedNumber = fixScroll();
+
+      indexRef.current = fixedNumber / 1100 + 1
+
+      scrollRef.current = fixedNumber
+      setCurIndex(indexRef.current);
    }
 
-   const nextImage = () => {
-      setCurIndex((curIndex) => 
-         curIndex == data.length - 1 ? 0 : curIndex + 1
-         );
 
-      curScroll == 3300 ? 
-         setCurScroll(0) :
-         setCurScroll(curScroll + 1100)
+   const nextImage = () => {
+      // e.stopPropagation();
+
+      console.log("next image curIndex = ", curIndex)
+      console.log("next image curScroll = ", scrollRef.current)
+      console.log("next image indexRef = ", indexRef.current)
+
+      if (indexRef.current == dataRef.current.length) {
+         indexRef.current = 1
+         setCurIndex(indexRef.current)
+      } else {
+         indexRef.current += 1
+         setCurIndex(indexRef.current)
+      }
+      // console.log(curScroll + " = " + maxScrollRef.current);
+      // console.log(curScroll == maxScrollRef.current);
+      const fixedNumber = fixScroll()
+      console.log("fixed Number = ", fixedNumber);
+      fixedNumber == maxScrollRef.current ? 
+         scrollRef.current = 1 :
+         scrollRef.current = fixedNumber + imageWidth
    }
 
    const previousImage = () => {
-      setCurIndex((curIndex) =>
-         curIndex == 0 ? data.length - 1 : curIndex - 1
-      );
+      // e.stopPropagation();
+      console.log("previous image");
 
-      curScroll == 0 ?
-         setCurScroll(3300) :
-         setCurScroll(curScroll - 1100)
+      if (indexRef.current == 1) {
+         indexRef.current = dataRef.current.length
+         setCurIndex(indexRef.current)
+      } else {
+         indexRef.current -= 1
+         setCurIndex(indexRef.current)
+      }
+
+      const fixedNumber = fixScroll()
+      console.log("fixed Number = ", fixedNumber);
+      fixedNumber == 0 ? 
+      scrollRef.current = maxScrollRef.current :
+         scrollRef.current = (fixedNumber - imageWidth)
+
    }
 
    const classes = cx('image-slider', {
@@ -135,6 +179,7 @@ function ImageSlider({ banner, data }) {
       onMouseDown= {(e) => handleStartDrag(e)}
       onMouseUp ={(e) => handleStopDrag(e)}
       onMouseMove = {(e) => handleDrag(e)}
+      // onClick={(e) => console.log('clcik')}
       >
       <div
          className={classes}
@@ -162,10 +207,10 @@ function ImageSlider({ banner, data }) {
             <i className="fa-solid fa-chevron-right"></i>
          </div>
          <div className={cx('slider-index')}>
-            <span>{curIndex + 1}</span> / <span>{data.length}</span>
+            <span>{curIndex}</span> / <span>{dataRef.current.length}</span>
          </div>
-         {Array.isArray(data) ? (
-            data.map((item, index) => {
+         {Array.isArray(dataRef.current) ? (
+            dataRef.current.map((item, index) => {
                return (
                   <div
                      key={index}
