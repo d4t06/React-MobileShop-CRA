@@ -78,3 +78,6 @@
 - Tụ viết hàm fixScroll()
 - Nếu click không handleStopDrag
 - Dùng useRef lưu ảnh, curScroll và index;
+
+### update thứ 5 9/3/2023
+- ImageSlider cũng không biết hoàn thiện hay chưa
