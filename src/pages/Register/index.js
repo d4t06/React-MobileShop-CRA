@@ -1,21 +1,25 @@
-import classNames from 'classnames/bind';
 import { useState, useRef, useEffect } from 'react';
+import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import styles from './Login.module.scss';
+import styles from '../Login/Login.module.scss';
 import useAuth from '../../hooks/useAuth';
 import request from '../../utils/request';
-import { checkIcon, xIcon } from '../../assets/icons';
+import { checkIcon } from '../../assets/icons';
 
 const LOGIN_URL = '/auth';
 const cx = classNames.bind(styles);
 
-function LoginPage() {
+const USER_REGEX = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+const PWD_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+
+function Register() {
    const [setAuth] = useAuth();
    const userInputRef = useRef();
    const errRef = useRef();
 
    const [user, setUser] = useState('');
    const [password, setPassword] = useState('');
+   const [passwordConfirm, setPasswordConfirm] = useState('');
    const [errMsg, setErrorMsg] = useState('');
    const [success, setSuccess] = useState(false);
 
@@ -65,13 +69,14 @@ function LoginPage() {
    return (
       <div className="wrap">
          <form className={cx('login-form')} onSubmit={handleSubmit}>
-            <h1>Đăng nhập</h1>
+            <h1>Đăng ký</h1>
             <div className={cx('form-group')}>
-               <label htmlFor="name" autoComplete="off">
-                  Tài khoản
+               <label htmlFor="username" autoComplete="off">
+                  <span>Tên tài khoản</span>
                   {checkIcon}
                </label>
                <input
+               id='username'
                   ref={userInputRef}
                   autoComplete="off"
                   type="text"
@@ -82,15 +87,30 @@ function LoginPage() {
                />
             </div>
             <div className={cx('form-group')}>
-               <label htmlFor="image">Mật khẩu
-               {xIcon}
-              </label>
+               <label htmlFor="password">
+                  Mật khẩu
+                  {checkIcon}
+                  </label>
                <input
                   type="text"
+                  id='password'
                   autoComplete="off"
                   value={password}
                   onChange={(e) =>
                      setPassword(e.target.value.trim() && e.target.value)
+                  }
+               />
+            </div>
+            <div className={cx('form-group')}>
+               <label htmlFor="password-confirm">Nhập lại mật khẩu
+               {checkIcon}</label>
+               <input
+                  type="text"
+                  id='password-confirm'
+                  autoComplete="off"
+                  value={passwordConfirm}
+                  onChange={(e) =>
+                     setPasswordConfirm(e.target.value.trim() && e.target.value)
                   }
                />
             </div>
@@ -112,14 +132,14 @@ function LoginPage() {
          </div> */}
 
             <button className={cx('login-form-btn')} type="submit">
-               Đăng nhập
+               Đăng ký
             </button>
             <span className={cx('register-text')}>
-               Chưa có tài khoản?
-               <Link to="/register"> Đăng ký ngay</Link>
+               Đã có tài khoản?
+               <Link className={cx("switch")} to="/login"> Đăng nhập</Link>
             </span>
          </form>
       </div>
    );
 }
-export default LoginPage;
+export default Register;

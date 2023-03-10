@@ -1,8 +1,9 @@
+import SearchResultPage from '../pages/SearchResultPage'
 import Home from "../pages/Home";
 import DetailPage from "../pages/DetailPage";
 import Products from "../pages/Products";
 import Login from "../pages/Login";
-import SearchResultPage from '../pages/SearchResultPage'
+import Register from '../pages/Register'
 
 
 const publicRoutes = [
@@ -13,6 +14,10 @@ const publicRoutes = [
    {
       path: "/login",
       component: Login,
+   },
+   {
+      path: "/register",
+      component: Register,
    },
    {
       path: "/:category",
