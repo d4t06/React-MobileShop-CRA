@@ -1,8 +1,7 @@
-import { Fragment } from "react";
-import { publicRoutes } from "./routes";
-import DefaultLayout from "./layouts/DefaultLayout";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import { Fragment } from 'react';
+import { publicRoutes, privateRoutes } from './routes';
+import DefaultLayout from './layouts/DefaultLayout';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
    return (
@@ -19,10 +18,20 @@ function App() {
                      key={index}
                      path={route.path}
                      element={
-                           <Layout>
-                              <Page/>
-                           </Layout>
+                        <Layout>
+                           <Page />
+                        </Layout>
                      }
+                  />
+               );
+            })}
+            {/* protected route */}
+            {privateRoutes.map((route, index) => {
+               return (
+                  <Route
+                     path={route.path}
+                     key={index}
+                     element={<DefaultLayout>{route.component}</DefaultLayout>}
                   />
                );
             })}

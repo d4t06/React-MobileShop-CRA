@@ -17,7 +17,7 @@ import {
 import { banner } from '../../assets/data';
 const cx = classNames.bind(styles);
 
-function Product({}) {
+function Product() {
    const [state, dispatch] = useContext(Context);
    const { category } = useParams();
    console.log('state = ', state);
@@ -45,7 +45,7 @@ function Product({}) {
          }
          return;
       };
-      fetch();
+      // fetch();
    }, [category]);
 
    const handleGetMore = () => {

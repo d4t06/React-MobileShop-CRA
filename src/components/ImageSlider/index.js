@@ -1,6 +1,5 @@
-import { queryByLabelText } from '@testing-library/react';
 import classNames from 'classnames/bind';
-import { useEffect, useRef, useState, useCallback  } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './ImageSlider.module.scss';
 
 const cx = classNames.bind(styles);
@@ -43,7 +42,7 @@ function ImageSlider({ banner, data }) {
       const id = setInterval(() => {
          console.log("useEffect auto slide");
          nextImage();
-      }, 4500);
+      }, 4000);
 
       return () => clearInterval(id);
    }, [isEnter]);
@@ -80,7 +79,7 @@ function ImageSlider({ banner, data }) {
             const distance = scrollRef.current - prevScrollRef.current
 
             // nếu điều khiển bằng nút
-            if (distance == 0) return scrollRef.current;
+            if (distance === 0) return scrollRef.current;
             
             // scroll to the left
             if (distance > 0) {
@@ -128,8 +127,8 @@ function ImageSlider({ banner, data }) {
       imageSliderRef.current.style.scrollBehavior = 'smooth'
 
       // if (isEnter) return;
-      if (scrollRef.current == 0 || scrollRef.current ==  maxScroll) return;
-      if (scrollRef.current == prevScrollRef.current) return;
+      if (scrollRef.current === 0 || scrollRef.current ===  maxScroll) return;
+      if (scrollRef.current === prevScrollRef.current) return;
 
       console.log('handle stop drag')
 
@@ -152,7 +151,7 @@ function ImageSlider({ banner, data }) {
       // console.log("next image curScroll = ", scrollRef.current)
       // console.log("next image indexRef = ", indexRef.current)
 
-      if (indexRef.current == data.length) {
+      if (indexRef.current === data.length) {
          indexRef.current = 1
          setCurIndex(indexRef.current)
       } else {
@@ -164,7 +163,7 @@ function ImageSlider({ banner, data }) {
       // console.log("fixed Number = ", fixedNumber);
       // console.log("maxScroll = ", maxScroll);
 
-      fixedNumber == maxScroll ? 
+      fixedNumber === maxScroll ? 
          scrollRef.current = 0 :
          scrollRef.current = fixedNumber + imageWidth
 
@@ -174,7 +173,7 @@ function ImageSlider({ banner, data }) {
    const previousImage = () => {
       // console.log("previous image");
 
-      if (indexRef.current == 1) {
+      if (indexRef.current === 1) {
          indexRef.current = data.length
          setCurIndex(indexRef.current)
       } else {
@@ -185,7 +184,7 @@ function ImageSlider({ banner, data }) {
       const fixedNumber = fixScroll()
       // console.log("fixed Number = ", fixedNumber);
 
-      fixedNumber == 0 ? 
+      fixedNumber === 0 ? 
       scrollRef.current = maxScroll :
          scrollRef.current = (fixedNumber - imageWidth)
    }
@@ -204,8 +203,6 @@ function ImageSlider({ banner, data }) {
       onMouseMove = {(e) => handleDrag(e)}
       onMouseEnter = {() => setIsEnter(true)}
       onMouseLeave={() => setIsEnter(false)}
-
-      // onClick={(e) => console.log('clcik')}
       >
       <div
          className={classes}
@@ -214,21 +211,12 @@ function ImageSlider({ banner, data }) {
          <div
             className={cx('left-arrow', 'slider-control')}
             onClick={() => previousImage()}
-            // onMouseEnter={() => {
-            //    setIsEnter(true);
-            // }}
-            // onMouseLeave={() => setIsEnter(prev => prev ? false : true)}
          >
             <i className="fa-solid fa-chevron-left"></i>
          </div>
          <div
             className={cx('right-arrow', 'slider-control')}
             onClick={() => nextImage()}
-            // onMouseEnter={() => {
-            //    setIsEnter(true);
-            // }}
-            // onMouseLeave={() => setIsEnter(false)}
-
          >
             <i className="fa-solid fa-chevron-right"></i>
          </div>
@@ -242,7 +230,6 @@ function ImageSlider({ banner, data }) {
                      key={index}
                      className={cx(
                         'slider-item',
-                        // index === curIndex ? 'active' : ''
                      )}
                   >
                      <img src={item} alt="" />

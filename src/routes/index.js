@@ -11,6 +11,10 @@ const publicRoutes = [
       component: Home,
    },
    {
+      path: "/login",
+      component: Login,
+   },
+   {
       path: "/:category",
       component: Products,
    },
@@ -22,7 +26,19 @@ const publicRoutes = [
       path: "/:category/:key",
       component: DetailPage,
    },
+   
 
 ];
 
-export { publicRoutes };
+
+const privateRoutes = [
+   {
+      path:'/account',
+      component: <h1>Account page</h1>
+   },
+   {
+      path:'/create',
+      component: <h1>Create page</h1>
+   }
+]
+export { publicRoutes, privateRoutes };

@@ -81,3 +81,11 @@
 
 ### update thứ 5 9/3/2023
 - ImageSlider cũng không biết hoàn thiện hay chưa
+
+### update thứ 6 10/3/2023
+- Tạo AuthContext
+- Thực hiện chức năng đăng nhập
+- Thêm request.post
+- Tạo icon svg code
+- Thêm private route
+- Sửa == thành ===

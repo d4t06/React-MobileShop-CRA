@@ -1,6 +1,6 @@
 import TippyHeadless from "@tippyjs/react/headless";
 
-function Popup({ children, option, content, onhide}) {   
+function Popup({ children, option, content, onHide}) {   
    return (
       <TippyHeadless
       interactive
@@ -10,7 +10,7 @@ function Popup({ children, option, content, onhide}) {
             {content}
          </div>
       )}
-      onhide={onhide}
+      onHide={onHide}
       {...option}
       >
          {children}
