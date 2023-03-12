@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import styles from '../Login/Login.module.scss';
 import useAuth from '../../hooks/useAuth';
 import request from '../../utils/request';
-import { checkIcon } from '../../assets/icons';
+import { checkIcon, xIcon } from '../../assets/icons';
 
 const LOGIN_URL = '/auth';
 const cx = classNames.bind(styles);
 
-const USER_REGEX = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+const USER_REGEX = /^(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const PWD_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
 function Register() {
@@ -18,53 +18,87 @@ function Register() {
    const errRef = useRef();
 
    const [user, setUser] = useState('');
+   const [validName, setValidName] = useState(false);
+   const [userFocus, setUserFocus] = useState(false)
+
    const [password, setPassword] = useState('');
-   const [passwordConfirm, setPasswordConfirm] = useState('');
+   const [validPwd, setValidPwd] = useState(false);
+   const [passwordFocus, setPasswordFocus] = useState(false)
+
+   const [matchPwg, setMatchPwg] = useState('');
+   const [validMatchPwg, setValidMatchPwg] = useState(false);
+   const [matchPwgFocus, setMatchPwgFocus] = useState(false)
+
    const [errMsg, setErrorMsg] = useState('');
    const [success, setSuccess] = useState(false);
 
    useEffect(() => {
       userInputRef.current.focus();
-      // console.log(auth);
    }, []);
 
    const handleClear = () => {
-      setUser('')
-      setPassword('')
-   }
+      setUser('');
+      setPassword('');
+   };
+
+   // validate username
+   useEffect(() => {
+      const result = USER_REGEX.test(user);
+      // console.log(user, result);
+
+      setValidName(result);
+   }, [user]);
+
+   // validate password
+   useEffect(() => {
+      const result = USER_REGEX.test(password);
+      setValidPwd(result);
+
+      let match = password === matchPwg;
+      if (!password) match = false
+
+      // console.log("mactch = ", match);
+      setValidMatchPwg(match);
+   }, [password, matchPwg]);
 
    const handleSubmit = async (e) => {
       e.preventDefault();
+      //  if submit with js tool
+      const test1 = USER_REGEX.test(user)
+      const test2 = USER_REGEX.test(password)
+
+      if (!test1 || !test2) {
+         setErrorMsg("missing payload")
+         return
+      }
+      console.log(user, password)
+      setSuccess(true)
 
       try {
          const response = await request.post(
-            LOGIN_URL,
+            "/register",
             JSON.stringify({ username: user, password: password }),
             {
-               headers: {'Content-Type': 'application/json'},
+               headers: { 'Content-Type': 'application/json' },
                // withCredentials: true
             }
          );
          handleClear();
 
-         const accessToken = response?.data?.token
-         const role = response?.data?.role
-         setAuth({user, password, accessToken, role})
-         // if (response?.data) {
-         //    setSuccess(true)
-         // }
-
+         const accessToken = response?.data?.token;
+         const role = response?.data?.role;
+         setAuth({ user, password, accessToken, role });
       } catch (error) {
          if (!error?.response) {
-            setErrorMsg("No server response")
-         } else if (error?.response.status === 400) {
-            setErrorMsg("missing username or password")
+            setErrorMsg('No server response');
+         } else if (error?.response.status === 409) {
+            setErrorMsg('Tên tài khoản đã tồn tại');
          } else {
-            setErrorMsg("Login failed")
+            setErrorMsg('Đăng ký thất bại');
          }
       }
 
-      // console.log(user, password);
+      // console.log(userFocus);
    };
    return (
       <div className="wrap">
@@ -72,45 +106,77 @@ function Register() {
             <h1>Đăng ký</h1>
             <div className={cx('form-group')}>
                <label htmlFor="username" autoComplete="off">
-                  <span>Tên tài khoản</span>
-                  {checkIcon}
+                  Tên tài khoản
+                  <span className={validName ? '' : 'hide'}>
+                     {checkIcon}
+                  </span>
+                  <span className={validName || !user ? 'hide' : ''}>
+                     {xIcon}
+                  </span>
                </label>
                <input
-               id='username'
+                  id="username"
                   ref={userInputRef}
                   autoComplete="off"
                   type="text"
                   value={user}
+                  aria-describedby="note"
+                  onFocus={() => setUserFocus(true)}
+                  onBlur={() => setUserFocus(false)}
                   onChange={(e) =>
                      setUser(e.target.value.trim() && e.target.value)
                   }
                />
+               <p id="note" className={cx(userFocus && user && !validName ? 'instruction' : 'hide')}>
+                  4 - 24 ký tự <br />
+                  Phải bắt đầu bằng chữ cái <br />
+                  Cho phép chữ Hoa, gạch chân, số
+               </p>
             </div>
             <div className={cx('form-group')}>
                <label htmlFor="password">
                   Mật khẩu
-                  {checkIcon}
-                  </label>
+                  <span className={validPwd ? '' : 'hide'}>
+                     {checkIcon}
+                  </span>
+                  <span className={validPwd || !password ? 'hide' : ''}>
+                     {xIcon}
+                  </span>
+               </label>
                <input
                   type="text"
-                  id='password'
+                  id="password"
                   autoComplete="off"
                   value={password}
+                  aria-describedby="note"
+                  onFocus={() => setPasswordFocus(true)}
+                  onBlur={() => setPasswordFocus(false)}
                   onChange={(e) =>
                      setPassword(e.target.value.trim() && e.target.value)
                   }
                />
+               <p id="note" className={cx(passwordFocus && password && !validPwd ? 'instruction' : 'hide')}>
+                  6 - 24 ký tự <br />
+                  Phải có chứa chữ hoa, chữ thường, số và ký tự đặc biệt
+               </p>
             </div>
             <div className={cx('form-group')}>
-               <label htmlFor="password-confirm">Nhập lại mật khẩu
-               {checkIcon}</label>
+               <label htmlFor="password-confirm">
+                  Nhập lại mật khẩu
+                  <span className={ validMatchPwg && validPwd ? '' : 'hide'}>
+                     {checkIcon}
+                  </span>  
+                  <span className={validMatchPwg && validPwd || !matchPwg ? 'hide' : ''}>
+                     {xIcon}
+                  </span>
+               </label>
                <input
                   type="text"
-                  id='password-confirm'
+                  id="password-confirm"
                   autoComplete="off"
-                  value={passwordConfirm}
+                  value={matchPwg}
                   onChange={(e) =>
-                     setPasswordConfirm(e.target.value.trim() && e.target.value)
+                     setMatchPwg(e.target.value.trim() && e.target.value)
                   }
                />
             </div>
@@ -131,12 +197,15 @@ function Register() {
             </a>
          </div> */}
 
-            <button className={cx('login-form-btn')} type="submit">
+            <button className={cx('login-form-btn', (validName && validPwd && validMatchPwg) ? '' : "disable")} type="submit">
                Đăng ký
             </button>
             <span className={cx('register-text')}>
                Đã có tài khoản?
-               <Link className={cx("switch")} to="/login"> Đăng nhập</Link>
+               <Link className={cx('switch')} to="/login">
+                  {' '}
+                  Đăng nhập
+               </Link>
             </span>
          </form>
       </div>

@@ -27,11 +27,18 @@ button {
    cursor: pointer;
    border: none;
 }
+button.disable {
+   opacity: .6;
+   pointer-events: none;
+}
 li {
    list-style: none;
 }
 .expand {
    height: auto;
+}
+.hide {
+   display: none;
 }
 .image-frame img {
    width: 100%;

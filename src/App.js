@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { publicRoutes, privateRoutes } from './routes';
 import DefaultLayout from './layouts/DefaultLayout';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RequireAuth from './routes/RequireAuth';
 
 function App() {
    return (
@@ -26,15 +27,19 @@ function App() {
                );
             })}
             {/* protected route */}
-            {privateRoutes.map((route, index) => {
-               return (
-                  <Route
-                     path={route.path}
-                     key={index}
-                     element={<DefaultLayout>{route.component}</DefaultLayout>}
-                  />
-               );
-            })}
+            <Route element={<RequireAuth />}>
+               {privateRoutes.map((route, index) => {
+                  return (
+                     <Route
+                        path={route.path}
+                        key={index}
+                        element={
+                           <DefaultLayout>{route.component}</DefaultLayout>
+                        }
+                     />
+                  );
+               })}
+           </Route>
          </Routes>
       </Router>
    );

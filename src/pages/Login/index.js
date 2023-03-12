@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import styles from './Login.module.scss';
 import useAuth from '../../hooks/useAuth';
 import request from '../../utils/request';
@@ -10,9 +10,20 @@ const LOGIN_URL = '/auth';
 const cx = classNames.bind(styles);
 
 function LoginPage() {
-   const [setAuth] = useAuth();
+   const [auth, setAuth] = useAuth();
    const userInputRef = useRef();
    const errRef = useRef();
+
+   const navigate = useNavigate()
+   const location = useLocation()
+
+   console.log("location = ", location);
+   const from = location?.state?.from?.pathname || '/'
+
+
+   
+
+   // console.log(setAuth);
 
    const [user, setUser] = useState('');
    const [password, setPassword] = useState('');
@@ -31,34 +42,37 @@ function LoginPage() {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
+      console.log("submit");
+      setAuth({user, password})
+      navigate(from, {replace: true})
 
-      try {
-         const response = await request.post(
-            LOGIN_URL,
-            JSON.stringify({ username: user, password: password }),
-            {
-               headers: {'Content-Type': 'application/json'},
-               // withCredentials: true
-            }
-         );
-         handleClear();
 
-         const accessToken = response?.data?.token
-         const role = response?.data?.role
-         setAuth({user, password, accessToken, role})
+      // try {
+         // const response = await request.post(
+         //    LOGIN_URL,
+         //    JSON.stringify({ username: user, password: password }),
+         //    {
+         //       headers: {'Content-Type': 'application/json'},
+         //       // withCredentials: true
+         //    }
+         // );
+         // handleClear();
+
+         // const accessToken = response?.data?.token
+         // const role = response?.data?.role
          // if (response?.data) {
-         //    setSuccess(true)
+            // setSuccess(true)
          // }
 
-      } catch (error) {
-         if (!error?.response) {
-            setErrorMsg("No server response")
-         } else if (error?.response.status === 400) {
-            setErrorMsg("missing username or password")
-         } else {
-            setErrorMsg("Login failed")
-         }
-      }
+      // } catch (error) {
+      //    if (!error?.response) {
+      //       setErrorMsg("No server response")
+      //    } else if (error?.response.status === 400) {
+      //       setErrorMsg("missing username or password")
+      //    } else {
+      //       setErrorMsg("Login failed")
+      //    }
+      // }
 
       // console.log(user, password);
    };

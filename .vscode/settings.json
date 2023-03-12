@@ -8,5 +8,6 @@
       "javascript": "javascriptreact",
       "typescript": "typescriptreact"
    },
-   "editor.acceptSuggestionOnCommitCharacter": false
+   "editor.acceptSuggestionOnCommitCharacter": false,
+   "editor.fontFamily": "Fira Code"
 }

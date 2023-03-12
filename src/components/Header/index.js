@@ -65,6 +65,16 @@ function Header() {
                            <p className={cx('nav-text')}>Đăng nhập</p>
                         </Link>
                      </li>
+                     <li className={cx('nav-item')}>
+                        <Link to={'/account'}>
+                           <p className={cx('nav-text')}>Tài khoản</p>
+                        </Link>
+                     </li>
+                     <li className={cx('nav-item')}>
+                        <Link to={'/create'}>
+                           <p className={cx('nav-text')}>Đăng sản phẩm</p>
+                        </Link>
+                     </li>
                   </ul>
                </div>
             </div>
