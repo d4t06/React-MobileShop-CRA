@@ -85,3 +85,11 @@ body {
    margin-top: 5px;
    border-radius: 6px;
 }
+.error-msg {
+   width: 100%;
+   text-align: center;
+   border-radius: 4px;
+   padding: 5px 0;
+   color: rgb(196, 22, 22);
+   background-color: rgba($color: #cd1818, $alpha: .3);
+}

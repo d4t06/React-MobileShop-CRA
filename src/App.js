@@ -26,20 +26,24 @@ function App() {
                   />
                );
             })}
+
+       
+               {/* <Route  path="/unauthorized" element={<h1>Unauthorized Page</h1>} /> */}
+ 
+
             {/* protected route */}
-            <Route element={<RequireAuth />}>
-               {privateRoutes.map((route, index) => {
-                  return (
-                     <Route
-                        path={route.path}
-                        key={index}
-                        element={
-                           <DefaultLayout>{route.component}</DefaultLayout>
-                        }
-                     />
-                  );
-               })}
-           </Route>
+
+            <Route path="/create" element={<RequireAuth allowedRole={'R1'} />}>
+               <Route element={<h1>Create Page</h1>} />
+            </Route>
+            <Route path="/admin" element={<RequireAuth allowedRole={'R1'} />}>
+               <Route element={<h1>Admin Page</h1>} />
+            </Route>
+
+            <Route path="/account" element={<RequireAuth allowedRole={'R2'} />}>
+               <Route element={<h1>Account Page</h1>} />
+            </Route>
+            
          </Routes>
       </Router>
    );

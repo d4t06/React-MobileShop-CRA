@@ -1,4 +1,5 @@
 import { headPhoneIcons, laptopIcon, mobileIcons } from '../../assets/icons';
+import useAuth from '../../hooks/useAuth';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Modal } from '../../components';
@@ -8,6 +9,7 @@ import styles from './Header.module.scss';
 const cx = classNames.bind(styles);
 
 function Header() {
+   const [auth] = useAuth();
    const [showModal, setShowModal] = useState(false);
    const defaultImage = require('../../assets/images/avatar.jpg');
 
@@ -26,15 +28,22 @@ function Header() {
                      HD Shop
                   </Link>
                   <Search setShowModal={setShowModal} />
+
                   <div className={cx('user-cta')}>
-                     <span className={cx('user-name')}>Nguyễn Hữu Đạt</span>
-                     <div className={cx('image-frame')}>
-                        <img
-                           className={cx('user-image')}
-                           src={defaultImage}
-                           alt=""
-                        />
-                     </div>
+                     {auth?.user && (
+                        <>
+                           <span className={cx('user-name')}>
+                              Nguyễn Hữu Đạt
+                           </span>
+                           <div className={cx('image-frame')}>
+                              <img
+                                 className={cx('user-image')}
+                                 src={defaultImage}
+                                 alt=""
+                              />
+                           </div>
+                        </>
+                     )}
                   </div>
                </div>
             </div>
@@ -55,27 +64,41 @@ function Header() {
                      </li>
                      <li className={cx('nav-item')}>
                         <Link to={'/laptop'}>
-
                            {headPhoneIcons}
                            <p className={cx('nav-text')}>Phụ kiện</p>
                         </Link>
                      </li>
-                     <li className={cx('nav-item')}>
-                        <Link to={'/login'}>
-                           <p className={cx('nav-text')}>Đăng nhập</p>
-                        </Link>
-                     </li>
-                     <li className={cx('nav-item')}>
-                        <Link to={'/account'}>
-                           <p className={cx('nav-text')}>Tài khoản</p>
-                        </Link>
-                     </li>
-                     <li className={cx('nav-item')}>
-                        <Link to={'/create'}>
-                           <p className={cx('nav-text')}>Đăng sản phẩm</p>
-                        </Link>
-                     </li>
                   </ul>
+                  {!auth?.user && (
+                     <ul className={cx('nav-list', 'left-nav-list')}>
+                        <li className={cx('nav-item')}>
+                           <Link to={'/login'}>
+                              <p className={cx('nav-text')}>Đăng nhập</p>
+                           </Link>
+                        </li>
+                        <li className={cx('nav-item')}>
+                           <Link to={'/register'}>
+                              <p className={cx('nav-text')}>Đăng Ký</p>
+                           </Link>
+                        </li>
+                     </ul>
+                  )}
+                  {auth.role === 'R1' && (
+                     <ul className={cx('nav-list')}>
+                        <li className={cx('nav-item')}>
+                           <Link to={'/create'}>
+                              {mobileIcons}
+                              <p className={cx('nav-text')}>Thêm sản phẩm</p>
+                           </Link>
+                        </li>
+                        <li className={cx('nav-item')}>
+                           <Link to={'/admin'}>
+                              {mobileIcons}
+                              <p className={cx('nav-text')}>Trang quản lí</p>
+                           </Link>
+                        </li>
+                     </ul>
+                  )}
                </div>
             </div>
          </div>

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from '../Login/Login.module.scss';
 import useAuth from '../../hooks/useAuth';
 import request from '../../utils/request';
@@ -13,9 +13,10 @@ const USER_REGEX = /^(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const PWD_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
 function Register() {
+   const navigate = useNavigate()
    const [setAuth] = useAuth();
    const userInputRef = useRef();
-   const errRef = useRef();
+   const prevUser = useRef('')
 
    const [user, setUser] = useState('');
    const [validName, setValidName] = useState(false);
@@ -44,7 +45,6 @@ function Register() {
    // validate username
    useEffect(() => {
       const result = USER_REGEX.test(user);
-      // console.log(user, result);
 
       setValidName(result);
    }, [user]);
@@ -53,12 +53,11 @@ function Register() {
    useEffect(() => {
       const result = USER_REGEX.test(password);
       setValidPwd(result);
-
       let match = password === matchPwg;
-      if (!password) match = false
 
-      // console.log("mactch = ", match);
+      if (!password) match = false
       setValidMatchPwg(match);
+
    }, [password, matchPwg]);
 
    const handleSubmit = async (e) => {
@@ -71,8 +70,6 @@ function Register() {
          setErrorMsg("missing payload")
          return
       }
-      console.log(user, password)
-      setSuccess(true)
 
       try {
          const response = await request.post(
@@ -80,29 +77,28 @@ function Register() {
             JSON.stringify({ username: user, password: password }),
             {
                headers: { 'Content-Type': 'application/json' },
-               // withCredentials: true
             }
          );
-         handleClear();
 
-         const accessToken = response?.data?.token;
-         const role = response?.data?.role;
-         setAuth({ user, password, accessToken, role });
+         handleClear();
+         navigate("/login")
       } catch (error) {
          if (!error?.response) {
             setErrorMsg('No server response');
          } else if (error?.response.status === 409) {
             setErrorMsg('Tên tài khoản đã tồn tại');
+            prevUser.current = user
          } else {
             setErrorMsg('Đăng ký thất bại');
          }
       }
-
-      // console.log(userFocus);
    };
+
+   console.log(prevUser.current === user);
    return (
       <div className="wrap">
          <form className={cx('login-form')} onSubmit={handleSubmit}>
+            { errMsg && <h2 className={cx("error-msg")}>{errMsg}</h2>}
             <h1>Đăng ký</h1>
             <div className={cx('form-group')}>
                <label htmlFor="username" autoComplete="off">
@@ -181,13 +177,6 @@ function Register() {
                />
             </div>
             <span className={cx('messgae-container')}></span>
-
-            {errMsg && (
-               <div className={cx('errorMsg')}>
-                  <span></span>
-               </div>
-            )}
-
             {/* <div className={cx("login-with")}>
             <a href="/auth/facebook" className={cx("login-facebook", "login-option")}>
                Facebook
@@ -196,8 +185,7 @@ function Register() {
                Google
             </a>
          </div> */}
-
-            <button className={cx('login-form-btn', (validName && validPwd && validMatchPwg) ? '' : "disable")} type="submit">
+            <button className={cx('login-form-btn', (!validName || !validPwd || !validMatchPwg || prevUser.current === user) ? "disable" : "")} type="submit">
                Đăng ký
             </button>
             <span className={cx('register-text')}>

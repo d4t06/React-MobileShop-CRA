@@ -4,11 +4,16 @@ import DetailPage from "../pages/DetailPage";
 import Products from "../pages/Products";
 import Login from "../pages/Login";
 import Register from '../pages/Register'
+import Unauthorized from '../pages/UnauthorizedPage';
 
 const publicRoutes = [
    {
       path: "/",
       component: Home,
+   },
+   {
+      path: "/unauthorized",
+      component: Unauthorized,
    },
    {
       path: "/login",
@@ -38,11 +43,11 @@ const publicRoutes = [
 const privateRoutes = [
    {
       path:'/account',
-      component: <h1>Account page</h1>
+      role: "R2"
    },
    {
       path:'/create',
-      component: <h1>Create page</h1>
+      role: "R1"
    }
 ]
 export { publicRoutes, privateRoutes };
