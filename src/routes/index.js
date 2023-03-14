@@ -5,6 +5,7 @@ import Products from "../pages/Products";
 import Login from "../pages/Login";
 import Register from '../pages/Register'
 import Unauthorized from '../pages/UnauthorizedPage';
+import AdminPage from '../pages/AdminPage';
 
 const publicRoutes = [
    {
@@ -49,7 +50,7 @@ const privateRoutes = [
    {
       path:'/admin',
       role: ["R1"],
-      component: <h1>Admin Page</h1>
+      component: AdminPage
    },
    {
       path:'/create',

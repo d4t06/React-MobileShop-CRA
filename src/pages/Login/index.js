@@ -10,7 +10,7 @@ const LOGIN_URL = '/auth/login';
 const cx = classNames.bind(styles);
 
 function LoginPage() {
-   const [auth, setAuth] = useAuth();
+   const {setAuth} = useAuth();
    const userInputRef = useRef();
 
    const navigate = useNavigate();
@@ -40,16 +40,16 @@ function LoginPage() {
          // handleClear();
 
          const accessToken = response?.data?.accessToken;
-         const role = response?.data?.role || response?.data?.role_code;
+         const role_code = response?.data?.role || response?.data?.role_code;
          const avatar = response?.data?.avatar
          if (response?.data) {
-            setAuth({ username: user, password, accessToken, role, avatar });
+            setAuth({ username: user, password, accessToken, role_code, avatar });
             navigate(from, { replace: true });
          }
       } catch (error) {
          if (!error?.response) {
             setErrorMsg('No server response');
-         } else if (error?.response.status === 400) {
+         } else if (error?.response.status === 401) {
             setErrorMsg('Tên hoặc mật khẩu không chính xác');
          } else {
             setErrorMsg('Đăng nhâp thất bại');

@@ -9,7 +9,7 @@ import styles from './Header.module.scss';
 const cx = classNames.bind(styles);
 
 function Header() {
-   const [auth] = useAuth();
+   const {auth} = useAuth();
    const [showModal, setShowModal] = useState(false);
    const defaultImage = require('../../assets/images/avatar.jpg');
 

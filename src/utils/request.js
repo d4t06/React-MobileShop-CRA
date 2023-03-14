@@ -4,13 +4,23 @@ const request = axios.create({
    baseURL: "http://localhost:3000/api",
 });
 export const get = async (path, option) => {
-   const res = await request.get(path, option);
-   return res.data;
+   try {
+      const res = await request.get(path, option);
+      return res.data;
+
+   } catch (error) {
+      console.log(error)
+   }
 };
 
 export const post = async (path, body, header) => {
-   const res = await request.post(path, body, header);
-   return res.data;
+   try {
+      const res = await request.post(path, body, header);
+      return res.data;
+
+   } catch (error) {
+      console.log(error);
+   }
 };
 
 export default request;

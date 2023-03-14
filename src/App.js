@@ -3,6 +3,7 @@ import { publicRoutes, privateRoutes } from './routes';
 import DefaultLayout from './layouts/DefaultLayout';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RequireAuth from './routes/RequireAuth';
+import AdminPage from './pages/AdminPage';
 
 function App() {
    return (
@@ -47,7 +48,7 @@ function App() {
                   path="/admin"
                   element={
                      <DefaultLayout>
-                        <h1>Admin Page</h1>
+                       <AdminPage/>
                      </DefaultLayout>
                   }
                />

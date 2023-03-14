@@ -4,14 +4,14 @@ import useAuth from "../hooks/useAuth"
 
 
 function RequireAuth ({allowedRole}) {
-    const [auth] = useAuth();
+    const {auth} = useAuth();
     const location = useLocation()
 
 
     console.log(" auth requireAuth = ", auth);
-    console.log("is valid Role =", !!allowedRole?.find(role => auth?.role === role))
+    console.log("is valid Role =", !!allowedRole?.find(role => auth?.role_code === role))
     return (
-        !!allowedRole?.find(role => auth?.role === role)
+        !!allowedRole?.find(role => auth?.role_code === role)
         ? <Outlet/>
         : auth?.username
             ? <Navigate to="/unauthorized" state={{from: location}} replace/>

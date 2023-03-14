@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../Login/Login.module.scss';
-import useAuth from '../../hooks/useAuth';
 import request from '../../utils/request';
 import { checkIcon, xIcon } from '../../assets/icons';
 
@@ -14,7 +13,6 @@ const PWD_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
 function Register() {
    const navigate = useNavigate()
-   const [setAuth] = useAuth();
    const userInputRef = useRef();
    const prevUser = useRef('')
 
