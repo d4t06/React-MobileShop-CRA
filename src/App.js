@@ -27,23 +27,43 @@ function App() {
                );
             })}
 
-       
-               {/* <Route  path="/unauthorized" element={<h1>Unauthorized Page</h1>} /> */}
- 
+            {/* <Route  path="/unauthorized" element={<h1>Unauthorized Page</h1>} /> */}
 
             {/* protected route */}
 
-            <Route path="/create" element={<RequireAuth allowedRole={'R1'} />}>
-               <Route element={<h1>Create Page</h1>} />
-            </Route>
-            <Route path="/admin" element={<RequireAuth allowedRole={'R1'} />}>
-               <Route element={<h1>Admin Page</h1>} />
+            <Route element={<RequireAuth allowedRole={['R1', 'R2', 'R3']} />}>
+               <Route
+                  path="/account"
+                  element={
+                     <DefaultLayout>
+                        <h1>Acount Page</h1>
+                     </DefaultLayout>
+                  }
+               />
             </Route>
 
-            <Route path="/account" element={<RequireAuth allowedRole={'R2'} />}>
-               <Route element={<h1>Account Page</h1>} />
+            <Route element={<RequireAuth allowedRole={['R1']} />}>
+               <Route
+                  path="/admin"
+                  element={
+                     <DefaultLayout>
+                        <h1>Admin Page</h1>
+                     </DefaultLayout>
+                  }
+               />
             </Route>
-            
+
+            <Route element={<RequireAuth allowedRole={['R1']} />}>
+               <Route
+                  path="/create"
+                  element={
+                     <DefaultLayout>
+                        <h1>Create Page</h1>
+                     </DefaultLayout>
+                  }
+               />
+            </Route>
+
          </Routes>
       </Router>
    );

@@ -43,11 +43,18 @@ const publicRoutes = [
 const privateRoutes = [
    {
       path:'/account',
-      role: "R2"
+      role: ["R1", "R2", "R3"],
+      component: <h1>Account Page</h1>
+   },
+   {
+      path:'/admin',
+      role: ["R1"],
+      component: <h1>Admin Page</h1>
    },
    {
       path:'/create',
-      role: "R1"
+      role: ["R1"],
+      component: <h1>Create Page</h1>
    }
 ]
 export { publicRoutes, privateRoutes };

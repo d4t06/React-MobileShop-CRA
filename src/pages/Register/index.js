@@ -6,7 +6,7 @@ import useAuth from '../../hooks/useAuth';
 import request from '../../utils/request';
 import { checkIcon, xIcon } from '../../assets/icons';
 
-const LOGIN_URL = '/auth';
+const REGISTER_URL = '/auth/register';
 const cx = classNames.bind(styles);
 
 const USER_REGEX = /^(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
@@ -73,7 +73,7 @@ function Register() {
 
       try {
          const response = await request.post(
-            "/register",
+            REGISTER_URL,
             JSON.stringify({ username: user, password: password }),
             {
                headers: { 'Content-Type': 'application/json' },
@@ -94,7 +94,7 @@ function Register() {
       }
    };
 
-   console.log(prevUser.current === user);
+   // console.log(prevUser.current === user);
    return (
       <div className="wrap">
          <form className={cx('login-form')} onSubmit={handleSubmit}>

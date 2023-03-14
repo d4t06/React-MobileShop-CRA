@@ -8,11 +8,12 @@ function RequireAuth ({allowedRole}) {
     const location = useLocation()
 
 
-    console.log(auth);
+    console.log(" auth requireAuth = ", auth);
+    console.log("is valid Role =", !!allowedRole?.find(role => auth?.role === role))
     return (
-        auth?.role === allowedRole 
+        !!allowedRole?.find(role => auth?.role === role)
         ? <Outlet/>
-        : auth?.user
+        : auth?.username
             ? <Navigate to="/unauthorized" state={{from: location}} replace/>
             : <Navigate to="/login" state={{from: location}} replace/>
        )

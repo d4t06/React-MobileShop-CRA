@@ -6,7 +6,7 @@ import useAuth from '../../hooks/useAuth';
 import request from '../../utils/request';
 import { checkIcon, xIcon } from '../../assets/icons';
 
-const LOGIN_URL = '/auth';
+const LOGIN_URL = '/auth/login';
 const cx = classNames.bind(styles);
 
 function LoginPage() {
@@ -15,11 +15,7 @@ function LoginPage() {
 
    const navigate = useNavigate();
    const location = useLocation();
-
-   console.log('location = ', location);
    const from = location?.state?.from?.pathname || '/';
-
-   // console.log(setAuth);
 
    const [user, setUser] = useState('');
    const [password, setPassword] = useState('');
@@ -31,7 +27,6 @@ function LoginPage() {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log('submit');
 
       try {
          const response = await request.post(
@@ -45,16 +40,17 @@ function LoginPage() {
          // handleClear();
 
          const accessToken = response?.data?.accessToken;
-         const role = response?.data?.role;
+         const role = response?.data?.role || response?.data?.role_code;
+         const avatar = response?.data?.avatar
          if (response?.data) {
-            setAuth({ user, password, accessToken, role });
+            setAuth({ username: user, password, accessToken, role, avatar });
             navigate(from, { replace: true });
          }
       } catch (error) {
          if (!error?.response) {
             setErrorMsg('No server response');
          } else if (error?.response.status === 400) {
-            setErrorMsg('Thiếu tên hoặc mật khẩu');
+            setErrorMsg('Tên hoặc mật khẩu không chính xác');
          } else {
             setErrorMsg('Đăng nhâp thất bại');
          }

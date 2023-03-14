@@ -13,6 +13,8 @@ function Header() {
    const [showModal, setShowModal] = useState(false);
    const defaultImage = require('../../assets/images/avatar.jpg');
 
+   // console.log(auth)
+
    return (
       <>
          <div className={cx('header')}>
@@ -30,18 +32,18 @@ function Header() {
                   <Search setShowModal={setShowModal} />
 
                   <div className={cx('user-cta')}>
-                     {auth?.user && (
+                     {auth?.username && (
                         <>
                            <span className={cx('user-name')}>
-                              Nguyễn Hữu Đạt
+                             { auth.displayname || auth.username }
                            </span>
-                           <div className={cx('image-frame')}>
+                           <Link to="/account" className={cx('image-frame')}>
                               <img
                                  className={cx('user-image')}
-                                 src={defaultImage}
+                                 src={auth.avatar || defaultImage}
                                  alt=""
                               />
-                           </div>
+                           </Link>
                         </>
                      )}
                   </div>
@@ -68,8 +70,20 @@ function Header() {
                            <p className={cx('nav-text')}>Phụ kiện</p>
                         </Link>
                      </li>
+                     <li className={cx('nav-item')}>
+                        <Link to={'/admin'}>
+                           {headPhoneIcons}
+                           <p className={cx('nav-text')}>admin</p>
+                        </Link>
+                     </li>
+                     <li className={cx('nav-item')}>
+                        <Link to={'/create'}>
+                           {headPhoneIcons}
+                           <p className={cx('nav-text')}>create</p>
+                        </Link>
+                     </li>
                   </ul>
-                  {!auth?.user && (
+                  {!auth?.username && (
                      <ul className={cx('nav-list', 'left-nav-list')}>
                         <li className={cx('nav-item')}>
                            <Link to={'/login'}>
