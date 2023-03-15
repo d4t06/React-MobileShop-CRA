@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import { useState, useEffect } from 'react';
-import request from '../../utils/request';
+import { useNavigate, useLocation } from 'react-router-dom';
+import usePrivateRequest from '../../hooks/usePrivateRequest';
 import styles from './Admin.module.scss';
 import useRefreshToken from '../../hooks/useRefreshToken';
 
@@ -9,6 +10,9 @@ const cx = classNames.bind(styles);
 function AdminPage() {
    const [user, setUser] = useState([]);
    const refresh = useRefreshToken();
+   const privateRequest = usePrivateRequest();
+   const navigate = useNavigate();
+   const location = useLocation;
 
    useEffect(() => {
       let isMounted = true;
@@ -16,13 +20,16 @@ function AdminPage() {
 
       const fetch = async () => {
          try {
-            const response = await request.get('/users', {
+            const response = await privateRequest.get('/users', {
                signal: controller.signal,
             });
 
-            console.log(response);
+            console.log('response.data = ', response.data);
+            isMounted && setUser(response.data);
+
          } catch (error) {
-            console.log({ message: error });
+            console.error(error)
+            navigate('/login');
          }
       };
       fetch();
@@ -45,29 +52,22 @@ function AdminPage() {
                </tr>
             </thead>
 
-            {/* {user?.map((user, index) => {
-            return (
-               <tbody key={index}>
-               <tr>
-               <td>#</td>
-               <td>{user.username}</td>
-               <td>
-                  <a href="">Xóa vĩnh viễn</a>
-               </td>
-               <td>
-                  <a href="">khôi phục</a>
-               </td>
-               </tr>
-               </tbody>
-            )
-           })} */}
-
-            <tbody>
-               <tr>
-                  <td>#</td>
-                  <td>test</td>
-               </tr>
-            </tbody>
+            {user?.map((user, index) => {
+               return (
+                  <tbody key={index}>
+                     <tr>
+                        <td>#</td>
+                        <td>{user.username}</td>
+                        <td>
+                           <a href="">Xóa vĩnh viễn</a>
+                        </td>
+                        <td>
+                           <a href="">khôi phục</a>
+                        </td>
+                     </tr>
+                  </tbody>
+               );
+            })}
          </table>
          <button className={cx('refresh-btn')} onClick={() => refresh()}>
             Refresh

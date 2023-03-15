@@ -49,7 +49,7 @@ function Register() {
 
    // validate password
    useEffect(() => {
-      const result = USER_REGEX.test(password);
+      const result = PWD_REGEX.test(password);
       setValidPwd(result);
       let match = password === matchPwg;
 
@@ -62,7 +62,7 @@ function Register() {
       e.preventDefault();
       //  if submit with js tool
       const test1 = USER_REGEX.test(user)
-      const test2 = USER_REGEX.test(password)
+      const test2 = PWD_REGEX.test(password)
 
       if (!test1 || !test2) {
          setErrorMsg("missing payload")

@@ -89,3 +89,22 @@
 - Tạo icon svg code
 - Thêm private route
 - Sửa == thành ===
+
+## Code authenticate
+
+### update thứ 3 14/3/2023
+- Tạo auth context, useAuth hook
+- Tạo trang login, register (with validate)
+- Thêm RequireAuth route, navigate to "login" nếu vào các trang được bảo về
+- Đăng nhâp thành công, trả về role_code, token, refreshToken, 
+    token, role_code lưu vào auth Context, refreshToken được server lưu vào cookie
+
+### update thứ 4 15/3/2023
+- Dùng token truy cập tài nguyên ở server
+- Tạo axios instance privateRequest để  truyền cookie và tạo header gưi yêu cầu lên server
+- Tạo useRefreshToken để cấp mới token sau khi expire
+- Nếu refreshToken expire thì navigate to login
+- Tạo useLogout
+- Tạo persistLogin, lưu đăng nhập nếu trust this device mỗi khi load lại web
+- Tạo useLocalStorage, để làm gì cũng đéo biết...
+

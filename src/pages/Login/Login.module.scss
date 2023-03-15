@@ -32,7 +32,19 @@ body {
       margin-bottom: 5px;
    }
 }
-
+.persist-check {
+   font-size: 1.6rem;
+   display: flex;
+   align-self: flex-start;
+   input {
+      margin:0 5px;
+      -ms-transform: scale(1.4); /* IE */
+      -moz-transform: scale(1.4); /* FF */
+      -webkit-transform: scale(1.4); /* Safari and Chrome */
+      -o-transform: scale(1.4); /* Opera */
+      transform: scale(1.4);
+   }
+}
 .login-form-btn {
    width: 50%;
    border: none;

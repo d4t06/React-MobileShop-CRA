@@ -9,5 +9,5 @@
       "typescript": "typescriptreact"
    },
    "editor.acceptSuggestionOnCommitCharacter": false,
-   "editor.fontFamily": "Fira Code"
+   "editor.fontFamily": "Fira Code Medium"
 }

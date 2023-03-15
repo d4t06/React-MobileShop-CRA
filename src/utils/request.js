@@ -2,7 +2,9 @@ import axios from "axios";
 
 const request = axios.create({
    baseURL: "http://localhost:3000/api",
+   withCredentials: true,
 });
+
 export const get = async (path, option) => {
    try {
       const res = await request.get(path, option);
@@ -10,7 +12,7 @@ export const get = async (path, option) => {
 
    } catch (error) {
       console.log(error)
-   }
+   } 
 };
 
 export const post = async (path, body, header) => {

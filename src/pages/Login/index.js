@@ -4,13 +4,12 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './Login.module.scss';
 import useAuth from '../../hooks/useAuth';
 import request from '../../utils/request';
-import { checkIcon, xIcon } from '../../assets/icons';
 
 const LOGIN_URL = '/auth/login';
 const cx = classNames.bind(styles);
 
 function LoginPage() {
-   const {setAuth} = useAuth();
+   const {setAuth, persist, setPersist} = useAuth();
    const userInputRef = useRef();
 
    const navigate = useNavigate();
@@ -39,11 +38,13 @@ function LoginPage() {
          console.log(response);
          // handleClear();
 
-         const accessToken = response?.data?.accessToken;
+         const token = response?.data?.token;
          const role_code = response?.data?.role || response?.data?.role_code;
          const avatar = response?.data?.avatar
+         const display_name = response?.data?.display_name
+
          if (response?.data) {
-            setAuth({ username: user, password, accessToken, role_code, avatar });
+            setAuth({username: user, token, role_code, avatar, display_name });
             navigate(from, { replace: true });
          }
       } catch (error) {
@@ -55,8 +56,12 @@ function LoginPage() {
             setErrorMsg('Đăng nhâp thất bại');
          }
       }
-
    };
+
+   useEffect(() => {
+      localStorage.setItem("persist",  JSON.stringify(persist))
+   }, [persist])
+
    return (
       <div className="wrap">
          <form className={cx('login-form')} onSubmit={handleSubmit}>
@@ -86,6 +91,15 @@ function LoginPage() {
                      setPassword(e.target.value.trim() && e.target.value)
                   }
                />
+            </div>
+            <div className={cx('persist-check')}>
+               <input
+                  type="checkbox"
+                  id='persist'
+                  value={persist}
+                  onChange={() => setPersist(!persist)}
+               />
+               <label htmlFor="persist">Trust this device :v ?</label>
             </div>
 
             {/* <div className={cx("login-with")}>

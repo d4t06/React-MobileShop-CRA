@@ -8,8 +8,8 @@ function RequireAuth ({allowedRole}) {
     const location = useLocation()
 
 
-    console.log(" auth requireAuth = ", auth);
-    console.log("is valid Role =", !!allowedRole?.find(role => auth?.role_code === role))
+    // console.log(" auth requireAuth = ", auth);
+    // console.log("is valid Role =", !!allowedRole?.find(role => auth?.role_code === role))
     return (
         !!allowedRole?.find(role => auth?.role_code === role)
         ? <Outlet/>
