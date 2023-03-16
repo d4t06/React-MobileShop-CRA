@@ -1,17 +1,26 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+// custom hooks
 import useAuth from '../hooks/useAuth';
 import useRefreshToken from '../hooks/useRefreshToken';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const PersistLogin = () => {
-   const { auth, persist } = useAuth();
+   const { auth } = useAuth();
    const refresh = useRefreshToken();
    const [isLoading, setIsLoading] = useState(true);
+   const [persist] = useLocalStorage('persist', false) //[persist, setPersist]
 
+   // const decode = auth?.token
+   //    ? jwtDecode(auth.token)
+   //    : undefined
+
+   
    useEffect(() => {
+      let isMounted = true;
 
-    let isMounted = true;
       const verifyRefreshToken = async () => {
          try {
             await refresh();
@@ -27,10 +36,10 @@ const PersistLogin = () => {
       return () => isMounted= false;
    }, []);
 
-   useEffect(() => {
-      console.log(`isLoading = ${isLoading}`);
-      console.log('auth =', auth);
-   }, [isLoading]);
+   // useEffect(() => {
+   //    console.log(`isLoading = ${isLoading}`);
+   //    console.log('auth =', auth);
+   // }, [isLoading]);
 
    return (
       <>

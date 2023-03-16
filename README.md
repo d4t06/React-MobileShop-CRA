@@ -108,3 +108,8 @@
 - Tạo persistLogin, lưu đăng nhập nếu trust this device mỗi khi load lại web
 - Tạo useLocalStorage, để làm gì cũng đéo biết...
 
+### update thứ 5 16/3/2023
+- useAuth chỉ lưu token
+- Tạo useLocalStorage, useInput, và useToggle hook
+- Lưu persist login vào localstorage thay vì và auth context
+- Cài thư viện jwt decode để code token, để lấy username hiển thị header và lấy role_code để pass requireRoute

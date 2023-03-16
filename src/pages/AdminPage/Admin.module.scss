@@ -1,25 +1,24 @@
 .admin-page {
-   text-align: center;
+   // text-align: center;
+   margin: 0 auto;
+   width: 70%;
    height: 100vh;
    .admin-page-header {
-      margin-top: 30px;
+      margin: 30px 0 20px 0;
+      font-size: 2.5rem;
    }
    .user-table {
-      margin: 0 auto;
-      width: 80%;
+      // margin: 0 auto;
+      width: 100%;
       font-size: 1.8rem;
-      td {
-         color: #ccc;
-      }
+      color: #ccc;
+      text-align: left;
+      // td {
+      //    color: #ccc;
+      //    text-align: left;
+      // }
+      // th {
+      //    text-align: ;
+      // }
    }
-}
-
-
-.refresh-btn {
-   font-size: 1.8rem;
-   background-color: #cd1818;
-   color: #fff;
-   border-radius: 6px;
-   padding: 5px 10px;
-   margin-top: 10px;
 }

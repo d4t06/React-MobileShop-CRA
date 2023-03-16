@@ -1,4 +1,5 @@
 import { headPhoneIcons, laptopIcon, mobileIcons } from '../../assets/icons';
+import jwtDecode from 'jwt-decode';
 import useAuth from '../../hooks/useAuth';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -12,6 +13,12 @@ function Header() {
    const {auth} = useAuth();
    const [showModal, setShowModal] = useState(false);
    const defaultImage = require('../../assets/images/avatar.jpg');
+
+   const decode = auth?.token
+      ? jwtDecode(auth.token)
+      : undefined
+
+   
 
    // console.log(auth)
 
@@ -32,15 +39,15 @@ function Header() {
                   <Search setShowModal={setShowModal} />
 
                   <div className={cx('user-cta')}>
-                     {auth?.username && (
+                     {decode?.username && (
                         <>
                            <span className={cx('user-name')}>
-                             { auth.displayname || auth.username }
+                             { decode.displayname || decode.username }
                            </span>
                            <Link to="/account" className={cx('image-frame')}>
                               <img
                                  className={cx('user-image')}
-                                 src={auth.avatar || defaultImage}
+                                 src={decode.avatar || defaultImage}
                                  alt=""
                               />
                            </Link>

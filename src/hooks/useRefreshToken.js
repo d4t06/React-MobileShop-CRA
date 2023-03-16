@@ -6,12 +6,11 @@ const useRefreshToken = () => {
 
     const refresh = async () => {
         try {
-            const response = await request.get("http://localhost:3000/api/refresh")
+            const response = await request.get("/auth/refresh")
     
             setAuth(prev => {
                 const newToken = response.data.token
-                const role_code = response.data.role_code
-                return {...prev, token: newToken, role_code}
+                return {...prev, token: newToken}
             })
             return response.data.token
         } catch (error) {

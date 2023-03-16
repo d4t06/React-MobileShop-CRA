@@ -20,7 +20,7 @@ function AdminPage() {
 
       const fetch = async () => {
          try {
-            const response = await privateRequest.get('/users', {
+            const response = await privateRequest.get('/admin/users', {
                signal: controller.signal,
             });
 
@@ -28,8 +28,8 @@ function AdminPage() {
             isMounted && setUser(response.data);
 
          } catch (error) {
-            console.error(error)
-            navigate('/login');
+            console.log({message: error})
+            navigate('/unauthorized');
          }
       };
       fetch();
@@ -42,13 +42,13 @@ function AdminPage() {
 
    return (
       <div className={cx('admin-page')}>
-         <h1 className={cx('admin-page-header')}>Admin page</h1>
+         <p className={cx('admin-page-header')}>Admin page</p>
          <table className={cx('user-table')}>
             <thead>
                <tr>
                   <th>ID</th>
                   <th style={{ width: '50%' }}>Tên</th>
-                  <th colSpan="2">Hành động</th>
+                  <th >Hành động</th>
                </tr>
             </thead>
 
@@ -69,9 +69,6 @@ function AdminPage() {
                );
             })}
          </table>
-         <button className={cx('refresh-btn')} onClick={() => refresh()}>
-            Refresh
-         </button>
       </div>
    );
 }

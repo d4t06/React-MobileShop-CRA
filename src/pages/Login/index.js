@@ -4,19 +4,23 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './Login.module.scss';
 import useAuth from '../../hooks/useAuth';
 import request from '../../utils/request';
+// hooks
+import useInput from '../../hooks/useInput';
+import useToggleCheckbox from '../../hooks/useToggle';
 
 const LOGIN_URL = '/auth/login';
 const cx = classNames.bind(styles);
 
 function LoginPage() {
-   const {setAuth, persist, setPersist} = useAuth();
+   const { setAuth } = useAuth();
    const userInputRef = useRef();
 
    const navigate = useNavigate();
    const location = useLocation();
    const from = location?.state?.from?.pathname || '/';
 
-   const [user, setUser] = useState('');
+   const [isCheck, toggleCheck] = useToggleCheckbox('persist', false);
+   const [user, userAttribs, clearUser] = useInput('user', ''); //useState('');
    const [password, setPassword] = useState('');
    const [errMsg, setErrorMsg] = useState('');
 
@@ -26,7 +30,6 @@ function LoginPage() {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-
       try {
          const response = await request.post(
             LOGIN_URL,
@@ -35,18 +38,19 @@ function LoginPage() {
                headers: { 'Content-Type': 'application/json' },
             }
          );
-         console.log(response);
-         // handleClear();
 
+         console.log(response);
          const token = response?.data?.token;
-         const role_code = response?.data?.role || response?.data?.role_code;
-         const avatar = response?.data?.avatar
-         const display_name = response?.data?.display_name
+         // const avatar = response?.data?.avatar;
+         // const display_name = response?.data?.display_name;
 
          if (response?.data) {
-            setAuth({username: user, token, role_code, avatar, display_name });
+            setAuth( {token} );
+            clearUser();
+            setPassword('');
             navigate(from, { replace: true });
          }
+
       } catch (error) {
          if (!error?.response) {
             setErrorMsg('No server response');
@@ -58,9 +62,9 @@ function LoginPage() {
       }
    };
 
-   useEffect(() => {
-      localStorage.setItem("persist",  JSON.stringify(persist))
-   }, [persist])
+   // useEffect(() => {
+   //    localStorage.setItem('persist', JSON.stringify(persist));
+   // }, [persist]);
 
    return (
       <div className="wrap">
@@ -75,10 +79,8 @@ function LoginPage() {
                   ref={userInputRef}
                   autoComplete="off"
                   type="text"
-                  value={user}
-                  onChange={(e) =>
-                     setUser(e.target.value.trim() && e.target.value)
-                  }
+                  required
+                  {...userAttribs}
                />
             </div>
             <div className={cx('form-group')}>
@@ -86,6 +88,7 @@ function LoginPage() {
                <input
                   type="text"
                   autoComplete="off"
+                  required
                   value={password}
                   onChange={(e) =>
                      setPassword(e.target.value.trim() && e.target.value)
@@ -95,9 +98,10 @@ function LoginPage() {
             <div className={cx('persist-check')}>
                <input
                   type="checkbox"
-                  id='persist'
-                  value={persist}
-                  onChange={() => setPersist(!persist)}
+                  id="persist"
+                  checked={isCheck}
+                  onChange={toggleCheck}
+                  
                />
                <label htmlFor="persist">Trust this device :v ?</label>
             </div>
