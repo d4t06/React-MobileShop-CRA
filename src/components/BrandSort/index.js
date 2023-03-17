@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useStore from '../../hooks/useStore';
+// import useStore from '../../hooks/useStore';
 
 import classNames from 'classnames/bind';
 import styles from './BrandSort.module.scss';
@@ -10,15 +10,20 @@ import { brand, demand } from '../../assets/data/brands';
 
 import { getAll } from '../../store/actions';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { selectedAllStore } from '../../store/productsSlice';
+
 const cx = classNames.bind(styles);
 
 function BrandSort({ category, count }) {
-   const [state, dispatch] = useStore();
+   // const [state, dispatch] = useStore();
+   const store = useSelector(selectedAllStore)
+   const dispatchRedux = useDispatch()
    const [Filters, setFilters] = useState('');
 
    const showFilteredResults = (filters) => {
-      const { data, status, ...rest } = state;
-      getAll(dispatch, { ...rest, filters: filters });
+      const { products, ...rest } = store;
+      getAll(dispatchRedux, { ...rest, filters: filters });
    };
 
    const handleFilter = (filters, by) => {
@@ -45,15 +50,15 @@ function BrandSort({ category, count }) {
    };
 
    const isFiltered =
-      (JSON.stringify(state.filters) !== '{}' && state?.filters?.brand) ||
-      state?.filters?.price;
+      (JSON.stringify(store.filters) !== '{}' && store?.filters?.brand) ||
+      store?.filters?.price;
 
    useEffect(() => {
       // console.log("state filter useEffect = ", Filters);
       // if (!Filters) return
       // console.log("useEffect");
-      setFilters(state.filters);
-   }, [state]);
+      setFilters(store.filters);
+   }, [store]);
 
    return (
       <>

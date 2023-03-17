@@ -1,46 +1,50 @@
 import classNames from 'classnames/bind';
-import useStore from '../../hooks/useStore';
+// import useStore from '../../hooks/useStore';
 import styles from '../Products/Products.module.scss';
 import { getSearchPage } from '../../store/actions';
 import { Button, ProductItem } from '../../components';
 import { useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import searchService from '../../services/searchService';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { selectedAllStore } from '../../store/productsSlice';
+
+import { storeProduct } from '../../store/productsSlice';
 
 const cx = classNames.bind(styles);
 
-function SearchResultPage(prop) {
-   const [state, dispatch] = useStore();
-   console.log("state = ", state)
+function SearchResultPage() {
+   // const [state, dispatch] = useStore();
+   const store = useSelector(selectedAllStore)
+   const dispatchRedux = useDispatch()
    
    let { key } = useParams();
 
-   const { data, page, category } = state.data
-      ? state
-      : { data: { count: "", rows: null }, category: `search=${key}`};
+   const { products, page, category } = store.products
+      ? store
+      : { products: { count: "", rows: null }, category: `search=${key}`};
 
 
-   const { count, rows } = data;
+   const { count, rows } = products;
 
    let countProduct = count - page * 8;
    if (countProduct < 0) countProduct = 0;
 
    useEffect(() => {
-      if (state.data?.rows && state.category.includes(key)) return;
+      if (store.products?.rows && store.category.includes(key)) return;
 
       const fetchApi = async () => {
          const result = await searchService({ q: key });
          return result;
       };
-      dispatch({ type: 'loading', status: 'loading' });
+      dispatchRedux(storeProduct({ status: 'loading' }));
       const handler = setTimeout(async () => {
          const result = await fetchApi();
-         dispatch({
-            type: 'GET_ALL',
-            status: 'finished',
-            payload: result,
+         dispatchRedux(storeProduct({
+            products: result,
             category: `search=${key}`,
-         });
+         }));
       }, 1000);
 
       return () => {
@@ -49,19 +53,19 @@ function SearchResultPage(prop) {
    }, [key]);
 
    const handleGetMore = () => {
-      getSearchPage(dispatch, { category: category, page: page + 1 });
+      getSearchPage(dispatchRedux, { category: category, page: page + 1 });
    };
 
-   console.log(data);
+   console.log("redux store = ", store);
 
    return (
       <div className={cx('product-container')}>
          <>
-            {state.status !== 'loading' ? (
+            {store.status !== 'loading' ? (
                <div className={cx('product-body', 'row')}>
                   <div className="col col-full">
-                     {data?.count ? <h1 className={cx("search-page-title")}>
-                        Tìm thấy <span style={{color: "#cd1818"}}>{data.rows.length || 0}</span> kết quả cho từ khóa "{key}"
+                     {products?.count ? <h1 className={cx("search-page-title")}>
+                        Tìm thấy <span style={{color: "#cd1818"}}>{products.rows.length || 0}</span> kết quả cho từ khóa "{key}"
                      </h1> : <h1>Kết quả tìm kiếm cho từ khóa "{key}"</h1>}
                       <ProductItem data={rows} searchResultPage />
                      <div className={cx('pagination')}>

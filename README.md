@@ -5,12 +5,6 @@
 - NaN
 - undefine
 
-
-
-## Thiết kế database
-- chỉ dùng price sau đó dùng discount tính cur_price
-- column ram
-
 ## useState
 - setState(prevState => prevState + 1) có thể chạy nhiều lận, không phụ thuộc vào biếng bên ngoài
 - setState(state + 1) thì cũng chỉ chạy một lần dù gọi nhiều lần
@@ -113,3 +107,8 @@
 - Tạo useLocalStorage, useInput, và useToggle hook
 - Lưu persist login vào localstorage thay vì và auth context
 - Cài thư viện jwt decode để code token, để lấy username hiển thị header và lấy role_code để pass requireRoute
+
+
+### update thứ 6 17/3/2023
+- Dùng redux intead of context để lưu products
+- Fix image width trang detail

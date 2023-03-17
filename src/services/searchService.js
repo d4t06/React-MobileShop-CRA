@@ -6,13 +6,13 @@ export const searchService = async (query) => {
    const {sort, ...rest} = query
 
     try {
-        const response = await request.get(`/search`, {
+        const response = await request.get(`products/search`, {
            params: {
             ...rest,
             ...sort
            }
         });
-        console.log("response = ", response)
+        console.log("response searchService = ", response)
         return response;
      } catch (error) {
         console.log("có lỗi trong quá trình lấy dữ liệu", error);

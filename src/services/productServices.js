@@ -13,7 +13,7 @@ export const getProducts = async (querys) => {
       return []
    }
    try {
-      const response = await request.get(`/`, {
+      const response = await request.get(`/products`, {
          params: {
             ...rest,
             ...filters, //brand='samsung,iphone'
@@ -34,7 +34,7 @@ export const getProductDetail = async (querys) => {
    }
    const {category, href} = querys
    try {
-      const response = await request.get(`/${category}/${href}`, {
+      const response = await request.get(`/products/${category}/${href}`, {
          params: {
          }
       })
@@ -50,7 +50,7 @@ export const buyProduct = async (data) => {
       return
    }
    try {
-      request.post('/', {
+      request.post('/products', {
          body: {
             ...data
          }

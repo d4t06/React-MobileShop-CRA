@@ -18,10 +18,8 @@ function Header() {
       ? jwtDecode(auth.token)
       : undefined
 
-   
-
    // console.log(auth)
-
+   console.log("header re-render")
    return (
       <>
          <div className={cx('header')}>

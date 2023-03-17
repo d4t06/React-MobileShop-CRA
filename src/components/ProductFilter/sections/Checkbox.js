@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from '../ProductFilter.module.scss';
+import { useSelector } from 'react-redux';
+import { selectedAllStore } from '../../../store/productsSlice';
 // import Continents from './Continents'
-import useStore from '../../../hooks/useStore';
+// import useStore from '../../../hooks/useStore';
 
 const cx = classNames.bind(styles);
 
 function Checkbox({ handleFilter, data }) {
-   const [state, dispatch]  = useStore()
+   const store = useSelector(selectedAllStore)
+   // const [state, dispatch]  = useStore()
    const [checked, setChecked] = useState('');
 
    const handleToggle = (value) => {
@@ -31,8 +34,8 @@ function Checkbox({ handleFilter, data }) {
 
    // cập nhật lại checked từ global state
    useEffect(() => {
-      setChecked(state.filters.brand || '')
-   }, [state])
+      setChecked(store.filters.brand || '')
+   }, [store])
 
    return (
       <>

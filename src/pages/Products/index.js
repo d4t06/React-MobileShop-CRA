@@ -1,12 +1,11 @@
-// import { useLocation, useParams, useNavigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Context from '../../store/Context';
+// import Context from '../../store/Context';
 import classNames from 'classnames/bind';
 import styles from './Products.module.scss';
 import { getAll } from '../../store/actions';
-import * as productServices from '../../services/productServices';
-
+import * as productServices from '../../services/productServices'
+import { useSelector, useDispatch } from 'react-redux';
 import {
    ProductFilter,
    ImageSlider,
@@ -15,15 +14,19 @@ import {
    Button,
 } from '../../components';
 import { banner } from '../../assets/data';
+import { selectedAllStore, storeProduct } from '../../store/productsSlice';
 const cx = classNames.bind(styles);
 
 function Product() {
-   const [state, dispatch] = useContext(Context);
+   const store = useSelector(selectedAllStore)
+   const dispatchRedux = useDispatch()
+   // const [state, dispatch] = useContext(Context);
    const { category } = useParams();
-   console.log('state = ', state);
+   // console.log('state = ', state);
 
-   const { data, status, page, ...rest } = state;
-   const { rows, count } = data ? data : [];
+   // const { data, status, page, ...rest } = state;
+   const {products, page, ...rest} = store
+   const { rows, count } = products ? products : [];
 
    let countProduct = count - page * 6;
    if (countProduct < 0) countProduct = 0;
@@ -31,27 +34,27 @@ function Product() {
    useEffect(() => {
       const fetch = async () => {
          const result = await productServices.getProducts({
-            category: category,
+            category,
             page: 1,
          });
          if (result) {
-            dispatch({
-               type: 'GET_ALL',
-               status: 'finished',
-               payload: result,
-               category: category,
-               page: 1,
-            });
+            // dispatch({
+            //    payload: result,
+            //    page: 1,
+            // });
+            dispatchRedux(storeProduct({products: result, page: 1, category}))
          }
          return;
       };
-      // fetch();
+      fetch();
    }, [category]);
 
    const handleGetMore = () => {
       // const { data, status, ...rest } = state;
-      getAll(dispatch, { ...rest, page: page + 1 });
+      getAll(dispatchRedux, { ...rest, category: category, page: page + 1 });
    };
+
+   console.log("products redux  =", store);
 
    return (
       <div className={cx('product-container')}>

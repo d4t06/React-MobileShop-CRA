@@ -1,9 +1,12 @@
+import { useState, useEffect } from 'react';
+
+import { selectedAllStore } from '../../store/productsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 import classNames from 'classnames/bind';
 import styles from './ProductSort.module.scss';
-import { useState } from 'react';
+
 import { getAll, getSearchPage } from '../../store/actions';
-import useStore from '../../hooks/useStore';
-import { useEffect } from 'react';
 const cx = classNames.bind(styles);
 
 const contiments = [
@@ -34,10 +37,12 @@ const contiments = [
 ];
 
 function ProductSort({category}) {
-   const [state, dispatch] = useStore();
+   // const [state, dispatch] = useStore();
+   const store = useSelector(selectedAllStore)
+   const dispatchRedux = useDispatch()
    const [checked, setChecked] = useState(1);
 
-   const {data, href, status, ...rest} = state
+   const {products, ...rest} = store
 
    useEffect(() => {
       if (checked ===  1) return;
@@ -55,12 +60,12 @@ function ProductSort({category}) {
          // nếu là tất cả
          if (!sort.column) sort = '';
 
-         const { category, page } = state;
+         const { category, page } = store;
 
          // nếu filter ở search page
-         if (state.category.includes('search')) {
-            getSearchPage(dispatch,{ category: category, page: page, sort: sort });
-         } else getAll(dispatch, { ...rest, sort: sort });
+         if (store.category.includes('search')) {
+            getSearchPage(dispatchRedux,{ category: category, page: page, sort: sort });
+         } else getAll(dispatchRedux, { ...rest, sort: sort });
       }
    };
 

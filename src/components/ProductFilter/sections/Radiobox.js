@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from '../ProductFilter.module.scss';
 // import Continents from './Continents'
-import useStore from '../../../hooks/useStore';
+// import useStore from '../../../hooks/useStore';
+import { useSelector } from 'react-redux';
+import { selectedAllStore } from '../../../store/productsSlice';
 const cx = classNames.bind(styles);
 
 
 function Radiobox({ handleFilter, data }) {
-   const [state, dispatch] = useStore()
+   const store = useSelector(selectedAllStore)
+   // const [state, dispatch] = useStore()
    const [checked, setChecked] = useState();
 
    // console.log("checked radio = ", checked)
@@ -22,8 +25,8 @@ function Radiobox({ handleFilter, data }) {
    };
 
    useEffect(() => {
-      setChecked(state.filters.price || '')
-   }, [state])
+      setChecked(store.filters.price || '')
+   }, [store])
 
    return (
       <>

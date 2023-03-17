@@ -7,7 +7,7 @@ import ProductSort from '../ProductSort';
 const cx = classNames.bind(styles);
 function ProductItem({ data: products, searchResultPage, category }) {
 
-   console.log("products = ", products)
+   // console.log("products = ", products)
 
    return (
       <div className={cx('product-container')}>

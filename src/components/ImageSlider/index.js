@@ -5,11 +5,9 @@ import styles from './ImageSlider.module.scss';
 const cx = classNames.bind(styles);
 
 function ImageSlider({ banner, data }) {
+   // need to update ui => useState
    const [isDrag, setIsDrag] = useState(false)
-   // const [prevPageX, setPrevPageX] = useState(0)
-   // const [prevScrollLeft, setPrevScrollLeft] = useState(0)
    const [curIndex, setCurIndex] = useState(1);
-   // const [curScroll, setCurScroll] = useState(0)
    const [isEnter, setIsEnter] = useState(false);
    const imageSliderRef = useRef();
 
@@ -20,8 +18,9 @@ function ImageSlider({ banner, data }) {
    const isDraRef = useRef(false)
 
 
+
    useEffect(() => {
-      console.log("set Index useEffect")
+      // console.log("set Index useEffect")
       if (curIndex === 1) return;
       scrollRef.current = 0
       indexRef.current = 1
@@ -29,18 +28,17 @@ function ImageSlider({ banner, data }) {
    }, [data]);
 
 
-   const imageWidth = 1100;
-   // vì khi re-render
+   const imageWidth = banner ? 1100 : 625;
+   // phải để sau useEffet vì mỗi khi re-render thì data khong bị thay đổi
    data = data.slice(0, data.length - 5).split('*and*')
+
    const maxScroll = imageWidth * (data.length - 1)
 
-
    useEffect(() => {
-      console.log("isEnter = ", isEnter);
       if (isEnter) return;
 
       const id = setInterval(() => {
-         console.log("useEffect auto slide");
+         // console.log("useEffect auto slide");
          nextImage();
       }, 4000);
 
@@ -49,7 +47,7 @@ function ImageSlider({ banner, data }) {
 
 
    useEffect(() => {
-      console.log("useEffect scroll = ", scrollRef.current)
+      // console.log("useEffect scroll = ", scrollRef.current)
 
       imageSliderRef.current.scrollLeft = scrollRef.current
 
@@ -61,7 +59,7 @@ function ImageSlider({ banner, data }) {
 
    const handleStartDrag = (e) => {
       // if (isEnter) return;
-      console.log("handle start drag");
+      // console.log("handle start drag");
       setIsDrag(true);
       isDraRef.current = true
 
@@ -130,9 +128,8 @@ function ImageSlider({ banner, data }) {
       if (scrollRef.current === 0 || scrollRef.current ===  maxScroll) return;
       if (scrollRef.current === prevScrollRef.current) return;
 
-      console.log('handle stop drag')
+      // console.log('handle stop drag')
 
-      // console.log(prevScrollRef.current, scrollRef.current)
 
       // auto slide
       const fixedNumber = fixScroll(); 
@@ -145,12 +142,6 @@ function ImageSlider({ banner, data }) {
 
 
    const nextImage = () => {
-      // setIsEnter(true)
-
-      // console.log("next image curIndex = ", curIndex)
-      // console.log("next image curScroll = ", scrollRef.current)
-      // console.log("next image indexRef = ", indexRef.current)
-
       if (indexRef.current === data.length) {
          indexRef.current = 1
          setCurIndex(indexRef.current)
@@ -159,10 +150,8 @@ function ImageSlider({ banner, data }) {
          setCurIndex(indexRef.current)
       }
 
+      // auto slide
       const fixedNumber = fixScroll()
-      // console.log("fixed Number = ", fixedNumber);
-      // console.log("maxScroll = ", maxScroll);
-
       fixedNumber === maxScroll ? 
          scrollRef.current = 0 :
          scrollRef.current = fixedNumber + imageWidth
@@ -171,8 +160,6 @@ function ImageSlider({ banner, data }) {
    }
 
    const previousImage = () => {
-      // console.log("previous image");
-
       if (indexRef.current === 1) {
          indexRef.current = data.length
          setCurIndex(indexRef.current)
@@ -181,9 +168,8 @@ function ImageSlider({ banner, data }) {
          setCurIndex(indexRef.current)
       }
 
+      // auto slide
       const fixedNumber = fixScroll()
-      // console.log("fixed Number = ", fixedNumber);
-
       fixedNumber === 0 ? 
       scrollRef.current = maxScroll :
          scrollRef.current = (fixedNumber - imageWidth)
@@ -194,7 +180,7 @@ function ImageSlider({ banner, data }) {
       banner,
    });
 
-   console.log("re-render");
+   // console.log("re-render");
 
    return (
       <div className={cx("image-slider-frame")}
