@@ -22,7 +22,7 @@ function RequireAuth ({allowedRole}) {
     return (
         !!allowedRole?.find(role => userRole === role)
         ? <Outlet/>
-        : auth?.username
+        : Object.keys(auth).length !== 0
             ? <Navigate to="/unauthorized" state={{from: location}} replace/>
             : <Navigate to="/login" state={{from: location}} replace/>
        )

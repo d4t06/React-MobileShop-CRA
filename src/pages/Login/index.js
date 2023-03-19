@@ -12,7 +12,7 @@ const LOGIN_URL = '/auth/login';
 const cx = classNames.bind(styles);
 
 function LoginPage() {
-   const { setAuth } = useAuth();
+   const { auth, setAuth } = useAuth();
    const userInputRef = useRef();
 
    const navigate = useNavigate();
@@ -25,8 +25,13 @@ function LoginPage() {
    const [errMsg, setErrorMsg] = useState('');
 
    useEffect(() => {
+      if (Object.keys(auth).length !== 0) navigate(-1);
+   }, [])
+   
+   useEffect(() => {
       userInputRef.current.focus();
    }, []);
+
 
    const handleSubmit = async (e) => {
       e.preventDefault();

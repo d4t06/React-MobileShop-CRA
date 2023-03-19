@@ -112,3 +112,6 @@
 ### update thứ 6 17/3/2023
 - Dùng redux intead of context để lưu products
 - Fix image width trang detail
+
+### update thứ 7 18/3/2023
+- Dùng biến enviroment: tạo file .env.local, dùng process.env.REACT_APP_+ ten bien

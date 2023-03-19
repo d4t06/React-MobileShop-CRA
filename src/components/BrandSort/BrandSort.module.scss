@@ -61,6 +61,9 @@
 // selected sort
 
 .filter-item {
+display: flex;
+align-items: center;
+
    padding: 4px 8px;
    color: #666;
    border: 1px solid #666;
@@ -73,10 +76,9 @@
       border-color: #cd1818;
       color: #cd1818;
    }
-   // p {
-   // line-height: 30px;
-
-   // }
+   p {
+   margin-right: 5px;
+   }
 }
 .clear-filter {
    height: 30px;

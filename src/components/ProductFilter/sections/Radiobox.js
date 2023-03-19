@@ -40,7 +40,7 @@ function Radiobox({ handleFilter, data }) {
                         checked={JSON.stringify(checked) === JSON.stringify(item.array) ? true : false}
                         onChange={(e) => handleToggle(item.array, e)}
                      />
-                     <label className={cx('label')}>{item.text}</label>
+                     <label className={cx('label')} htmlFor={item.text}>{item.text}</label>
                   </a>
                </div>
             );

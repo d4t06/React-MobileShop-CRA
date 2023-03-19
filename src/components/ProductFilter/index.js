@@ -48,17 +48,17 @@ function ProductFilter({ category }) {
    };
 
    // khong can update o day
-   //  useEffect(() => {
-   //   // if (!Filters) return
-   //   console.log("useEffect update productfilter global");
-   //   setFilters(store.filters)
-   //  }, [store])
+    useEffect(() => {
+     // if (!Filters) return
+     console.log("useEffect update productfilter global");
+     setFilters(store.filters)
+    }, [store])
 
    return (
       <div className={cx('col', 'col-3')}>
          <div className={cx('product-filter')}>
             <div className={cx('filter-section')}>
-               <h2 className={cx('filter-title')}>Hãng sản xuất</h2>
+               <h1 className={cx('filter-title')}>Hãng sản xuất</h1>
                <div className={cx('filter-list')}>
                   {/* {filterContiments.brand.map((item, index) => {}) */}
                   {/* phai render data lay ra tu checkbox component */}
@@ -73,7 +73,7 @@ function ProductFilter({ category }) {
                </div>
             </div>
             <div className={cx('filter-section')}>
-               <h2 className={cx('filter-title')}>Mức giá</h2>
+               <h1 className={cx('filter-title')}>Mức giá</h1>
                <div className={cx('filter-list', 'price')}>
                   <Radiobox
                      data={price[category]}

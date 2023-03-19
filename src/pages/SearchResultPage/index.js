@@ -15,6 +15,7 @@ import { storeProduct } from '../../store/productsSlice';
 const cx = classNames.bind(styles);
 
 function SearchResultPage() {
+
    // const [state, dispatch] = useStore();
    const store = useSelector(selectedAllStore)
    const dispatchRedux = useDispatch()
@@ -28,7 +29,7 @@ function SearchResultPage() {
 
    const { count, rows } = products;
 
-   let countProduct = count - page * 8;
+   let countProduct = count - (page * process.env.REACT_APP_PAGE_SIZE || 1);
    if (countProduct < 0) countProduct = 0;
 
    useEffect(() => {

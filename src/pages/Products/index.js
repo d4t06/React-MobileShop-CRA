@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Products.module.scss';
 import { getAll } from '../../store/actions';
-import * as productServices from '../../services/productServices'
+import * as productServices from '../../services/productServices';
 import { useSelector, useDispatch } from 'react-redux';
 import {
    ProductFilter,
@@ -15,17 +15,18 @@ import {
 } from '../../components';
 import { banner } from '../../assets/data';
 import { selectedAllStore, storeProduct } from '../../store/productsSlice';
+import NoProduct from './NoProduct';
 const cx = classNames.bind(styles);
 
 function Product() {
-   const store = useSelector(selectedAllStore)
-   const dispatchRedux = useDispatch()
+   const store = useSelector(selectedAllStore);
+   const dispatchRedux = useDispatch();
    // const [state, dispatch] = useContext(Context);
    const { category } = useParams();
    // console.log('state = ', state);
 
    // const { data, status, page, ...rest } = state;
-   const {products, page, ...rest} = store
+   const { products, page, ...rest } = store;
    const { rows, count } = products ? products : [];
 
    let countProduct = count - page * 6;
@@ -42,7 +43,9 @@ function Product() {
             //    payload: result,
             //    page: 1,
             // });
-            dispatchRedux(storeProduct({products: result, page: 1, category}))
+            dispatchRedux(
+               storeProduct({ products: result, page: 1, category })
+            );
          }
          return;
       };
@@ -54,7 +57,7 @@ function Product() {
       getAll(dispatchRedux, { ...rest, category: category, page: page + 1 });
    };
 
-   console.log("products redux  =", store);
+   console.log('products redux  =', store);
 
    return (
       <div className={cx('product-container')}>
@@ -64,13 +67,22 @@ function Product() {
             <div className="col col-9">
                <BrandSort category={category} count={count} />
 
-               {rows && <ProductItem data={rows} category={category} />}
-
-               <div className={cx('pagination')}>
-                  <Button outline rounded count={countProduct} onClick={() => handleGetMore()} describe="sản phẩm">
-                     Xem thêm
-                  </Button>
-               </div>
+               {count !== 0 ? (
+                  <>
+                     <ProductItem data={rows} category={category} />
+                     <div className={cx('pagination')}>
+                        <Button
+                           outline
+                           rounded
+                           count={countProduct}
+                           onClick={() => handleGetMore()}
+                           describe="sản phẩm"
+                        >
+                           Xem thêm
+                        </Button>
+                     </div>
+                  </>
+               ) : <NoProduct />}
             </div>
 
             <ProductFilter category={category} />

@@ -4,7 +4,6 @@ import searchService from '../services/searchService';
 import { storeProduct } from './productsSlice';
 
 const getAll = async (dispatch, query) => {
-
    try {
       const response = await productServices.getProducts(query);
       if (response) {
@@ -22,14 +21,6 @@ const getAll = async (dispatch, query) => {
    }
 };
 
-const getOne = async (dispatch, query) => {
-   try {
-      dispatch({ type: 'GET_ONE', category: query.category, href: query.href });
-   } catch {
-      console.log('action getProduct response undefine');
-   }
-};
-
 const getSearchPage = async (dispatch, query) => {
 
    // console.log("getSearchPage query = ", query);
@@ -37,13 +28,13 @@ const getSearchPage = async (dispatch, query) => {
    try {
       const key = query.category.split('search=')[1]; //search=iphone 14
       const response = await searchService({ q: key, page: query.page, sort: query.sort });
-      dispatch({
+      dispatch(storeProduct({
          products: response,
          ...query,
-      });
-   } catch {
-      console.log('action getSearchPage response undefine');
+      }));
+   } catch(err) {
+      console.log('action getSearchPage response undefine ', err);
    }
 };
 
-export { getAll, getOne, getSearchPage };
+export { getAll, getSearchPage };

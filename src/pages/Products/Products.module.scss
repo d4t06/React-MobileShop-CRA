@@ -20,3 +20,14 @@
     margin-top: 15px;
     text-align: center;
 }
+.no-product {
+    text-align: center;
+    margin-top: 50px;
+    .image-frame {
+        width: 100%;
+        height: 184px;
+        img {
+            height: 100%;
+        }
+    }
+}

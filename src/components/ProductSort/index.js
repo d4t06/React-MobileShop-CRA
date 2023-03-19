@@ -42,7 +42,7 @@ function ProductSort({category}) {
    const dispatchRedux = useDispatch()
    const [checked, setChecked] = useState(1);
 
-   const {products, ...rest} = store
+   const {status, products, page,  ...rest} = store
 
    useEffect(() => {
       if (checked ===  1) return;
@@ -60,12 +60,10 @@ function ProductSort({category}) {
          // nếu là tất cả
          if (!sort.column) sort = '';
 
-         const { category, page } = store;
-
-         // nếu filter ở search page
-         if (store.category.includes('search')) {
-            getSearchPage(dispatchRedux,{ category: category, page: page, sort: sort });
-         } else getAll(dispatchRedux, { ...rest, sort: sort });
+         // nếu sort ở search page
+         if (category.includes('search')) {
+            getSearchPage(dispatchRedux,{ category, page, sort });
+         } else getAll(dispatchRedux, { ...rest, sort });
       }
    };
 

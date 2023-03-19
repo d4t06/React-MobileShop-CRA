@@ -1,4 +1,4 @@
-import { headPhoneIcons, laptopIcon, mobileIcons } from '../../assets/icons';
+import { addIcon, gearIcon, headPhoneIcons, laptopIcon, mobileIcons } from '../../assets/icons';
 import jwtDecode from 'jwt-decode';
 import useAuth from '../../hooks/useAuth';
 import { useState } from 'react';
@@ -18,8 +18,10 @@ function Header() {
       ? jwtDecode(auth.token)
       : undefined
 
-   // console.log(auth)
-   console.log("header re-render")
+   console.log("header decode =", decode);
+   console.log("header re-render");
+
+
    return (
       <>
          <div className={cx('header')}>
@@ -75,20 +77,8 @@ function Header() {
                            <p className={cx('nav-text')}>Phụ kiện</p>
                         </Link>
                      </li>
-                     <li className={cx('nav-item')}>
-                        <Link to={'/admin'}>
-                           {headPhoneIcons}
-                           <p className={cx('nav-text')}>admin</p>
-                        </Link>
-                     </li>
-                     <li className={cx('nav-item')}>
-                        <Link to={'/create'}>
-                           {headPhoneIcons}
-                           <p className={cx('nav-text')}>create</p>
-                        </Link>
-                     </li>
                   </ul>
-                  {!auth?.username && (
+                  {!decode?.username && (
                      <ul className={cx('nav-list', 'left-nav-list')}>
                         <li className={cx('nav-item')}>
                            <Link to={'/login'}>
@@ -102,17 +92,17 @@ function Header() {
                         </li>
                      </ul>
                   )}
-                  {auth.role === 'R1' && (
+                  {decode?.role_code === 'R1' && (
                      <ul className={cx('nav-list')}>
                         <li className={cx('nav-item')}>
                            <Link to={'/create'}>
-                              {mobileIcons}
+                              {addIcon}
                               <p className={cx('nav-text')}>Thêm sản phẩm</p>
                            </Link>
                         </li>
                         <li className={cx('nav-item')}>
                            <Link to={'/admin'}>
-                              {mobileIcons}
+                              {gearIcon}
                               <p className={cx('nav-text')}>Trang quản lí</p>
                            </Link>
                         </li>

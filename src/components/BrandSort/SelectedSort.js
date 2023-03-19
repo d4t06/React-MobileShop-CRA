@@ -3,6 +3,7 @@ import styles from './BrandSort.module.scss';
 // import {price} from '../../assets/data'
 import { RiDeleteBack2Fill } from 'react-icons/ri';
 import { brand, price } from '../../assets/data';
+import { trashIcon } from '../../assets/icons';
 
 const cx = classNames.bind(styles);
 
@@ -37,8 +38,9 @@ function SelectedSort({ category, data, handleFilter }) {
                      key={index}
                   >
                      <p>
-                        {item} <strong>X</strong>
+                        {item} 
                      </p>
+                     {trashIcon}
                   </div>
                );
             })}
@@ -48,7 +50,7 @@ function SelectedSort({ category, data, handleFilter }) {
                className={cx('filter-item')}
             >
                {priceContent.text || ''}
-               <strong> X</strong>
+               {trashIcon}
             </span>
          )}
          {(data?.brand?.length > 1 ||
