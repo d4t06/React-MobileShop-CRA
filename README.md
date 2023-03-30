@@ -114,4 +114,7 @@
 - Fix image width trang detail
 
 ### update thứ 7 18/3/2023
-- Dùng biến enviroment: tạo file .env.local, dùng process.env.REACT_APP_+ ten bien
+- Dùng biến enviroment: tạo file .env.local, tạo tên biến bằng cách REACT_APP_tên bến, dùng process.env.ten bien
+
+### update thứ 5 30/3/2023
+- Dùng createAsyncThunk thay cho action
